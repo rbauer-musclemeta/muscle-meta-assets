@@ -18,7 +18,6 @@ import {
 } from "@/lib/types";
 // ─── DESIGN TOKENS (inline — no Tailwind CDN dependency) ─────
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;color-scheme:dark}
 body{font-family:'Outfit',sans-serif;background:#0d1117;color:#e6edf3}
