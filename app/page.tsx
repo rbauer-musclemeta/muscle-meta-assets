@@ -1,5 +1,5 @@
-import { AssetDashboard } from "@/components/asset-dashboard/AssetDashboard";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <AssetDashboard />;
+  redirect("/asset-dashboard");
 }
