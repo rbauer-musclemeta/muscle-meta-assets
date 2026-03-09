@@ -999,8 +999,8 @@ export function AssetDashboard() {
   }
   // ── PREVIEW PANEL ─────────────────────────────────────────
   function PreviewPanel() {
-    if (!preview) return null;
     const [localDeployUrl, setLocalDeployUrl] = useState(deployInput);
+    if (!preview) return null;
     const pct = leveragePct(preview.multiplication);
     const parent = preview.parentId ? assets.find((a: Asset) => a._id === preview.parentId) : null;
     return (
