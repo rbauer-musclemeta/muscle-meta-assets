@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npx convex deploy --prod && npm run build"
   publish = ".next"
 
 [[plugins]]
