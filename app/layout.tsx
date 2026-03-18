@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ConvexClientProvider } from "./providers";
+
+const ConvexClientProvider = dynamic(
+  () => import("./providers").then((mod) => mod.ConvexClientProvider),
+  { ssr: false }
+);
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -1,5 +1,5 @@
 [build]
-  command = "npx convex deploy --prod && npm run build"
+  command = "npm run build"
   publish = ".next"
 
 [[plugins]]
@@ -7,3 +7,4 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NEXT_PUBLIC_CONVEX_URL = "https://merry-cassowary-258.convex.cloud"
