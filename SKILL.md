@@ -23,25 +23,28 @@ playwright install chromium
 ```bash
 pip install "notebooklm-py[browser]"
 playwright install chromium
-notebooklm profile create muscle-meta
-notebooklm -p muscle-meta login      # opens browser → Google OAuth → press ENTER
+notebooklm login
+# Saves to ~/.notebooklm/storage_state.json (Mac/Linux)
+# Saves to %USERPROFILE%\.notebooklm\storage_state.json (Windows)
 ```
 
 **Step 2 — Export the credential:**
 ```bash
-cat ~/.notebooklm/profiles/muscle-meta/storage_state.json
+# Mac/Linux:
+cat ~/.notebooklm/storage_state.json
+
+# Windows PowerShell:
+type "$env:USERPROFILE\.notebooklm\storage_state.json"
 ```
 
 **Step 3 — Use here or in CI (no browser needed):**
 ```bash
 # Option A: env var (CI/CD — paste storage_state.json contents)
 export NOTEBOOKLM_AUTH_JSON='{ ... storage_state.json contents ... }'
-export NOTEBOOKLM_PROFILE=muscle-meta
 
 # Option B: copy the file directly
-mkdir -p ~/.notebooklm/profiles/muscle-meta
-scp local:~/.notebooklm/profiles/muscle-meta/storage_state.json \
-    ~/.notebooklm/profiles/muscle-meta/storage_state.json
+mkdir -p ~/.notebooklm
+# paste JSON → ~/.notebooklm/storage_state.json
 ```
 
 All subsequent commands (`notebooklm list`, `source add`, `generate`, etc.) are headless HTTP — no browser needed after login.
@@ -49,7 +52,7 @@ All subsequent commands (`notebooklm list`, `source add`, `generate`, etc.) are 
 **Step 4 — Create notebooks once:**
 ```bash
 python scripts/setup_notebooklm.py   # creates 6 GMMBB notebooks, writes .env.notebooklm
-notebooklm doctor && notebooklm list  # verify
+notebooklm list  # verify
 ```
 
 **Step 5 — Schedule auth refresh (every 3-5 days):**

@@ -28,16 +28,13 @@ from pathlib import Path
 NOTEBOOKLM_URL = "https://notebooklm.google.com/"
 
 
-def notebooklm_home(profile: str) -> Path:
+def default_storage_path() -> Path:
     base = Path(os.environ.get("NOTEBOOKLM_HOME", Path.home() / ".notebooklm"))
-    return base / "profiles" / profile
+    return base / "storage_state.json"
 
 
-def run_auth_check(profile: str) -> bool:
-    cmd = ["notebooklm"]
-    if profile:
-        cmd += ["-p", profile]
-    cmd += ["auth", "check"]
+def run_auth_check(storage: str) -> bool:
+    cmd = ["notebooklm", "--storage", storage, "auth", "check"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode == 0:
         print(f"  auth check: OK")
@@ -79,21 +76,22 @@ def refresh_with_playwright(storage_state_path: Path, timeout: int) -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh NotebookLM auth cookies headlessly")
-    parser.add_argument("--profile", default=os.environ.get("NOTEBOOKLM_PROFILE", "muscle-meta"))
+    parser.add_argument("--storage", default=os.environ.get("NOTEBOOKLM_STORAGE",
+                        str(default_storage_path())),
+                        help="Path to storage_state.json")
     parser.add_argument("--timeout", type=int, default=30, help="Browser timeout in seconds")
     args = parser.parse_args()
 
-    print(f"NotebookLM Auth Refresh (profile: {args.profile})")
+    print(f"NotebookLM Auth Refresh")
     print("=" * 50)
 
-    profile_dir = notebooklm_home(args.profile)
-    storage_path = profile_dir / "storage_state.json"
+    storage_path = Path(args.storage)
 
-    # If NOTEBOOKLM_AUTH_JSON is set (CI/CD), write it to the profile path first
+    # If NOTEBOOKLM_AUTH_JSON is set (CI/CD), write it to the storage path first
     auth_json = os.environ.get("NOTEBOOKLM_AUTH_JSON", "").strip()
     if auth_json:
         print(f"  Using NOTEBOOKLM_AUTH_JSON env var → writing to {storage_path}")
-        profile_dir.mkdir(parents=True, exist_ok=True)
+        storage_path.parent.mkdir(parents=True, exist_ok=True)
         storage_path.write_text(auth_json)
 
     if not storage_path.exists():
@@ -107,7 +105,7 @@ def main() -> None:
 
     # Step 1: pre-check
     print("\n[1/3] Pre-refresh auth check:")
-    pre_ok = run_auth_check(args.profile)
+    pre_ok = run_auth_check(args.storage)
     if not pre_ok:
         print("  Auth already invalid — will attempt Playwright refresh anyway.")
 
@@ -120,7 +118,7 @@ def main() -> None:
 
     # Step 3: post-check
     print("\n[3/3] Post-refresh auth check:")
-    post_ok = run_auth_check(args.profile)
+    post_ok = run_auth_check(args.storage)
     if not post_ok:
         print("\nAuth check failed after refresh. Manual `notebooklm login` required.", file=sys.stderr)
         sys.exit(1)

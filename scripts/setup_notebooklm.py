@@ -57,6 +57,13 @@ def run(cmd: list[str], check: bool = True) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, text=True, check=check)
 
 
+def notebooklm_cmd(storage: str | None = None) -> list[str]:
+    cmd = ["notebooklm"]
+    if storage:
+        cmd += ["--storage", storage]
+    return cmd
+
+
 def load_existing_env() -> dict[str, str]:
     """Read existing .env.notebooklm if it exists."""
     if not ENV_FILE.exists():
@@ -85,11 +92,8 @@ def write_env(env: dict[str, str]) -> None:
     ENV_FILE.write_text("\n".join(lines) + "\n")
 
 
-def create_notebook(title: str, profile: str | None, dry_run: bool) -> str | None:
-    cmd = ["notebooklm"]
-    if profile:
-        cmd += ["-p", profile]
-    cmd += ["create", title, "--json"]
+def create_notebook(title: str, storage: str | None, dry_run: bool) -> str | None:
+    cmd = notebooklm_cmd(storage) + ["create", title, "--json"]
 
     if dry_run:
         print(f"  [dry-run] Would run: {' '.join(cmd)}")
@@ -112,11 +116,8 @@ def create_notebook(title: str, profile: str | None, dry_run: bool) -> str | Non
         return None
 
 
-def seed_research(notebook_id: str, query: str, profile: str | None, dry_run: bool) -> None:
-    cmd = ["notebooklm"]
-    if profile:
-        cmd += ["-p", profile]
-    cmd += ["source", "add-research", query, "-n", notebook_id, "--mode", "fast", "--no-wait"]
+def seed_research(notebook_id: str, query: str, storage: str | None, dry_run: bool) -> None:
+    cmd = notebooklm_cmd(storage) + ["source", "add-research", query, "-n", notebook_id, "--mode", "fast", "--no-wait"]
 
     if dry_run:
         print(f"  [dry-run] Would seed research: {query!r}")
@@ -130,13 +131,18 @@ def seed_research(notebook_id: str, query: str, profile: str | None, dry_run: bo
 
 
 def main() -> None:
+    default_storage = os.path.join(
+        os.environ.get("NOTEBOOKLM_HOME", os.path.expanduser("~/.notebooklm")),
+        "storage_state.json",
+    )
     parser = argparse.ArgumentParser(description="Set up MuscleMeta NotebookLM notebooks")
-    parser.add_argument("--profile", default=os.environ.get("NOTEBOOKLM_PROFILE", "muscle-meta"))
+    parser.add_argument("--storage", default=os.environ.get("NOTEBOOKLM_STORAGE", default_storage),
+                        help="Path to storage_state.json")
     parser.add_argument("--dry-run", action="store_true", help="Print what would happen, don't create")
     parser.add_argument("--no-seed", action="store_true", help="Skip seeding starter research queries")
     args = parser.parse_args()
 
-    print(f"MuscleMeta NotebookLM Setup (profile: {args.profile})")
+    print(f"MuscleMeta NotebookLM Setup")
     print("=" * 55)
 
     existing = load_existing_env()
@@ -154,13 +160,13 @@ def main() -> None:
             continue
 
         print(f"  CREATE {title} ...", end=" ", flush=True)
-        notebook_id = create_notebook(title, args.profile, args.dry_run)
+        notebook_id = create_notebook(title, args.storage, args.dry_run)
         if notebook_id:
             existing[key] = notebook_id
             print(f"OK ({notebook_id[:12]}...)")
             created += 1
             if not args.no_seed:
-                seed_research(notebook_id, pillar["starter_query"], args.profile, args.dry_run)
+                seed_research(notebook_id, pillar["starter_query"], args.storage, args.dry_run)
         else:
             print("FAILED")
             failed += 1
