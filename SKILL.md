@@ -13,10 +13,49 @@ AI-powered content generation for the MuscleMeta GMMBB (Gut, Muscle, Metabolism,
 # Install notebooklm-py (required dependency)
 pip install "notebooklm-py[browser]"
 playwright install chromium
+```
 
-# Authenticate with Google
-notebooklm login
-notebooklm list  # Verify auth
+## Auth Bootstrap: Local → Remote
+
+`notebooklm login` opens a real Chromium browser for Google OAuth — it requires a GUI environment. This environment is headless Linux, so the login step must happen on your local machine.
+
+**Step 1 — On your local machine (Mac/Windows/Linux with GUI):**
+```bash
+pip install "notebooklm-py[browser]"
+playwright install chromium
+notebooklm profile create muscle-meta
+notebooklm -p muscle-meta login      # opens browser → Google OAuth → press ENTER
+```
+
+**Step 2 — Export the credential:**
+```bash
+cat ~/.notebooklm/profiles/muscle-meta/storage_state.json
+```
+
+**Step 3 — Use here or in CI (no browser needed):**
+```bash
+# Option A: env var (CI/CD — paste storage_state.json contents)
+export NOTEBOOKLM_AUTH_JSON='{ ... storage_state.json contents ... }'
+export NOTEBOOKLM_PROFILE=muscle-meta
+
+# Option B: copy the file directly
+mkdir -p ~/.notebooklm/profiles/muscle-meta
+scp local:~/.notebooklm/profiles/muscle-meta/storage_state.json \
+    ~/.notebooklm/profiles/muscle-meta/storage_state.json
+```
+
+All subsequent commands (`notebooklm list`, `source add`, `generate`, etc.) are headless HTTP — no browser needed after login.
+
+**Step 4 — Create notebooks once:**
+```bash
+python scripts/setup_notebooklm.py   # creates 6 GMMBB notebooks, writes .env.notebooklm
+notebooklm doctor && notebooklm list  # verify
+```
+
+**Step 5 — Schedule auth refresh (every 3-5 days):**
+```bash
+python scripts/refresh_auth.py          # manual test
+# Cron: 0 9 */3 * * cd /path/to/project && python scripts/refresh_auth.py
 ```
 
 ## Prerequisites
@@ -24,11 +63,11 @@ notebooklm list  # Verify auth
 Authentication is required before any command:
 
 ```bash
-notebooklm login       # Opens browser for Google OAuth
-notebooklm list        # Confirm auth works
+notebooklm list        # Confirm auth works (headless, no browser needed after login)
+notebooklm doctor      # Full health check
 ```
 
-For CI/CD or automated pipelines, set `NOTEBOOKLM_AUTH_JSON` from a secret containing `storage_state.json` contents.
+For CI/CD or automated pipelines, set the `NOTEBOOKLM_AUTH_JSON` secret containing your `storage_state.json` contents (see `.env.notebooklm.example`).
 
 ## When This Skill Activates
 
@@ -81,6 +120,7 @@ The content engine organizes knowledge into five canonical NotebookLM notebooks,
 - `notebooklm download *` — writes files to filesystem
 - `notebooklm delete` — destructive
 - `notebooklm ask "..." --save-as-note` — writes a note
+- `python scripts/refresh_auth.py` — overwrites `storage_state.json`
 
 ## Quick Reference
 
@@ -277,6 +317,83 @@ The `mindmap.json` is a hierarchical node/edge structure renderable with:
 
 ---
 
+### 6. Branded Slide Deck — Muscle-Meta Visual Identity
+
+Generate practitioner-facing slide decks with the MuscleMeta brand applied. Use this when producing content for admin panels, clinical consultations, or partner presentations.
+
+**Muscle-Meta brand palette:**
+
+| Role | Color | Hex |
+|------|-------|-----|
+| Primary | Teal | `#009090` |
+| Secondary | Coral | `#E8734A` |
+| Background | Navy | `#1A2B4A` |
+| Text / Light | White | `#ffffff` |
+| Accent | Gold | `#D4A843` |
+
+**Typography:** Outfit (headers), Cormorant Garamond (body pull quotes)
+
+**Time:** 10-20 minutes
+
+```bash
+notebooklm use <pillar-notebook-id>
+
+# Generate with brand prompt baked in
+notebooklm generate slide-deck \
+  --format detailed \
+  --append "Apply MuscleMeta brand: navy (#1A2B4A) slide backgrounds, teal (#009090) accent bars and section headers, coral (#E8734A) for key stats and callout boxes, gold (#D4A843) for highlights and icons. Outfit font for headers, Cormorant Garamond for pull quotes. Clean, medical-professional aesthetic."
+
+# Wait and download as PPTX
+notebooklm artifact wait <task_id> --timeout 1200
+notebooklm download slide-deck ./branded-slides.pptx --format pptx
+```
+
+**Batch branded decks for all pillars (subagent pattern):**
+```
+Task(
+  prompt="For each pillar ID in {pillar_ids}:
+          1. notebooklm use {id}
+          2. notebooklm generate slide-deck --format detailed
+             --append 'MuscleMeta brand: navy BG, teal headers, coral stats, gold highlights'
+             --json → capture task_id
+          3. notebooklm artifact wait {task_id} --timeout 1200
+          4. notebooklm download slide-deck ./{pillar}-branded.pptx --format pptx
+          Report file paths on completion.",
+  subagent_type="general-purpose"
+)
+```
+
+---
+
+### 7. Auth Refresh — Keeping Cookies Alive
+
+Google session cookies expire every 7-14 days. Run `scripts/refresh_auth.py` on a cron schedule to stay authenticated.
+
+**Manual refresh:**
+```bash
+python scripts/refresh_auth.py       # headless, uses saved browser profile
+notebooklm auth check                # verify auth still valid
+```
+
+**What it does:** Launches headless Chromium with the saved `storage_state.json`, loads `notebooklm.google.com` to refresh the session, saves the updated `storage_state.json`, then verifies with `notebooklm auth check`.
+
+**Cron setup (every 3 days at 9am):**
+```bash
+0 9 */3 * * cd /path/to/muscle-meta-assets && python scripts/refresh_auth.py >> /var/log/notebooklm-refresh.log 2>&1
+```
+
+**CI/CD (GitHub Actions — triggered manually or on schedule):**
+```yaml
+- name: Refresh NotebookLM auth
+  env:
+    NOTEBOOKLM_AUTH_JSON: ${{ secrets.NOTEBOOKLM_AUTH_JSON }}
+  run: python scripts/refresh_auth.py
+```
+
+If refresh fails (exit code 1), `notebooklm login` must be re-run from a machine with a browser.
+
+---
+
 ## Asset Output Reference
 
 | Content Type | Format | Use in MuscleMeta | Convex Field |
@@ -287,6 +404,7 @@ The `mindmap.json` is a hierarchical node/edge structure renderable with:
 | Study Guide | `.md` | Resource library, email | `reportUrl` |
 | Briefing Doc | `.md` | Admin panel, practitioners | `briefingUrl` |
 | Slide Deck | `.pdf` / `.pptx` | Admin panel, consultations | `deckUrl` |
+| Branded Slide Deck | `.pptx` | Branded practitioner presentations | `deckUrl` |
 | Mind Map | `.json` | Dashboard visualization | `mindMapData` |
 | Data Table | `.csv` | Admin analytics, export | `tableUrl` |
 
