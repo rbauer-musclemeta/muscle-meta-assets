@@ -1,0 +1,441 @@
+<!--
+  Muscle-Meta Matrix™ — Pillar 3: Recovery & Stress
+  Self-contained snippet for newsletter and landing page / blog post embedding.
+  Depends on: Font Awesome 6.5, Google Fonts (Cormorant Garamond + Outfit)
+  Include the <link> tags below once per page if not already present.
+-->
+
+<!-- ── External dependencies (include once per page) ─────────────── -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- ── Scoped styles ─────────────────────────────────────────────── -->
+<style>
+  .mm-p3-wrap {
+    --p3-purple:       #7c3aed;
+    --p3-purple-light: #9f67fa;
+    --p3-purple-dark:  #5b21b6;
+    --p3-purple-muted: #f3eeff;
+    --p3-ink:          #1a2332;
+    --p3-ink-soft:     #344256;
+    --p3-ink-muted:    #6b7b8f;
+    --p3-surface:      #f7f6f3;
+    --p3-border:       #e8e6e1;
+    --p3-white:        #ffffff;
+    --p3-gold:         #D4AF37;
+    --p3-shadow-sm:    0 1px 3px rgba(26,35,50,.07), 0 1px 2px rgba(26,35,50,.05);
+    --p3-shadow-md:    0 4px 16px rgba(26,35,50,.10), 0 2px 6px rgba(26,35,50,.06);
+    --p3-radius:       12px;
+    --p3-radius-lg:    20px;
+
+    font-family: 'Outfit', sans-serif;
+    color: var(--p3-ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── Pillar header ──────────────────────────────────────────────── */
+  .mm-p3-wrap .pillar-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .mm-p3-wrap .pillar-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--p3-shadow-md);
+  }
+  .mm-p3-wrap .pillar-icon-wrap i { font-size: 24px; color: var(--p3-white); }
+  .mm-p3-wrap .pillar-meta { flex: 1; }
+  .mm-p3-wrap .pillar-number {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--p3-purple);
+    margin-bottom: 0.25rem;
+  }
+  .mm-p3-wrap .pillar-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--p3-ink);
+    line-height: 1.2;
+    margin: 0 0 0.4rem;
+  }
+  .mm-p3-wrap .pillar-desc {
+    font-size: 0.9rem;
+    color: var(--p3-ink-muted);
+    max-width: 600px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  /* ── Stats row ──────────────────────────────────────────────────── */
+  .mm-p3-wrap .stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .mm-p3-wrap .stat-card {
+    flex: 1;
+    min-width: 130px;
+    background: var(--p3-white);
+    border: 1px solid var(--p3-border);
+    border-radius: var(--p3-radius);
+    padding: 1rem 1.25rem;
+    text-align: center;
+    box-shadow: var(--p3-shadow-sm);
+  }
+  .mm-p3-wrap .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    color: var(--p3-purple);
+  }
+  .mm-p3-wrap .stat-label {
+    font-size: 0.72rem;
+    color: var(--p3-ink-muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── Science panel ──────────────────────────────────────────────── */
+  .mm-p3-wrap .science-panel {
+    border-radius: var(--p3-radius-lg);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: var(--p3-purple-muted);
+    border-left: 4px solid var(--p3-purple);
+  }
+  .mm-p3-wrap .science-panel-icon {
+    font-size: 1.4rem;
+    color: var(--p3-purple);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .mm-p3-wrap .science-panel-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--p3-ink);
+    margin-bottom: 0.4rem;
+  }
+  .mm-p3-wrap .science-panel-text {
+    font-size: 0.86rem;
+    color: var(--p3-ink-soft);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .mm-p3-wrap .science-panel-text strong { color: var(--p3-ink); font-weight: 600; }
+  .mm-p3-wrap .science-panel-cite {
+    font-size: 0.72rem;
+    color: var(--p3-ink-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* ── Checklist grid ─────────────────────────────────────────────── */
+  .mm-p3-wrap .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .mm-p3-wrap .checklist-card {
+    background: var(--p3-white);
+    border-radius: var(--p3-radius);
+    border: 1px solid var(--p3-border);
+    padding: 1.5rem;
+    box-shadow: var(--p3-shadow-sm);
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+  .mm-p3-wrap .checklist-card:hover {
+    box-shadow: var(--p3-shadow-md);
+    transform: translateY(-2px);
+  }
+  .mm-p3-wrap .card-category {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--p3-purple);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .mm-p3-wrap .card-category i { font-size: 0.78rem; }
+
+  .mm-p3-wrap .checklist-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .mm-p3-wrap .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .mm-p3-wrap .checklist-item:hover { background: var(--p3-surface); }
+
+  .mm-p3-wrap .check-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid var(--p3-purple);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .mm-p3-wrap .checkmark { display: none; color: var(--p3-white); font-size: 11px; font-weight: 700; }
+  .mm-p3-wrap .checklist-item.checked .check-box {
+    background: var(--p3-purple);
+    border-color: var(--p3-purple);
+  }
+  .mm-p3-wrap .checklist-item.checked .checkmark { display: block; }
+  .mm-p3-wrap .checklist-item.checked .item-text {
+    text-decoration: line-through;
+    color: var(--p3-ink-muted);
+  }
+
+  .mm-p3-wrap .item-content { flex: 1; }
+  .mm-p3-wrap .item-text {
+    font-size: 0.875rem;
+    color: var(--p3-ink-soft);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .mm-p3-wrap .item-note {
+    font-size: 0.75rem;
+    color: var(--p3-ink-muted);
+    margin-top: 0.2rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .mm-p3-wrap .item-freq {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.25rem;
+    display: inline-block;
+    background: var(--p3-purple-muted);
+    color: var(--p3-purple-dark);
+  }
+
+  /* ── Section divider label ──────────────────────────────────────── */
+  .mm-p3-wrap .p3-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ede9fe;
+    border: 1px solid #c4b5fd;
+    border-radius: 20px;
+    padding: 0.35rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--p3-purple);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .mm-p3-wrap .pillar-header { flex-direction: column; gap: 0.75rem; }
+    .mm-p3-wrap .pillar-title { font-size: 1.5rem; }
+    .mm-p3-wrap .science-panel { flex-direction: column; gap: 0.75rem; padding: 1.25rem; }
+  }
+</style>
+
+<!-- ── Pillar 3 Snippet ───────────────────────────────────────────── -->
+<section class="mm-p3-wrap" id="mm-pillar3" aria-labelledby="mm-p3-title">
+
+  <div class="p3-eyebrow">
+    <i class="fa-solid fa-moon"></i> Pillar 03 · Muscle-Meta Matrix™
+  </div>
+
+  <!-- Header -->
+  <div class="pillar-header">
+    <div class="pillar-icon-wrap">
+      <i class="fa-solid fa-moon"></i>
+    </div>
+    <div class="pillar-meta">
+      <div class="pillar-number">Pillar 03 of 04</div>
+      <h2 class="pillar-title" id="mm-p3-title">Recovery &amp; Stress</h2>
+      <p class="pillar-desc">Sleep architecture, HPA-axis regulation, and parasympathetic recovery protocols that preserve anabolic signaling and prevent catabolic cascade.</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row" aria-label="Key metrics">
+    <div class="stat-card">
+      <div class="stat-value">7–9h</div>
+      <div class="stat-label">Sleep Target for Testosterone + GH Peak</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">&lt;14</div>
+      <div class="stat-label">PHQ-9 Cortisol Proxy Score Target</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">HRV</div>
+      <div class="stat-label">Primary Recovery Readiness Metric</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">10min</div>
+      <div class="stat-label">Min Daily Downregulation Practice</div>
+    </div>
+  </div>
+
+  <!-- Science Panel -->
+  <div class="science-panel">
+    <div class="science-panel-icon"><i class="fa-solid fa-wave-square"></i></div>
+    <div>
+      <div class="science-panel-title">The Catabolic Cascade: Why Recovery Is Non-Negotiable</div>
+      <p class="science-panel-text">
+        Chronic cortisol elevation activates the <strong>ubiquitin-proteasome pathway</strong> and <strong>autophagy-lysosome pathway</strong> in skeletal muscle — the same mitochondrial degradation machinery exercise stimulates, but without the subsequent anabolic rebound. Sleep deprivation (&lt;6h) elevates IL-6, TNF-α, and NF-κB, directly antagonizing PGC-1α transcription. The result: mitochondrial fragmentation, reduced oxidative capacity, and accelerated muscle protein breakdown. <strong>Restoring parasympathetic tone via HRV-guided recovery</strong> is the single highest-leverage intervention for maintaining the anabolic window created by Pillars 1 and 2.
+      </p>
+      <p class="science-panel-cite">Evidence basis: Dattilo et al. (2011), Cote et al. (2022) — HPA axis &amp; skeletal muscle catabolism; Spiegel et al. (1999) — sleep deprivation GH suppression</p>
+    </div>
+  </div>
+
+  <!-- Checklist Cards -->
+  <div class="checklist-grid">
+
+    <!-- Sleep Architecture -->
+    <div class="checklist-card">
+      <div class="card-category"><i class="fa-solid fa-bed"></i> Sleep Architecture</div>
+      <ul class="checklist-items">
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Consistent sleep/wake schedule (±30 min variance)</div>
+            <div class="item-note">Circadian anchoring is the #1 sleep quality intervention</div>
+            <div class="item-freq">Every Night</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Room temperature 65–68°F / 18–20°C</div>
+            <div class="item-note">Core body temp drop is the primary GH release trigger</div>
+            <div class="item-freq">Nightly</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Light blocking (blackout shades + no screens 60 min pre-sleep)</div>
+            <div class="item-note">Blue light suppresses melatonin; use blue-light glasses if needed</div>
+            <div class="item-freq">Nightly</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Log sleep duration and subjective quality (1–10)</div>
+            <div class="item-note">Wearable or manual; track trends not single nights</div>
+            <div class="item-freq">Daily · 30 sec</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Stress Regulation -->
+    <div class="checklist-card">
+      <div class="card-category"><i class="fa-solid fa-spa"></i> Stress Regulation</div>
+      <ul class="checklist-items">
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Structured downregulation practice (breath, meditation, yoga)</div>
+            <div class="item-note">4-7-8 breathing, box breathing, NSDR, or Yoga Nidra</div>
+            <div class="item-freq">Daily · 10–20 min</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">HRV morning reading + training readiness assessment</div>
+            <div class="item-note">Trend &gt; single day; use 7-day rolling average baseline</div>
+            <div class="item-freq">Daily · On Waking</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Perceived stress scale (1–10) weekly tracking</div>
+            <div class="item-note">Correlate with nutrition adherence and training output</div>
+            <div class="item-freq">Weekly</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Active Recovery -->
+    <div class="checklist-card">
+      <div class="card-category"><i class="fa-solid fa-dumbbell"></i> Active Recovery Protocols</div>
+      <ul class="checklist-items">
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Dedicated low-intensity recovery day (walk + mobility)</div>
+            <div class="item-note">Zone-1 only; 30–45 min; promotes lymphatic and mitochondrial clearance</div>
+            <div class="item-freq">1–2× / Week</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Cold water immersion or contrast therapy (optional)</div>
+            <div class="item-note">Cold delays MPS acutely — time at least 4h post-resistance session</div>
+            <div class="item-freq">1–2× / Week</div>
+          </div>
+        </li>
+        <li class="checklist-item" onclick="mmP3Toggle(this)">
+          <div class="check-box"><span class="checkmark">✓</span></div>
+          <div class="item-content">
+            <div class="item-text">Ensure 48–72h between same muscle-group sessions</div>
+            <div class="item-note">MPS window requires full resolution before restimulation</div>
+            <div class="item-freq">Training Design</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div><!-- /checklist-grid -->
+
+</section><!-- /mm-p3-wrap -->
+
+<!-- ── Minimal JS for checkbox interactivity ─────────────────────── -->
+<script>
+  function mmP3Toggle(el) {
+    el.classList.toggle('checked');
+  }
+</script>
