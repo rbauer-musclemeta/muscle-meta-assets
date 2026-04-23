@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miso-Glazed Salmon · Muscle-Meta Matrix™ Recipe</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+  /* ── MM Design Tokens ───────────────────────────────────── */
+  .mm-recipe {
+    --teal:          #009090;
+    --teal-light:    #00b3b3;
+    --teal-dark:     #006b6b;
+    --teal-muted:    #e6f5f5;
+    --gold:          #D4AF37;
+    --gold-dark:     #B5952F;
+    --gold-muted:    #faf6e8;
+    --ink:           #1a2332;
+    --ink-soft:      #344256;
+    --ink-muted:     #6b7b8f;
+    --surface:       #f7f6f3;
+    --border:        #e8e6e1;
+    --white:         #ffffff;
+    --shadow-sm:     0 1px 3px rgba(26,35,50,.07), 0 1px 2px rgba(26,35,50,.05);
+    --shadow-md:     0 4px 16px rgba(26,35,50,.10), 0 2px 6px rgba(26,35,50,.06);
+    --shadow-lg:     0 12px 40px rgba(26,35,50,.14), 0 4px 12px rgba(26,35,50,.08);
+    --radius:        12px;
+    --radius-lg:     20px;
+
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    background: var(--surface);
+    padding: 2rem 1rem;
+  }
+
+  .mm-recipe *, .mm-recipe *::before, .mm-recipe *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .mm-recipe-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── Hero Header ─────────────────────────────────────────── */
+  .mm-recipe-hero {
+    background: linear-gradient(135deg, var(--ink) 0%, #263548 60%, #1d3a4a 100%);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .mm-recipe-hero::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(0,144,144,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .mm-recipe-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(212,175,55,0.13) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .mm-recipe-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,144,144,0.18);
+    border: 1px solid rgba(0,144,144,0.35);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #4dd8d8;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mm-recipe-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .mm-recipe-title span { color: var(--gold); }
+
+  .mm-recipe-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    font-weight: 300;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .mm-recipe-meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .mm-recipe-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .mm-recipe-pill.teal  { background: rgba(0,144,144,0.25);   color: #4dd8d8; border: 1px solid rgba(0,144,144,0.4); }
+  .mm-recipe-pill.gold  { background: rgba(212,175,55,0.20);  color: #e8c850; border: 1px solid rgba(212,175,55,0.4); }
+
+  /* ── Body wrapper ─────────────────────────────────────────── */
+  .mm-recipe-body {
+    background: var(--white);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    border: 1px solid var(--border);
+    border-top: none;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ── Stats row ─────────────────────────────────────────────── */
+  .mm-stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .mm-stat-card {
+    flex: 1;
+    min-width: 110px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .mm-stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .mm-stat-label {
+    font-size: 0.68rem;
+    color: var(--ink-muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── Section heading ──────────────────────────────────────── */
+  .mm-section { margin-bottom: 2rem; }
+  .mm-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--gold);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .mm-sub-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* ── Two-column grid ──────────────────────────────────────── */
+  .mm-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  /* ── Ingredient / content cards ───────────────────────────── */
+  .mm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .mm-ingredient-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .mm-ingredient-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+  }
+  .mm-ingredient-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    margin-top: 0.45rem;
+  }
+
+  /* ── Science panel ─────────────────────────────────────────── */
+  .mm-science-panel {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: var(--teal-muted);
+    border-left: 4px solid var(--teal);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .mm-science-icon {
+    font-size: 1.4rem;
+    color: var(--teal);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .mm-science-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .mm-science-text {
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .mm-science-text strong { color: var(--ink); font-weight: 600; }
+  .mm-science-cite {
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* ── Instruction steps ─────────────────────────────────────── */
+  .mm-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .mm-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .mm-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .mm-step-text {
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .mm-step-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Nutrition table ──────────────────────────────────────── */
+  .mm-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.875rem;
+  }
+  .mm-table thead tr {
+    background: var(--teal-muted);
+  }
+  .mm-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    border-bottom: 2px solid var(--border);
+  }
+  .mm-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-soft);
+  }
+  .mm-table tr:last-child td { border-bottom: none; }
+  .mm-table tr:nth-child(even) td { background: var(--surface); }
+  .mm-table .mm-td-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  /* ── Highlight box ─────────────────────────────────────────── */
+  .mm-highlight-box {
+    background: var(--gold-muted);
+    border: 1px solid rgba(212,175,55,0.3);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+  }
+  .mm-highlight-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .mm-highlight-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .mm-highlight-list li i {
+    color: var(--gold-dark);
+    font-size: 0.78rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  /* ── Suggestion tags ──────────────────────────────────────── */
+  .mm-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .mm-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    background: rgba(0,144,144,0.08);
+    border: 1px solid rgba(0,144,144,0.22);
+    color: var(--teal-dark);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background 0.15s, transform 0.15s;
+    cursor: default;
+  }
+  .mm-tag:hover { background: rgba(0,144,144,0.15); transform: translateY(-1px); }
+
+  /* ── Divider ───────────────────────────────────────────────── */
+  .mm-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.75rem 0;
+  }
+
+  /* ── Footer note ───────────────────────────────────────────── */
+  .mm-footer-note {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .mm-footer-note strong { color: var(--teal-dark); font-style: normal; }
+
+  /* ── Responsive ────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .mm-recipe-hero { padding: 1.75rem 1.25rem 1.5rem; }
+    .mm-recipe-body { padding: 1.25rem; }
+    .mm-science-panel { flex-direction: column; gap: 0.75rem; padding: 1.1rem 1.25rem; }
+    .mm-recipe-title { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body style="margin:0;background:#f7f6f3;padding:2rem 1rem;font-family:'Outfit',sans-serif;">
+
+<div class="mm-recipe">
+<div class="mm-recipe-inner">
+
+  <!-- ── Hero Header ──────────────────────────────────────────── -->
+  <div class="mm-recipe-hero">
+    <div class="mm-recipe-eyebrow">
+      <i class="fa-solid fa-flask"></i>
+      Pillar 02 · Nutrition &amp; Metabolism
+    </div>
+    <h1 class="mm-recipe-title">
+      Miso-Glazed <span>Salmon</span>
+    </h1>
+    <p class="mm-recipe-subtitle">
+      A nutrient-dense, muscle-focused meal delivering high-quality protein, anti-inflammatory omega-3s, fermented gut-health support, and strategic carbohydrate replenishment — all on one plate.
+    </p>
+    <div class="mm-recipe-meta-pills">
+      <span class="mm-recipe-pill teal"><i class="fa-solid fa-clock"></i> 30–40 min</span>
+      <span class="mm-recipe-pill teal"><i class="fa-solid fa-user-group"></i> 2 Servings</span>
+      <span class="mm-recipe-pill gold"><i class="fa-solid fa-fire-flame-curved"></i> 425 kcal / serving</span>
+      <span class="mm-recipe-pill gold"><i class="fa-solid fa-dumbbell"></i> 41g Protein</span>
+    </div>
+  </div>
+
+  <!-- ── Body ─────────────────────────────────────────────────── -->
+  <div class="mm-recipe-body">
+
+    <!-- Stats -->
+    <div class="mm-stats-row">
+      <div class="mm-stat-card">
+        <div class="mm-stat-value">425</div>
+        <div class="mm-stat-label">Calories (kcal)</div>
+      </div>
+      <div class="mm-stat-card">
+        <div class="mm-stat-value">41g</div>
+        <div class="mm-stat-label">Protein</div>
+      </div>
+      <div class="mm-stat-card">
+        <div class="mm-stat-value">35.5g</div>
+        <div class="mm-stat-label">Carbohydrates</div>
+      </div>
+      <div class="mm-stat-card">
+        <div class="mm-stat-value">18g</div>
+        <div class="mm-stat-label">Healthy Fats</div>
+      </div>
+      <div class="mm-stat-card">
+        <div class="mm-stat-value">1.7g</div>
+        <div class="mm-stat-label">Fiber</div>
+      </div>
+    </div>
+
+    <!-- Science Panel -->
+    <div class="mm-science-panel">
+      <div class="mm-science-icon"><i class="fa-solid fa-atom"></i></div>
+      <div>
+        <div class="mm-science-title">Why This Meal Works: Molecular Convergence</div>
+        <p class="mm-science-text">
+          Salmon's <strong>omega-3 EPA/DHA</strong> suppresses NF-κB-driven inflammatory signaling, protecting against exercise-induced muscle protein breakdown. Miso's live cultures support gut microbiome diversity, enhancing nutrient absorption efficiency — particularly for leucine, the primary mTORC1 trigger for muscle protein synthesis. <strong>Brown rice provides a sustained glucose curve</strong>, preserving glycogen stores without spiking insulin, while bok choy's Vitamin K activates osteocalcin — a hormone that feeds back to improve muscle glucose uptake. Together, these ingredients act synergistically on the <strong>AMPK/mTORC1 anabolic axis</strong>.
+        </p>
+        <p class="mm-science-cite">Aligned with MM™ Pillar 02 — Nutrition &amp; Metabolism · Smith et al. (2011) EPA/DHA &amp; MPS; Cani et al. (2019) gut-muscle axis; Hamidie et al. (2021) mitochondrial nutrition</p>
+      </div>
+    </div>
+
+    <!-- Ingredients -->
+    <div class="mm-section">
+      <div class="mm-section-title">Ingredients</div>
+      <div class="mm-grid-2">
+        <div class="mm-card">
+          <div class="mm-sub-title"><i class="fa-solid fa-fish"></i> Salmon &amp; Glaze</div>
+          <ul class="mm-ingredient-list">
+            <li>2 salmon fillets (5–6 oz each, skin-on)</li>
+            <li>2 tbsp white miso paste</li>
+            <li>1 tbsp honey</li>
+            <li>1 tsp low-sodium soy sauce</li>
+            <li>1 tsp rice vinegar</li>
+            <li>1 tsp sesame oil</li>
+            <li>1 clove garlic, minced</li>
+            <li>½ tsp fresh ginger, grated</li>
+          </ul>
+        </div>
+        <div class="mm-card">
+          <div class="mm-sub-title"><i class="fa-solid fa-bowl-food"></i> Vegetables &amp; Base</div>
+          <ul class="mm-ingredient-list">
+            <li>4 baby bok choy, halved lengthwise</li>
+            <li>1 tbsp olive oil</li>
+            <li>1 tsp soy sauce (optional)</li>
+            <li>1½ cups cooked brown rice (or jasmine rice)</li>
+          </ul>
+          <div class="mm-sub-title" style="margin-top:1rem;"><i class="fa-solid fa-seedling"></i> Garnish</div>
+          <ul class="mm-ingredient-list">
+            <li>Toasted sesame seeds</li>
+            <li>Chopped scallions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mm-divider">
+
+    <!-- Instructions -->
+    <div class="mm-section">
+      <div class="mm-section-title">Step-by-Step Instructions</div>
+      <ol class="mm-steps">
+        <li class="mm-step">
+          <div class="mm-step-num">1</div>
+          <div class="mm-step-text"><strong>Prepare the Miso Glaze —</strong> Whisk together miso paste, honey, soy sauce, rice vinegar, sesame oil, garlic, and ginger until smooth and fully combined.</div>
+        </li>
+        <li class="mm-step">
+          <div class="mm-step-num">2</div>
+          <div class="mm-step-text"><strong>Marinate the Salmon —</strong> Pat salmon fillets dry, coat evenly with the glaze, and marinate for 15–30 minutes at room temperature.</div>
+        </li>
+        <li class="mm-step">
+          <div class="mm-step-num">3</div>
+          <div class="mm-step-text"><strong>Bake the Salmon —</strong> Preheat oven to 400°F (200°C). Bake for 10–12 minutes until flaky, then broil for 1–2 minutes to caramelize the glaze. Watch closely — miso burns fast.</div>
+        </li>
+        <li class="mm-step">
+          <div class="mm-step-num">4</div>
+          <div class="mm-step-text"><strong>Sauté the Bok Choy —</strong> Heat olive oil in a skillet over medium-high. Sear bok choy cut-side down 2–3 minutes until caramelized. Flip and cook 1–2 more minutes.</div>
+        </li>
+        <li class="mm-step">
+          <div class="mm-step-num">5</div>
+          <div class="mm-step-text"><strong>Assemble &amp; Serve —</strong> Plate rice, top with salmon and bok choy. Finish with sesame seeds and scallions. Serve immediately.</div>
+        </li>
+      </ol>
+    </div>
+
+    <hr class="mm-divider">
+
+    <!-- Nutrition + Highlights -->
+    <div class="mm-section mm-grid-2" style="align-items:start;">
+      <div>
+        <div class="mm-section-title">Nutrition Per Serving</div>
+        <table class="mm-table">
+          <thead>
+            <tr>
+              <th>Nutrient</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Calories</td><td class="mm-td-value">425 kcal</td></tr>
+            <tr><td>Protein</td><td class="mm-td-value">41 g</td></tr>
+            <tr><td>Carbohydrates</td><td class="mm-td-value">35.5 g</td></tr>
+            <tr><td>Fat</td><td class="mm-td-value">18 g</td></tr>
+            <tr><td>Fiber</td><td class="mm-td-value">1.7 g</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="mm-section-title">Micronutrient Highlights</div>
+        <div class="mm-highlight-box">
+          <ul class="mm-highlight-list">
+            <li><i class="fa-solid fa-circle-check"></i><span><strong>Omega-3 EPA/DHA</strong> — suppresses inflammatory NF-κB; supports muscle recovery</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span><strong>Vitamin D</strong> — muscle function, immune modulation, and hormone synthesis</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span><strong>Vitamin K</strong> (bok choy) — activates osteocalcin; improves glucose uptake in muscle</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span><strong>Magnesium &amp; Potassium</strong> — muscle contraction, electrolyte balance, recovery</span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span><strong>Fermented miso</strong> — gut microbiome diversity; enhances leucine absorption for MPS</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mm-divider">
+
+    <!-- Metabolic Benefits -->
+    <div class="mm-section">
+      <div class="mm-section-title">Muscle &amp; Metabolic Benefits</div>
+      <div class="mm-highlight-box" style="background:var(--teal-muted);border-color:rgba(0,144,144,0.3);border-left-color:var(--teal);">
+        <ul class="mm-highlight-list">
+          <li><i class="fa-solid fa-bolt" style="color:var(--teal);"></i><span>High-quality complete protein (41g) meets the per-meal MPS threshold — critical for anabolic signaling via mTORC1/leucine pathway</span></li>
+          <li><i class="fa-solid fa-bolt" style="color:var(--teal);"></i><span>Omega-3 fatty acids improve metabolic flexibility and reduce DOMS (delayed onset muscle soreness)</span></li>
+          <li><i class="fa-solid fa-bolt" style="color:var(--teal);"></i><span>Fermented miso supports gut integrity — the gut-muscle axis directly influences protein bioavailability and immune recovery</span></li>
+          <li><i class="fa-solid fa-bolt" style="color:var(--teal);"></i><span>Moderate complex carbohydrates replenish muscle glycogen without hyperinsulinemia — ideal for post-Zone-2 or resistance training meals</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="mm-section">
+      <div class="mm-section-title">Modifications &amp; Swaps</div>
+      <div class="mm-tags">
+        <span class="mm-tag"><i class="fa-solid fa-arrows-rotate"></i> Swap rice for cauliflower rice (lower carb)</span>
+        <span class="mm-tag"><i class="fa-solid fa-plus"></i> Add edamame for more plant protein</span>
+        <span class="mm-tag"><i class="fa-solid fa-droplet"></i> Use low-sodium miso</span>
+        <span class="mm-tag"><i class="fa-solid fa-leaf"></i> Add purple cabbage for extra fiber + anthocyanins</span>
+        <span class="mm-tag"><i class="fa-solid fa-clock"></i> Meal prep: glaze keeps 5 days refrigerated</span>
+        <span class="mm-tag"><i class="fa-solid fa-temperature-low"></i> Cold plunge users: eat within 4h post-session</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="mm-footer-note">
+      <strong>Muscle-Meta Matrix™ · Pillar 02 — Nutrition &amp; Metabolism</strong><br>
+      Recipe designed to align with the MM™ AMPK/SIRT1/PGC-1α anabolic axis. Nutritional values are estimates and will vary based on exact ingredients and portions. This is for educational purposes and does not constitute medical or dietary advice. Individualize all nutrition decisions with a qualified clinician. · Randy Bauer, PT · Founder, Muscle-Meta Matrix™
+    </p>
+
+  </div><!-- /mm-recipe-body -->
+</div><!-- /mm-recipe-inner -->
+</div><!-- /mm-recipe -->
+
+</body>
+</html>
