@@ -13,10 +13,10 @@ Cron example (every 3 days at 9am):
 
 Exit codes:
     0 — refresh succeeded and auth check passed
-    1 — refresh failed; manual `notebooklm login` required on a GUI machine
+    1 — refresh failed; re-run `notebooklm login --browser-cookies chrome` on a local machine
 
 Usage:
-    python scripts/refresh_auth.py [--profile muscle-meta] [--timeout 30]
+    python scripts/refresh_auth.py [--profile default] [--timeout 30]
 """
 
 import argparse
@@ -28,43 +28,43 @@ from pathlib import Path
 NOTEBOOKLM_URL = "https://notebooklm.google.com/"
 
 
-def default_storage_path() -> Path:
+def profile_storage_path(profile: str) -> Path:
     base = Path(os.environ.get("NOTEBOOKLM_HOME", Path.home() / ".notebooklm"))
-    return base / "storage_state.json"
+    return base / "profiles" / profile / "storage_state.json"
 
 
-def run_auth_check(storage: str) -> bool:
-    cmd = ["notebooklm", "--storage", storage, "auth", "check"]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+def run_auth_check(profile: str) -> bool:
+    result = subprocess.run(
+        ["notebooklm", "-p", profile, "auth", "check"],
+        capture_output=True, text=True,
+    )
     if result.returncode == 0:
-        print(f"  auth check: OK")
+        print("  auth check: OK")
         return True
     print(f"  auth check: FAILED — {result.stderr.strip() or result.stdout.strip()}")
     return False
 
 
-def refresh_with_playwright(storage_state_path: Path, timeout: int) -> bool:
+def refresh_with_playwright(storage_path: Path, timeout: int) -> bool:
     """Use Playwright to navigate to NotebookLM and save updated cookies."""
     try:
         from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
     except ImportError:
-        print("ERROR: playwright not installed. Run: pip install playwright", file=sys.stderr)
+        print("ERROR: playwright not installed. Run: pip install 'notebooklm-py[browser]'", file=sys.stderr)
         return False
 
     print(f"  Launching headless Chromium (timeout: {timeout}s)...")
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            context = browser.new_context(
-                storage_state=str(storage_state_path) if storage_state_path.exists() else None
+            context = p.chromium.launch(headless=True).new_context(
+                storage_state=str(storage_path) if storage_path.exists() else None
             )
             page = context.new_page()
             page.goto(NOTEBOOKLM_URL, timeout=timeout * 1000, wait_until="networkidle")
             print(f"  Page loaded: {page.url}")
-            # Save refreshed cookies
-            context.storage_state(path=str(storage_state_path))
-            print(f"  storage_state saved: {storage_state_path}")
-            browser.close()
+            context.storage_state(path=str(storage_path))
+            print(f"  storage_state saved: {storage_path}")
+            context.browser.close()
         return True
     except PWTimeout:
         print(f"  ERROR: timed out loading {NOTEBOOKLM_URL}", file=sys.stderr)
@@ -76,18 +76,20 @@ def refresh_with_playwright(storage_state_path: Path, timeout: int) -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Refresh NotebookLM auth cookies headlessly")
-    parser.add_argument("--storage", default=os.environ.get("NOTEBOOKLM_STORAGE",
-                        str(default_storage_path())),
-                        help="Path to storage_state.json")
+    parser.add_argument(
+        "-p", "--profile",
+        default=os.environ.get("NOTEBOOKLM_PROFILE", "default"),
+        help="notebooklm-py profile name",
+    )
     parser.add_argument("--timeout", type=int, default=30, help="Browser timeout in seconds")
     args = parser.parse_args()
 
-    print(f"NotebookLM Auth Refresh")
+    print(f"NotebookLM Auth Refresh (profile: {args.profile})")
     print("=" * 50)
 
-    storage_path = Path(args.storage)
+    storage_path = profile_storage_path(args.profile)
 
-    # If NOTEBOOKLM_AUTH_JSON is set (CI/CD), write it to the storage path first
+    # If NOTEBOOKLM_AUTH_JSON is set (CI/CD), write it to the profile path first
     auth_json = os.environ.get("NOTEBOOKLM_AUTH_JSON", "").strip()
     if auth_json:
         print(f"  Using NOTEBOOKLM_AUTH_JSON env var → writing to {storage_path}")
@@ -97,30 +99,36 @@ def main() -> None:
     if not storage_path.exists():
         print(
             f"ERROR: No storage_state.json found at {storage_path}\n"
-            "Run 'notebooklm login' on a machine with a browser first, then copy\n"
-            "~/.notebooklm/profiles/{profile}/storage_state.json here.",
+            "Run on a local machine with Chrome installed:\n"
+            "  pip install 'notebooklm-py[cookies]'\n"
+            f"  notebooklm -p {args.profile} login --browser-cookies chrome",
             file=sys.stderr,
         )
         sys.exit(1)
 
-    # Step 1: pre-check
     print("\n[1/3] Pre-refresh auth check:")
-    pre_ok = run_auth_check(args.storage)
+    pre_ok = run_auth_check(args.profile)
     if not pre_ok:
         print("  Auth already invalid — will attempt Playwright refresh anyway.")
 
-    # Step 2: Playwright refresh
     print("\n[2/3] Playwright headless refresh:")
     refresh_ok = refresh_with_playwright(storage_path, args.timeout)
     if not refresh_ok:
-        print("\nRefresh FAILED. Manual `notebooklm login` required.", file=sys.stderr)
+        print(
+            "\nRefresh FAILED. Re-run on a local machine:\n"
+            "  notebooklm login --browser-cookies chrome",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
-    # Step 3: post-check
     print("\n[3/3] Post-refresh auth check:")
-    post_ok = run_auth_check(args.storage)
+    post_ok = run_auth_check(args.profile)
     if not post_ok:
-        print("\nAuth check failed after refresh. Manual `notebooklm login` required.", file=sys.stderr)
+        print(
+            "\nAuth check failed after refresh. Re-run on a local machine:\n"
+            "  notebooklm login --browser-cookies chrome",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     print("\nAuth refresh complete.")

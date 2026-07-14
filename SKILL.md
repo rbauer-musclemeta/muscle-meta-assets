@@ -10,52 +10,76 @@ AI-powered content generation for the MuscleMeta GMMBB (Gut, Muscle, Metabolism,
 ## Installation
 
 ```bash
-# Install notebooklm-py (required dependency)
+# Minimal install (cookie-based auth — recommended)
+pip install "notebooklm-py[cookies]"
+
+# Full install (Playwright browser auth — alternative)
 pip install "notebooklm-py[browser]"
 playwright install chromium
 ```
 
 ## Auth Bootstrap: Local → Remote
 
-`notebooklm login` opens a real Chromium browser for Google OAuth — it requires a GUI environment. This environment is headless Linux, so the login step must happen on your local machine.
+Authentication must happen on a local machine with a browser. v0.7.3+ supports two methods:
 
-**Step 1 — On your local machine (Mac/Windows/Linux with GUI):**
+### Method A — Cookie extraction (recommended, no Playwright download needed)
+
+Requires Chrome, Edge, Firefox, Brave, Arc, or Safari to be installed and signed in to `notebooklm.google.com`.
+
+**On your local machine:**
+```bash
+# Windows
+pip install "notebooklm-py[cookies]"
+notebooklm login --browser-cookies chrome   # or: edge, firefox, brave
+
+# Mac/Linux
+pip install "notebooklm-py[cookies]"
+notebooklm login --browser-cookies chrome
+```
+
+Credential saved to `~/.notebooklm/profiles/default/storage_state.json`
+(Windows: `%USERPROFILE%\.notebooklm\profiles\default\storage_state.json`)
+
+### Method B — Playwright browser login (fallback)
+
 ```bash
 pip install "notebooklm-py[browser]"
 playwright install chromium
-notebooklm login
-# Saves to ~/.notebooklm/storage_state.json (Mac/Linux)
-# Saves to %USERPROFILE%\.notebooklm\storage_state.json (Windows)
+notebooklm login          # opens a browser window → sign in → auto-saves
+# or: notebooklm login --browser chrome  (use system Chrome instead)
+# or: notebooklm login --browser msedge  (use Edge for org SSO)
 ```
 
-**Step 2 — Export the credential:**
+---
+
+**After login — export the credential:**
 ```bash
 # Mac/Linux:
-cat ~/.notebooklm/storage_state.json
+cat ~/.notebooklm/profiles/default/storage_state.json
 
 # Windows PowerShell:
-type "$env:USERPROFILE\.notebooklm\storage_state.json"
+type "$env:USERPROFILE\.notebooklm\profiles\default\storage_state.json"
 ```
 
-**Step 3 — Use here or in CI (no browser needed):**
+**Use in this remote/CI environment (no browser needed):**
 ```bash
-# Option A: env var (CI/CD — paste storage_state.json contents)
+# Option A: env var (paste storage_state.json contents)
 export NOTEBOOKLM_AUTH_JSON='{ ... storage_state.json contents ... }'
 
-# Option B: copy the file directly
-mkdir -p ~/.notebooklm
-# paste JSON → ~/.notebooklm/storage_state.json
+# Option B: copy the file
+mkdir -p ~/.notebooklm/profiles/default
+# paste JSON → ~/.notebooklm/profiles/default/storage_state.json
 ```
 
 All subsequent commands (`notebooklm list`, `source add`, `generate`, etc.) are headless HTTP — no browser needed after login.
 
-**Step 4 — Create notebooks once:**
+**Create notebooks once:**
 ```bash
 python scripts/setup_notebooklm.py   # creates 6 GMMBB notebooks, writes .env.notebooklm
 notebooklm list  # verify
 ```
 
-**Step 5 — Schedule auth refresh (every 3-5 days):**
+**Schedule auth refresh (every 3-5 days):**
 ```bash
 python scripts/refresh_auth.py          # manual test
 # Cron: 0 9 */3 * * cd /path/to/project && python scripts/refresh_auth.py
