@@ -149,6 +149,7 @@ export const create = mutation({
 export const update = mutation({
   args: {
     id:         v.id("assets"),
+    assetId:    v.optional(v.string()),
     name:       v.optional(v.string()),
     type:       v.optional(v.string()),
     category:   v.optional(v.string()),

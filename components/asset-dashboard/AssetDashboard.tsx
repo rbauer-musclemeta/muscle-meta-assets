@@ -11,7 +11,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import {
   Asset, AssetStage, AssetCategory, AssetPillar, AssetPriority,
-  AssetType, Multiplication,
+  Multiplication,
   STAGES, STAGE_META, TYPE_COLORS, PRIORITY_COLORS, PILLAR_COLORS,
   REV_TAGS, MUL_FORMATS, CATEGORIES, PILLARS,
   mulScore, leveragePct, nextStage, fmtTs, fmtKb,
@@ -118,6 +118,7 @@ export function AssetDashboard() {
   const [fCat, setFCat] = useState("");
   const [fSpecial, setFSpecial] = useState("");
   const [uploadQueue, setUploadQueue] = useState<{name:string;kb:number;type:string;code:string}[]>([]);
+  const [pendingUpload, setPendingUpload] = useState<{name:string;kb:number;type:string;code:string} | null>(null);
   const [confirmCb, setConfirmCb] = useState<(() => void) | null>(null);
   const [confirmMsg, setConfirmMsg] = useState("");
   const [dragStage, setDragStage] = useState<string | null>(null);
@@ -199,19 +200,56 @@ export function AssetDashboard() {
   }
   function clearSel() { setSelectedIds(new Set()); }
   // ─── CRUD ─────────────────────────────────────────────────
+  // Next free ID for a prefix, computed from the loaded registry.
+  // (Server-side equivalent: api.assets.nextAssetId)
+  const nextIdFor = useCallback((prefix: string) => {
+    const nums = assets
+      .filter((a: Asset) => a.assetId.startsWith(prefix + "-"))
+      .map((a: Asset) => parseInt(a.assetId.split("-")[1] || "0", 10))
+      .filter((n: number) => !isNaN(n));
+    const next = nums.length ? Math.max(...nums) + 1 : 1;
+    return `${prefix}-${String(next).padStart(3, "0")}`;
+  }, [assets]);
+
+  // Convex rejects args the validator doesn't declare, and on edit `form` is a
+  // copy of the whole asset (_id, _creationTime, multiplication included). Send
+  // only the fields the mutations actually accept.
+  const SAVE_FIELDS = [
+    "assetId", "name", "type", "category", "pillar", "status", "stage",
+    "priority", "date", "kb", "notes", "code", "deployUrl", "parentId", "revenueTag",
+  ] as const;
+
+  function savePayload(form: Record<string, unknown>) {
+    const out: Record<string, unknown> = {};
+    for (const k of SAVE_FIELDS) {
+      const v = form[k];
+      if (v === undefined || v === "") continue;   // update strips undefined; don't send blanks
+      out[k] = k === "kb" ? Number(v) || 0 : v;
+    }
+    return out;
+  }
+
   async function handleSave(form: Record<string, any>) {
-    if (editAsset) {
-      await updateAsset({ id: editAsset._id, ...form });
+    const payload = savePayload(form);
+    if (editAsset?._id) {
+      await updateAsset({ id: editAsset._id, ...payload });
       await log("edit", `Edited: ${editAsset.name}`, `Stage: ${form.stage ?? editAsset.stage}`, editAsset._id);
       showToast(`✓ Updated "${editAsset.name}"`);
     } else {
-      const id = await createAsset(form);
+      const id = await createAsset({
+        ...payload,
+        assetId: payload.assetId ?? nextIdFor("MMM"),
+        type: payload.type ?? "MD",
+      });
       await log("add", `Added: ${form.name}`, `Type: ${form.type}`, id);
       showToast(`✓ Added "${form.name}"`);
+      // The queued file is now a registry row — drop it from the queue.
+      if (pendingUpload) setUploadQueue(q => q.filter(f => f !== pendingUpload));
     }
     setEditAsset(null);
     setAddOpen(false);
     setSpawnParent(null);
+    setPendingUpload(null);
   }
   async function handleDelete(a: Asset) {
     setConfirmMsg(`Delete "${a.name}" (${a.assetId})? This cannot be undone.`);
@@ -870,7 +908,7 @@ export function AssetDashboard() {
                   <TypeBadge type={f.type} />
                   <span style={{ flex:1, fontWeight:500, fontSize:".8rem", color:"#e6edf3" }}>{f.name}</span>
                   <span style={{ fontFamily:"Space Mono,monospace", fontSize:".68rem", color:"#484f58" }}>{f.kb} KB</span>
-                  <Btn xs teal onClick={() => { setAddOpen(true); setSpawnParent(null); setEditAsset({ name:f.name, type:f.type as AssetType, kb:f.kb, code:f.code } as any); }}>+ Add to Registry</Btn>
+                  <Btn xs teal onClick={() => { setSpawnParent(null); setEditAsset(null); setPendingUpload(f); setAddOpen(true); }}>+ Add to Registry</Btn>
                   <button onClick={() => setUploadQueue(q => q.filter((_,j) => j !== i))} style={{ background:"none", border:"none", cursor:"pointer", color:"#484f58", fontSize:".8rem" }}>✕</button>
                 </div>
               ))}
@@ -971,16 +1009,21 @@ export function AssetDashboard() {
       if (editAsset) {
         setForm({ ...editAsset });
       } else {
-        const prefix = "MMM";
-        const nums = assets.filter((a: Asset) => a.assetId.startsWith(prefix+"-")).map((a: Asset) => parseInt(a.assetId.split("-")[1]||"0")).filter((n: number) => !isNaN(n));
-        const next = nums.length ? Math.max(...nums) + 1 : 48;
+        // A file promoted from the upload queue pre-fills name/type/kb/code;
+        // everything else still gets a real default so `create` never runs
+        // without an assetId or category.
         setForm({
-          assetId: `${prefix}-${String(next).padStart(3,"0")}`,
-          name: spawnParent?.name ? `${spawnParent.name} — ` : "",
-          type: "MD", category: "Course Content", pillar: "Multi-Pillar",
+          assetId: nextIdFor(pendingUpload ? "REF" : "MMM"),
+          name: pendingUpload?.name ?? (spawnParent?.name ? `${spawnParent.name} — ` : ""),
+          type: pendingUpload?.type ?? "MD",
+          category: pendingUpload ? "Uploaded Reference" : "Course Content",
+          pillar: "Multi-Pillar",
           status: "In Progress", stage: "draft", priority: "High",
           date: new Date().toLocaleDateString("en-US",{month:"short",day:"2-digit"}),
-          kb: 0, notes: "", code: uploadQueue[0]?.code ?? "", deployUrl: "",
+          kb: pendingUpload?.kb ?? 0,
+          notes: "",
+          code: pendingUpload?.code ?? "",
+          deployUrl: "",
           revenueTag: spawnParent?.revenueTag ?? [],
           parentId: spawnParent?._id,
           multiplication: { newsletter:false, blog:false, video:false, leadMagnet:false, courseModule:false, landingPage:false },
@@ -988,9 +1031,10 @@ export function AssetDashboard() {
       }
       setFormErrors({});
     }
-  }, [addOpen, editAsset, spawnParent]);
+  }, [addOpen, editAsset, spawnParent, pendingUpload, nextIdFor]);
   function validateForm() {
     const errs: Record<string,string> = {};
+    if (!form.assetId?.trim()) errs.assetId = "Asset ID is required";
     if (!form.name?.trim()) errs.name = "Name is required";
     if (!form.type) errs.type = "Type is required";
     if (!form.category) errs.category = "Category is required";
@@ -1275,7 +1319,7 @@ export function AssetDashboard() {
             <h2 style={{ fontFamily:"Cormorant Garamond,serif", fontSize:"1.2rem", fontWeight:700, color:"#e6edf3", flex:1 }}>
               {isEdit ? "Edit Asset" : spawnParent ? `Spawn from ${spawnParent.assetId}` : "Add New Asset"}
             </h2>
-            <button onClick={() => { setAddOpen(false); setEditAsset(null); setSpawnParent(null); }} style={{ background:"none", border:"none", cursor:"pointer", color:"#8b949e", fontSize:"1rem" }}>✕</button>
+            <button onClick={() => { setAddOpen(false); setEditAsset(null); setSpawnParent(null); setPendingUpload(null); }} style={{ background:"none", border:"none", cursor:"pointer", color:"#8b949e", fontSize:"1rem" }}>✕</button>
           </div>
           <div style={{ padding:"1.2rem 1.3rem", overflowY:"auto" as const, flex:1 }}>
             {spawnParent && (
@@ -1286,7 +1330,7 @@ export function AssetDashboard() {
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
               {[
                 { label:"Asset Name *", key:"name", type:"text", span:2, err:formErrors.name },
-                { label:"Asset ID", key:"assetId", type:"text", disabled:!isEdit },
+                { label:"Asset ID *", key:"assetId", type:"text", err:formErrors.assetId },
                 { label:"Date", key:"date", type:"text" },
                 { label:"File Type *", key:"type", type:"sel", opts:["MD","JSX","TSX","HTML","XLSX","PDF","JSON","Folder","TXT"], err:formErrors.type },
                 { label:"Category *", key:"category", type:"sel", opts:CATEGORIES, err:formErrors.category },
@@ -1339,7 +1383,7 @@ export function AssetDashboard() {
             </div>
           </div>
           <div style={{ display:"flex", justifyContent:"flex-end", gap:8, padding:".85rem 1.3rem", borderTop:"1px solid #30363d" }}>
-            <Btn sm outline onClick={() => { setAddOpen(false); setEditAsset(null); setSpawnParent(null); }}>Cancel</Btn>
+            <Btn sm outline onClick={() => { setAddOpen(false); setEditAsset(null); setSpawnParent(null); setPendingUpload(null); }}>Cancel</Btn>
             <Btn sm teal onClick={() => { if (validateForm()) handleSave(form); }}>💾 {isEdit ? "Update" : "Save"}</Btn>
           </div>
         </div>

@@ -146,23 +146,20 @@ Other things worth knowing before editing:
   preview/modal/confirm.
 - Destructive actions go through `setConfirmMsg` + `setConfirmCb`, never `window.confirm`.
 - Feedback is the `showToast()` toast, never `alert()`.
-- Next asset ID is computed client-side in the add-form `useEffect` (max `MMM-###` + 1). A server
-  `assets.nextAssetId` query exists but is currently unused — prefer it if you touch this path.
+- Next asset ID comes from the `nextIdFor(prefix)` helper in the `AssetDashboard` body (max
+  `PREFIX-###` + 1, computed over the loaded registry). A server-side `assets.nextAssetId` query
+  exists and is still unused; it is the race-free option if two clients ever add at once.
+- **Saving is whitelisted on purpose.** `handleSave` runs the form through `savePayload()`, which
+  copies only the keys in `SAVE_FIELDS` — the exact set both `assets.create` and `assets.update`
+  declare. Convex rejects undeclared args, and on edit `form` is a copy of the whole asset
+  (`_id`, `_creationTime`, `multiplication` included), so widening that payload without widening the
+  validators will break editing with `ArgumentValidationError`. Change both sides together.
 - Export (`exportJSON` / `exportCSV`) strips the `code` field from JSON output; keep it stripped.
 
 ## Known rough edges
 
 Real issues in the current code. Don't be surprised by them; fix them only if the task calls for it.
 
-- **Save passes the whole form object to the mutation.** `handleSave` does
-  `updateAsset({ id, ...form })`, and on edit `form` is a copy of the full asset — including `_id`,
-  `_creationTime`, and `multiplication`, none of which are declared in the `assets.update` args
-  validator. Convex rejects undeclared args, so editing an existing asset likely throws
-  `ArgumentValidationError`. (Reasoned from the code; not reproduced at runtime here.) The fix is to
-  whitelist form fields before calling the mutation.
-- **Upload → "Add to Registry"** stuffs a partial object (`name`, `type`, `kb`, `code`) into
-  `setEditAsset`, so the form opens without `assetId` or `category`. `validateForm` catches the
-  missing category, but `assetId` is still absent when `create` runs.
 - **Font mismatch.** Inline styles reference `Outfit`, `Cormorant Garamond`, and `Space Mono`, but
   `app/layout.tsx` loads Inter + Space Mono. Outfit and Cormorant fall back to system fonts.
 - **Sprint state is duplicated** between `assets.sprint` and `sprintWeek.assetIds`.

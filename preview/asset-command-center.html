@@ -1,0 +1,1345 @@
+<title>Asset Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --raised:#21262d; --border:#30363d;
+  --text:#e6edf3; --muted:#8b949e; --dim:#484f58;
+  --teal:#009090; --coral:#E8734A; --gold:#D4A843;
+  --green:#3fb950; --blue:#58a6ff; --red:#f85149;
+  --display:"Cormorant Garamond",Georgia,serif;
+  --ui:"Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:var(--ui); font-size:15px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--panel)}
+::-webkit-scrollbar-thumb{background:#444c56;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--teal)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+button{font-family:inherit}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:700;text-wrap:balance}
+
+/* ── header ─────────────────────────────────────────── */
+.hdr{
+  position:sticky; top:0; z-index:200;
+  background:rgba(13,17,23,.92); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border); padding:0 1.25rem;
+}
+.hdr-in{max-width:1600px;margin:0 auto;display:flex;align-items:center;gap:14px;height:58px}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.mark{
+  width:32px;height:32px;background:var(--teal);border-radius:7px;
+  display:grid;place-items:center;position:relative;color:#fff;font-size:13px;
+  box-shadow:0 0 12px rgba(0,144,144,.35);
+}
+.mark::after{
+  content:"";position:absolute;top:-3px;right:-3px;width:9px;height:9px;
+  background:var(--gold);border-radius:50%;border:2px solid var(--bg);
+}
+.brand-t{font-family:var(--display);font-size:.95rem;font-weight:700;line-height:1.2}
+.brand-s{font-size:.58rem;font-weight:600;color:var(--teal);letter-spacing:.12em;text-transform:uppercase}
+.nav{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.tab{
+  display:flex;align-items:center;gap:6px;padding:6px 13px;border:none;
+  background:none;color:var(--muted);cursor:pointer;border-radius:7px;
+  font-size:.78rem;font-weight:500;white-space:nowrap;transition:background .2s,color .2s;
+}
+.tab:hover{color:var(--text);background:var(--raised)}
+.tab[aria-selected="true"]{background:var(--teal);color:#fff;box-shadow:0 0 16px rgba(0,144,144,.3)}
+.badge-n{background:var(--coral);color:#fff;border-radius:20px;padding:1px 6px;font-size:.62rem;font-weight:700;font-family:var(--mono)}
+.tab[aria-selected="true"] .badge-n{background:rgba(255,255,255,.25)}
+.hdr-act{display:flex;gap:6px;flex-shrink:0}
+
+/* ── buttons ────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 13px;
+  border:none;border-radius:6px;background:var(--raised);color:#c9d1d9;
+  font-size:.8rem;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:filter .2s,background .2s,border-color .2s;
+}
+.btn:hover{filter:brightness(1.35)}
+.btn:disabled{opacity:.4;cursor:not-allowed;filter:none}
+.btn--sm{padding:5px 10px;font-size:.76rem}
+.btn--xs{padding:3px 8px;font-size:.68rem}
+.btn--teal{background:var(--teal);color:#fff}
+.btn--outline{background:transparent;border:1px solid var(--border);color:#c9d1d9}
+.btn--outline:hover{border-color:var(--teal);filter:none;background:rgba(0,144,144,.08)}
+.btn--danger{background:#da3633;color:#fff}
+.btn--ghost{background:none;color:var(--muted);padding:4px 8px}
+.btn--ghost:hover{background:var(--raised);color:var(--text)}
+
+/* ── shared chrome ──────────────────────────────────── */
+main{max-width:1600px;margin:0 auto;padding:1.4rem 1.25rem 3rem}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:10px}
+.pill{
+  display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;
+  font-size:.64rem;font-weight:700;line-height:1.6;white-space:nowrap;
+}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.aid{
+  font-family:var(--mono);font-size:.67rem;font-weight:700;color:var(--teal);
+  background:rgba(0,144,144,.15);padding:3px 8px;border-radius:5px;white-space:nowrap;
+}
+.sec-h{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.sec-h h2{font-size:1.15rem}
+.sub{font-size:.76rem;color:var(--muted)}
+.empty{padding:3rem 1rem;text-align:center;color:var(--dim);font-size:.85rem}
+.input,.select{
+  padding:7px 10px;border:1px solid var(--border);border-radius:6px;
+  background:var(--raised);color:var(--text);font-family:var(--ui);font-size:.8rem;
+  outline:none;transition:border-color .2s;
+}
+.input:focus,.select:focus{border-color:var(--teal)}
+.select{cursor:pointer;font-size:.74rem;padding:6px 9px;color:#c9d1d9}
+label.fld{display:flex;flex-direction:column;gap:4px}
+label.fld > span{font-size:.64rem;font-weight:600;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+
+/* ── pipeline ───────────────────────────────────────── */
+.pipe{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;align-items:stretch}
+.col{
+  flex:0 0 288px;background:var(--panel);border:1px solid var(--border);
+  border-radius:10px;display:flex;flex-direction:column;min-height:60vh;transition:border-color .2s,background .2s;
+}
+.col.over{border-color:var(--teal);background:rgba(0,144,144,.05)}
+.col-h{
+  display:flex;align-items:center;gap:8px;padding:11px 13px;
+  border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--panel);border-radius:10px 10px 0 0;
+}
+.col-t{font-size:.78rem;font-weight:600;flex:1}
+.col-n{font-family:var(--mono);font-size:.7rem;color:var(--dim)}
+.col-b{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.acard{
+  background:var(--raised);border:1px solid var(--border);border-left:3px solid var(--teal);
+  border-radius:8px;padding:10px 11px;cursor:grab;transition:transform .15s,box-shadow .15s,border-color .15s;
+}
+.acard:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.4);border-color:#484f58}
+.acard:active{cursor:grabbing}
+.acard.drag{opacity:.4}
+.acard-h{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.acard-n{font-size:.82rem;font-weight:500;line-height:1.35;margin-bottom:8px;word-break:break-word}
+.acard-f{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.star{background:none;border:none;cursor:pointer;font-size:.8rem;padding:0 2px;line-height:1;color:var(--dim)}
+.star.on{color:var(--gold)}
+
+/* ── stat tiles ─────────────────────────────────────── */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px;margin-bottom:16px}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 15px;position:relative;overflow:hidden}
+.tile::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--accent,var(--teal))}
+.tile-l{font-size:.62rem;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.tile-v{font-family:var(--mono);font-size:1.6rem;font-weight:700;line-height:1;color:var(--accent,var(--text));font-variant-numeric:tabular-nums}
+.tile-s{font-size:.7rem;color:var(--muted);margin-top:5px}
+.bar{height:6px;border-radius:3px;background:var(--raised);overflow:hidden;display:flex}
+.bar > span{display:block;height:100%}
+
+/* ── tables ─────────────────────────────────────────── */
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.79rem;min-width:900px}
+th{
+  text-align:left;padding:9px 11px;background:var(--raised);color:var(--dim);
+  font-size:.63rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:0;z-index:1;
+}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--teal)}
+td{padding:8px 11px;border-bottom:1px solid rgba(48,54,61,.6);vertical-align:middle}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(0,144,144,.05)}
+tbody tr.sel{background:rgba(0,144,144,.09)}
+.nm{font-weight:500;cursor:pointer}
+.nm:hover{color:var(--teal)}
+
+/* ── multiply ───────────────────────────────────────── */
+.mrow{display:grid;grid-template-columns:minmax(200px,1.6fr) repeat(6,minmax(52px,1fr)) 62px;gap:8px;align-items:center;padding:9px 12px;border-bottom:1px solid rgba(48,54,61,.6)}
+.mrow:hover{background:rgba(0,144,144,.04)}
+.mhead{font-size:.6rem;font-weight:600;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.mbox{
+  aspect-ratio:1/1;max-height:38px;border:1px solid var(--border);border-radius:7px;background:var(--raised);
+  cursor:pointer;display:grid;place-items:center;font-size:.9rem;transition:all .18s;color:var(--dim);
+}
+.mbox:hover{border-color:var(--teal)}
+.mbox.on{background:rgba(0,144,144,.16);border-color:var(--teal);color:var(--teal)}
+
+/* ── activity ───────────────────────────────────────── */
+.act{display:flex;gap:11px;padding:10px 13px;border-bottom:1px solid rgba(48,54,61,.6);align-items:flex-start}
+.act-i{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:.75rem;flex-shrink:0}
+.act-t{font-size:.8rem;font-weight:500}
+.act-d{font-size:.72rem;color:var(--muted);margin-top:2px}
+.act-ts{font-family:var(--mono);font-size:.66rem;color:var(--dim);white-space:nowrap;margin-left:auto;padding-left:8px}
+
+/* ── drawer + modal ─────────────────────────────────── */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:399;animation:fade .2s ease}
+.drawer{
+  position:fixed;top:0;right:0;height:100dvh;width:min(580px,100vw);
+  background:var(--panel);border-left:1px solid var(--border);z-index:400;
+  display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.7);
+  animation:slide .28s cubic-bezier(.4,0,.2,1);
+}
+.dr-h{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--raised);flex-shrink:0}
+.dr-t{font-family:var(--display);font-size:1.05rem;font-weight:700;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dr-tabs{display:flex;border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
+.dr-tab{
+  flex:1;min-width:72px;padding:9px 6px;border:none;background:none;cursor:pointer;
+  font-size:.72rem;font-weight:500;color:var(--dim);text-transform:capitalize;
+  border-bottom:2px solid transparent;transition:color .2s,border-color .2s;
+}
+.dr-tab:hover{color:var(--text)}
+.dr-tab[aria-selected="true"]{color:var(--teal);border-bottom-color:var(--teal)}
+.dr-b{padding:16px;overflow-y:auto;flex:1}
+.kv{display:grid;grid-template-columns:104px 1fr;gap:7px 12px;font-size:.79rem;align-items:baseline}
+.kv dt{color:var(--dim);font-size:.66rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.kv dd{margin:0}
+pre.code{
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;
+  overflow:auto;max-height:420px;font-family:var(--mono);font-size:.7rem;line-height:1.6;color:#c9d1d9;margin:0;
+}
+.modal-w{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:500;display:grid;place-items:center;padding:1rem;animation:fade .2s ease}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:16px;width:min(720px,100%);max-height:90dvh;display:flex;flex-direction:column;box-shadow:0 16px 56px rgba(0,0,0,.7)}
+.modal-h{display:flex;align-items:center;gap:10px;padding:1.05rem 1.25rem;border-bottom:1px solid var(--border)}
+.modal-b{padding:1.15rem 1.25rem;overflow-y:auto;flex:1}
+.modal-f{display:flex;justify-content:flex-end;gap:8px;padding:.85rem 1.25rem;border-top:1px solid var(--border)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.span2{grid-column:span 2}
+.err{color:var(--red);font-size:.66rem}
+.toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;background:var(--raised);color:var(--text);
+  padding:11px 16px;border-radius:8px;font-size:.8rem;font-weight:500;z-index:9000;
+  border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.5);max-width:360px;
+  animation:up .25s ease;
+}
+.drop{
+  display:block;border:2px dashed rgba(0,144,144,.4);border-radius:16px;padding:2.5rem 2rem;
+  text-align:center;cursor:pointer;background:rgba(0,144,144,.03);transition:background .2s,border-color .2s;
+}
+.drop:hover,.drop.over{background:rgba(0,144,144,.09);border-color:var(--teal)}
+.ring-t{font-family:var(--mono);font-size:.58rem;font-weight:700}
+.note-in{width:100%;background:var(--bg);border:1px solid var(--teal);border-radius:5px;color:var(--text);font-family:var(--ui);font-size:.76rem;padding:4px 7px;outline:none}
+.banner{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 14px;margin-bottom:14px;
+  background:rgba(0,144,144,.07);border:1px solid rgba(0,144,144,.22);border-radius:9px;
+  font-size:.74rem;color:#9fd6d6;
+}
+@keyframes slide{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (max-width:720px){
+  .grid2{grid-template-columns:1fr}.span2{grid-column:span 1}
+  .hdr-act .lbl{display:none}
+  main{padding:1rem .75rem 3rem}
+}
+</style>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">⚡</div>
+      <div>
+        <div class="brand-t">Muscle-Meta Matrix™</div>
+        <div class="brand-s">Command Center v3</div>
+      </div>
+    </div>
+    <nav class="nav" id="nav" role="tablist" aria-label="Dashboard sections"></nav>
+    <div class="hdr-act">
+      <button class="btn btn--sm btn--outline" data-act="export-csv">CSV</button>
+      <button class="btn btn--sm btn--outline" data-act="export-json">JSON</button>
+      <button class="btn btn--sm btn--teal" data-act="new"><span aria-hidden="true">+</span> <span class="lbl">New Asset</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="banner">
+    <strong style="color:var(--teal)">Interactive preview</strong>
+    <span>Drag cards between stages, add assets, toggle formats — stats and the activity log update live. Changes save in this browser only; the real app persists to Convex.</span>
+    <button class="btn btn--xs btn--outline" data-act="reset" style="margin-left:auto">Reset to 47 seed assets</button>
+  </div>
+  <div id="view"></div>
+</main>
+
+<div id="layers"></div>
+
+<script>
+"use strict";
+const SEED = [{"assetId":"MMM-001","name":"Master Development Prompt","type":"MD","category":"Strategy & Planning","pillar":"Multi-Pillar","status":"Complete","stage":"promoted","priority":"High","date":"Jan 02","kb":33,"notes":"Core platform blueprint — 4-pillar framework definition","starred":false,"sprint":false,"revenueTag":[0,2],"multiplication":{"newsletter":true,"blog":true,"video":false,"leadMagnet":false,"courseModule":true,"landingPage":false},"deployUrl":"","code":"# Muscle-Meta Matrix™ — Master Development Prompt\n## 4-Pillar Foundation\n1. Exercise & Mobility\n2. Nutrition & Metabolism\n3. Recovery & Stress\n4. Balance & Brain Health\n\n## Risk Classification\n- CRITICAL (250-400): Medical clearance required\n- HIGH (150-249): Structured program, weekly check-ins\n- MODERATE (75-149): Guided, bi-weekly support\n- LOW (25-74): Self-guided monthly check-ins\n- MINIMAL (0-24): Advanced optimization focus"},{"assetId":"MMM-002","name":"Brand Formatting Standards","type":"MD","category":"Strategy & Planning","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 03","kb":16,"notes":"Design system & clinical voice guidelines","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"deployUrl":"","code":"/* Muscle-Meta Matrix™ Brand System */\n:root {\n  --teal: #009090;   /* Primary */\n  --coral: #E8734A;  /* Secondary */\n  --gold: #D4A843;   /* Accent */\n}\n/* Fonts: Cormorant Garamond (headings), Outfit (body) */"},{"assetId":"MMM-003","name":"Platform Mind Map","type":"MD","category":"Strategy & Planning","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Medium","date":"Jan 04","kb":2,"notes":"Visual architecture overview","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-006","name":"Business Model Canvas","type":"MD","category":"Strategy & Planning","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Medium","date":"Jan 09","kb":1,"notes":"SaaS hybrid model — targeting ~$5K MRR","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-004","name":"Web App Development Guide","type":"MD","category":"Platform Architecture","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 05","kb":8,"notes":"Next.js 14 + Convex + Clerk build guide","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-008","name":"Phase 1 Technical Specification","type":"MD","category":"Platform Architecture","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Critical","date":"Jan 08","kb":57,"notes":"Full-stack tech spec — Next.js, Convex, Netlify, Clerk","starred":true,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"code":"# Phase 1 Technical Specification\n## Stack\n- Next.js 14 + TypeScript\n- Convex (real-time DB)\n- Clerk (auth)\n- Netlify (deploy)\n- Tailwind CSS\n\n## Schema\nUsers(id, email, role, risk_scores)\nAssessments(id, user_id, pillar_scores, total)\nMini_Courses(id, risk_level, pillar, content)"},{"assetId":"MMM-005","name":"Comprehensive Onboarding Protocol","type":"MD","category":"Clinical Reference","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 06","kb":22,"notes":"Patient intake framework — GMMBB Axis integration","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":true,"blog":false,"video":false,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-007","name":"Clinical Quick Reference Guide","type":"MD","category":"Clinical Reference","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 08","kb":9,"notes":"PT clinical reference — Randy Bauer, PT","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":true,"video":false,"leadMagnet":true,"courseModule":false,"landingPage":false}},{"assetId":"MMM-009","name":"Personalized Assessment System","type":"MD","category":"Assessment Framework","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 12","kb":14,"notes":"Assessment architecture — 5-tier risk stratification","starred":false,"sprint":false,"revenueTag":[0,1],"multiplication":{"newsletter":true,"blog":true,"video":true,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-010","name":"Catabolic Risk Assessment (CRA)","type":"MD","category":"Assessment Framework","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 14","kb":11,"notes":"CRA v3.1 — 35 questions, 9 sections, bone health integration","starred":false,"sprint":false,"revenueTag":[0,3],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-011","name":"Assessment Ecosystem Complete Summary","type":"MD","category":"Assessment Framework","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Critical","date":"Jan 15","kb":18,"notes":"All 11 assessments — scoring logic overview","starred":true,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-012","name":"CCRAF v3.0 — Catabolic Risk Framework","type":"MD","category":"Assessment Framework","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Critical","date":"Jan 10","kb":19,"notes":"5-tier risk stratification — GLP-1 compound risk detection","starred":false,"sprint":false,"revenueTag":[0,1,3],"multiplication":{"newsletter":true,"blog":false,"video":false,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-013","name":"CRA Assessment Config Viewer","type":"JSX","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 16","kb":35,"notes":"React config viewer — CRA v3.0 interactive UI","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"code":"import React, { useState } from 'react';\n\nconst CRA_CONFIG = {\n  version: '3.0',\n  totalQuestions: 30,\n  maxScore: 300,\n  riskTiers: [\n    { id: 'MINIMAL', range: [0,45], color: '#22C55E' },\n    { id: 'LOW_MOD', range: [46,90], color: '#84CC16' },\n    { id: 'MODERATE', range: [91,150], color: '#F59E0B' },\n    { id: 'HIGH', range: [151,210], color: '#EA580C' },\n    { id: 'CRITICAL', range: [211,300], color: '#DC2626' },\n  ],\n};"},{"assetId":"MMM-014","name":"MFAT — Mitochondrial Function Assessment","type":"MD","category":"Assessment Framework","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Jan 18","kb":39,"notes":"58-question assessment, 1,120-point scale","starred":false,"sprint":false,"revenueTag":[0,1],"multiplication":{"newsletter":true,"blog":true,"video":false,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-015","name":"MFAT Survey Reviewer","type":"JSX","category":"Web UI Components","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Jan 21","kb":54,"notes":"Interactive MFAT survey viewer component","starred":false,"sprint":false,"revenueTag":[0,1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"code":"import React, { useState } from 'react';\n\nconst MFAT_DOMAINS = [\n  { id:'energy', name:'Energy Production', max:200 },\n  { id:'oxidative', name:'Oxidative Stress', max:180 },\n  { id:'inflammation', name:'Inflammation', max:200 },\n  { id:'metabolic', name:'Metabolic Flexibility', max:180 },\n  { id:'recovery', name:'Recovery Capacity', max:180 },\n  { id:'cognition', name:'Cognitive Function', max:180 },\n];"},{"assetId":"MMM-016","name":"CCRAF Implementation Guide","type":"MD","category":"Assessment Framework","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 20","kb":58,"notes":"Deployment reference — compound risk pattern detection","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":true,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-017","name":"QMMA Assessment Preview","type":"JSX","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Medium","date":"Feb 07","kb":26,"notes":"Quick Muscle-Meta Assessment interactive preview","starred":false,"sprint":false,"revenueTag":[3],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"code":"import React, { useState } from 'react';\nimport { Radar, RadarChart } from 'recharts';\n\nconst PILLARS = [\n  { id:1, name:'Exercise & Mobility', color:'#009090' },\n  { id:2, name:'Nutrition & Metabolism', color:'#D4A843' },\n  { id:3, name:'Recovery & Stress', color:'#7c3aed' },\n  { id:4, name:'Balance & Brain Health', color:'#16a34a' },\n];"},{"assetId":"MMM-018","name":"QMMA Assessment Preview (TypeScript)","type":"TSX","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Medium","date":"Feb 07","kb":26,"notes":"TypeScript version of QMMA preview","starred":false,"sprint":false,"revenueTag":[3],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-021","name":"Mito-Recharge Slides — Weeks 1, 3, 4","type":"JSX","category":"Web UI Components","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Jan 28","kb":14,"notes":"Interactive slide deck React component","starred":false,"sprint":false,"revenueTag":[1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-033","name":"MMM Content Engine v3.1","type":"JSX","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Critical","date":"Feb 15","kb":64,"notes":"Core content engine — AI-powered course generation","starred":true,"sprint":false,"revenueTag":[0,1,2],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"code":"// MMM Content Engine v3.1\nimport React, { useState } from 'react';\n\nconst generateContent = (userProfile) => {\n  const { riskLevel, pillarScores } = userProfile;\n  const priority = identifyHighestRisk(pillarScores);\n  return {\n    primaryFocus: priority[0],\n    courseSequence: buildCurriculum(priority),\n    emailFlow: selectEmailFlow(riskLevel),\n  };\n};"},{"assetId":"MMM-034","name":"Landing Page React Component","type":"JSX","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Feb 16","kb":62,"notes":"Main platform landing page — hero + social proof","starred":false,"sprint":false,"revenueTag":[0,3],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-035","name":"Progressive Web App (PWA)","type":"JSX","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Critical","date":"Feb 17","kb":58,"notes":"Full PWA — offline capability + push notifications","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false},"code":"// Muscle-Meta Matrix™ PWA\nimport React, { useState, useEffect } from 'react';\n\nconst MuscleMetaPWA = () => {\n  useEffect(() => {\n    if ('serviceWorker' in navigator)\n      navigator.serviceWorker.register('/sw.js');\n  }, []);\n  return <div className='pwa-shell'>...</div>;\n};"},{"assetId":"MMM-036","name":"Manifesto Infographic","type":"HTML","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Medium","date":"Feb 04","kb":24,"notes":"Brand manifesto page — clinical luxury HTML","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-037","name":"Rebuild Protocol Intro Slides","type":"HTML","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Feb 09","kb":28,"notes":"Intro slide deck — catabolic crisis protocol","starred":false,"sprint":false,"revenueTag":[0,1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-038","name":"Anabolic Defense Guide","type":"HTML","category":"Web UI Components","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Feb 18","kb":63,"notes":"Interactive guide — GLP-1 muscle protection protocol","starred":false,"sprint":false,"revenueTag":[0,3],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-039","name":"Pickleball Foundation PWA","type":"HTML","category":"Web UI Components","pillar":"P1: Exercise","status":"Complete","stage":"live","priority":"Medium","date":"Feb 19","kb":82,"notes":"Pickleball-specific exercise PWA — P1 pillar","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-040","name":"Pickleball 3-Ps Introduction Module","type":"HTML","category":"Web UI Components","pillar":"P1: Exercise","status":"Complete","stage":"live","priority":"Medium","date":"Feb 19","kb":41,"notes":"Intro module — Prevent, Perform, Persist framework","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-019","name":"Mito-Recharge 4-Week Course Outline","type":"MD","category":"Course Content","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Jan 22","kb":28,"notes":"Recovery course outline — 4-week mitochondrial protocol","starred":false,"sprint":false,"revenueTag":[1],"multiplication":{"newsletter":true,"blog":false,"video":true,"leadMagnet":false,"courseModule":true,"landingPage":true}},{"assetId":"MMM-020","name":"Mito-Recharge Slide Deck Outline","type":"MD","category":"Course Content","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Jan 25","kb":53,"notes":"Full slide outline — 4 weeks, all modules","starred":false,"sprint":false,"revenueTag":[1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-022","name":"Module 1 Video Script","type":"MD","category":"Course Content","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"High","date":"Jan 30","kb":12,"notes":"Onboarding video script — platform introduction","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":true,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-023","name":"Recovery Mastery Course","type":"MD","category":"Course Content","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Feb 01","kb":18,"notes":"Full recovery course content — P3 pillar","starred":false,"sprint":false,"revenueTag":[1],"multiplication":{"newsletter":true,"blog":true,"video":false,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-024","name":"Catabolic Crisis Recovery Course Canvas","type":"MD","category":"Course Content","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"High","date":"Feb 03","kb":11,"notes":"Course canvas — GMMBB Axis protocols","starred":false,"sprint":false,"revenueTag":[0,1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-025","name":"VILPA Mastery Course Review","type":"MD","category":"Course Content","pillar":"P1: Exercise","status":"Complete","stage":"ready","priority":"Medium","date":"Feb 05","kb":4,"notes":"VILPA course structure review","starred":false,"sprint":false,"revenueTag":[2],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":true,"landingPage":false}},{"assetId":"MMM-026","name":"Bone & Brain Health Integration Guide","type":"MD","category":"Course Content","pillar":"P4: Brain Health","status":"Complete","stage":"ready","priority":"Medium","date":"Feb 06","kb":14,"notes":"GMMBB axis — bone precedes muscle loss by 7-14 days","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-027","name":"Course Enhancements Documentation","type":"MD","category":"Course Content","pillar":"Multi-Pillar","status":"In Progress","stage":"draft","priority":"Medium","date":"Feb 08","kb":9,"notes":"Active development — Lessons 2-4 in progress","starred":false,"sprint":true,"revenueTag":[1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-028","name":"Email Marketing Blueprint","type":"MD","category":"Marketing & Sales","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Feb 10","kb":30,"notes":"ConvertKit sequences — welcome + nurture flows","starred":false,"sprint":false,"revenueTag":[0,4],"multiplication":{"newsletter":true,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-029","name":"Anabolic Calculator Marketing Assets","type":"MD","category":"Marketing & Sales","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Feb 12","kb":28,"notes":"Lead magnet — leucine threshold 2.5-3.0g/meal","starred":false,"sprint":false,"revenueTag":[3],"multiplication":{"newsletter":true,"blog":true,"video":false,"leadMagnet":true,"courseModule":false,"landingPage":true}},{"assetId":"MMM-030","name":"Mitochondrial Recovery Landing Page","type":"MD","category":"Marketing & Sales","pillar":"P3: Recovery","status":"Complete","stage":"live","priority":"High","date":"Feb 13","kb":40,"notes":"Full landing page copy — Mito-Recharge course","starred":false,"sprint":false,"revenueTag":[1],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":true}},{"assetId":"MMM-031","name":"Blog Post Structure Framework","type":"MD","category":"Marketing & Sales","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Medium","date":"Feb 14","kb":12,"notes":"Blog template system — SEO + evidence-based","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":true,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"MMM-032","name":"Blog Series Folder","type":"Folder","category":"Marketing & Sales","pillar":"Multi-Pillar","status":"In Progress","stage":"draft","priority":"Medium","date":"Feb 14","kb":0,"notes":"Content in progress — full blog series","starred":false,"sprint":false,"revenueTag":[4],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-001","name":"Completed Assets Inventory (Prior)","type":"XLSX","category":"Uploaded Reference","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Medium","date":"Jan 01","kb":10,"notes":"Historical inventory spreadsheet","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-002","name":"User Assessment Tracker Workbook","type":"XLSX","category":"Uploaded Reference","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"High","date":"Jan 15","kb":29,"notes":"Assessment tracking — functional movement scores","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-003","name":"Digital Nutrition Journal","type":"XLSX","category":"Uploaded Reference","pillar":"P2: Nutrition","status":"Complete","stage":"live","priority":"High","date":"Jan 20","kb":66,"notes":"Nutrition tracking — protein intake, leucine threshold","starred":false,"sprint":false,"revenueTag":[0],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-004","name":"MetaBlast VILPA Activity Tracker","type":"XLSX","category":"Uploaded Reference","pillar":"P1: Exercise","status":"Complete","stage":"live","priority":"High","date":"Feb 05","kb":32,"notes":"VILPA tracker — MetaBurst™ integration target","starred":false,"sprint":false,"revenueTag":[2],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-005","name":"Muscle-Meta Manifesto PDF","type":"PDF","category":"Uploaded Reference","pillar":"Multi-Pillar","status":"Complete","stage":"live","priority":"Low","date":"Jan 01","kb":11,"notes":"Core manifesto document","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-006","name":"VILPA Cheat Sheet PDF","type":"PDF","category":"Uploaded Reference","pillar":"P1: Exercise","status":"Complete","stage":"live","priority":"Low","date":"Jan 01","kb":7,"notes":"VILPA reference guide","starred":false,"sprint":false,"revenueTag":[2],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}},{"assetId":"REF-007","name":"Clinical Reference Document","type":"PDF","category":"Uploaded Reference","pillar":"Multi-Pillar","status":"Complete","stage":"ready","priority":"Low","date":"Jan 01","kb":5,"notes":"Clinical reference material","starred":false,"sprint":false,"revenueTag":[],"multiplication":{"newsletter":false,"blog":false,"video":false,"leadMagnet":false,"courseModule":false,"landingPage":false}}];
+const PARENTS = {"MMM-013":"MMM-010","MMM-015":"MMM-014","MMM-016":"MMM-012","MMM-018":"MMM-017","MMM-020":"MMM-019","MMM-021":"MMM-020"};
+
+/* ── tokens mirrored from lib/types.ts ─────────────── */
+const STAGES = ["draft","ready","live","promoted","converting"];
+const STAGE_META = {
+  draft:      {label:"Draft",      color:"#8b949e", bg:"rgba(139,148,158,.1)"},
+  ready:      {label:"Ready",      color:"#58a6ff", bg:"rgba(88,166,255,.1)"},
+  live:       {label:"Live",       color:"#3fb950", bg:"rgba(63,185,80,.1)"},
+  promoted:   {label:"Promoted",   color:"#D4A843", bg:"rgba(212,168,67,.1)"},
+  converting: {label:"Converting", color:"#E8734A", bg:"rgba(232,115,74,.1)"},
+};
+const TYPE_COLORS = {MD:"#009090",JSX:"#58a6ff",TSX:"#79b8ff",HTML:"#E8734A",XLSX:"#3fb950",PDF:"#bc8cff",JSON:"#D4A843",Folder:"#484f58",TXT:"#6b7b8f"};
+const PRIORITY_COLORS = {Critical:"#f85149",High:"#E8734A",Medium:"#D4A843",Low:"#484f58"};
+const PILLAR_COLORS = {"Multi-Pillar":"#009090","P1: Exercise":"#009090","P2: Nutrition":"#D4A843","P3: Recovery":"#bc8cff","P4: Brain Health":"#3fb950"};
+const REV_TAGS = [
+  {label:"Founding Cohort",color:"#009090"},{label:"Mito-Recharge",color:"#E8734A"},
+  {label:"VILPA Course",color:"#D4A843"},{label:"Lead Magnet",color:"#3fb950"},{label:"Newsletter",color:"#bc8cff"},
+];
+const MUL_FORMATS = [
+  {key:"newsletter",icon:"📧",label:"Newsletter",desc:"ConvertKit HTML snippet"},
+  {key:"blog",icon:"📝",label:"Blog Post",desc:"SEO-optimized article"},
+  {key:"video",icon:"🎬",label:"Video Script",desc:"YouTube / short-form"},
+  {key:"leadMagnet",icon:"🎁",label:"Lead Magnet",desc:"Downloadable PDF/guide"},
+  {key:"courseModule",icon:"🎓",label:"Course Module",desc:"Lesson or course unit"},
+  {key:"landingPage",icon:"🚀",label:"Landing Page",desc:"Offer or opt-in page"},
+];
+const CATEGORIES = ["Assessment Framework","Course Content","Web UI Components","Platform Architecture","Strategy & Planning","Clinical Reference","Marketing & Sales","Uploaded Reference"];
+const PILLARS = ["Multi-Pillar","P1: Exercise","P2: Nutrition","P3: Recovery","P4: Brain Health"];
+const TYPES = ["MD","JSX","TSX","HTML","XLSX","PDF","JSON","Folder","TXT"];
+const ACT_ICON = {add:"＋",edit:"✎",delete:"🗑",deploy:"🚀",star:"⭐",upload:"↑",stage:"→"};
+const ACT_COLOR = {add:"#3fb950",edit:"#58a6ff",delete:"#f85149",deploy:"#009090",star:"#D4A843",upload:"#bc8cff",stage:"#E8734A"};
+
+/* ── helpers ───────────────────────────────────────── */
+const mulScore = m => MUL_FORMATS.filter(f => m[f.key]).length;
+const leveragePct = m => Math.round((mulScore(m)/6)*100);
+const nextStage = s => { const i = STAGES.indexOf(s); return i > -1 && i < STAGES.length-1 ? STAGES[i+1] : null; };
+const fmtKb = kb => kb >= 1000 ? (kb/1000).toFixed(1)+" MB" : kb+" KB";
+const fmtTs = ts => new Date(ts).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const byId = id => state.assets.find(a => a.id === id);
+const pillarColor = p => PILLAR_COLORS[p] ?? "#009090";
+
+function stagePill(s){
+  const m = STAGE_META[s] ?? STAGE_META.draft;
+  return `<span class="pill" style="background:${m.bg};color:${m.color};border:1px solid ${m.color}40">
+    <span class="dot" style="background:${m.color}"></span>${m.label}</span>`;
+}
+function typePill(t){
+  const c = TYPE_COLORS[t] ?? "#6b7b8f";
+  return `<span class="pill" style="background:${c}18;color:${c};border:1px solid ${c}30">${esc(t)}</span>`;
+}
+function priPill(p){
+  const c = PRIORITY_COLORS[p] ?? "#484f58";
+  return `<span class="pill" style="background:${c}18;color:${c};border:1px solid ${c}30">${esc(p)}</span>`;
+}
+function ring(pct,size){
+  size = size || 44;
+  const r = (size-6)/2, circ = 2*Math.PI*r, dash = (pct/100)*circ;
+  const c = pct >= 80 ? "#3fb950" : pct >= 40 ? "#D4A843" : "#E8734A";
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex-shrink:0" role="img" aria-label="${pct}% leverage">
+    <g transform="rotate(-90 ${size/2} ${size/2})">
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#30363d" stroke-width="5"/>
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${c}" stroke-width="5"
+        stroke-dasharray="${dash} ${circ}" stroke-linecap="round" style="transition:stroke-dasharray .6s ease"/>
+    </g>
+    <text x="${size/2}" y="${size/2}" text-anchor="middle" dominant-baseline="central" class="ring-t" fill="${c}">${pct}%</text>
+  </svg>`;
+}
+
+/* ── state ─────────────────────────────────────────── */
+const KEY = "mmm-command-center-v1";
+let state, toastTimer = null;
+
+function freshState(){
+  const assets = SEED.map((a,i) => ({...a, id:"a"+i, multiplication:{...a.multiplication}, revenueTag:[...a.revenueTag], notes:a.notes ?? "", code:a.code ?? "", deployUrl:a.deployUrl ?? "", parentId:null}));
+  const find = aid => assets.find(a => a.assetId === aid);
+  for (const [child,parent] of Object.entries(PARENTS)){
+    const c = find(child), p = find(parent);
+    if (c && p) c.parentId = p.id;
+  }
+  return {
+    assets,
+    activity:[{id:"act0", type:"add", title:`Seeded ${assets.length} assets`, detail:"Initial platform asset registry", assetId:null, timestamp:Date.now()-86400000}],
+    deployLog:[],
+    sprint:{weekLabel:"Sprint "+new Date().toLocaleDateString("en-US",{month:"short",day:"2-digit"}), assetIds:assets.filter(a=>a.sprint).map(a=>a.id), isActive:true},
+    seq:1,
+  };
+}
+const ui = {
+  tab:"pipeline", preview:null, previewTab:"details", modal:null, confirm:null,
+  form:null, formErrors:{}, editId:null, spawnParentId:null,
+  search:"", fType:"", fPillar:"", fStatus:"", fStage:"", fPri:"", fCat:"", fSpecial:"",
+  sortField:"date", sortDir:"desc", selected:new Set(), uploadQueue:[], toast:null, deployUrl:"", noteEditId:null,
+};
+
+function load(){
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw){
+      const p = JSON.parse(raw);
+      if (p && Array.isArray(p.assets) && p.assets.length) return p;
+    }
+  } catch(e){ /* storage blocked or corrupt — fall through to seed */ }
+  return freshState();
+}
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){ /* quota or blocked — preview still works in-memory */ }
+}
+state = load();
+
+/* ── mutations (mirror the Convex functions) ───────── */
+function log(type,title,detail,assetId){
+  state.activity.unshift({id:"act"+(state.seq++), type, title, detail:detail ?? "", assetId:assetId ?? null, timestamp:Date.now()});
+  if (state.activity.length > 100) state.activity.length = 100;   // operations.addActivity prunes to 100
+}
+function toast(msg){
+  ui.toast = msg;
+  renderLayers();
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { ui.toast = null; renderLayers(); }, 2800);
+}
+function commit(msg){ save(); render(); if (msg) toast(msg); }
+
+function setStage(id,stage){
+  const a = byId(id); if (!a || a.stage === stage) return;
+  a.stage = stage;
+  log("stage", `${a.assetId} → ${STAGE_META[stage].label}`, a.name, id);
+  commit(`→ ${STAGE_META[stage].label}`);
+}
+function advance(id){
+  const a = byId(id); if (!a) return;
+  const n = nextStage(a.stage);
+  if (!n) return toast("Already at the final stage");
+  setStage(id,n);
+}
+function toggleStar(id){
+  const a = byId(id); if (!a) return;
+  a.starred = !a.starred;
+  if (a.starred) log("star", `Starred: ${a.name}`, "", id);
+  commit(a.starred ? "⭐ Starred" : "Unstarred");
+}
+/* Mirrors operations.addToSprint / removeFromSprint — keeps BOTH the boolean
+   and the sprintWeek row in sync (assets.toggleSprint alone would desync them). */
+function toggleSprint(id){
+  const a = byId(id); if (!a) return;
+  if (a.sprint){
+    a.sprint = false;
+    state.sprint.assetIds = state.sprint.assetIds.filter(x => x !== id);
+    commit("Removed from sprint");
+  } else {
+    a.sprint = true;
+    if (!state.sprint.assetIds.includes(id)) state.sprint.assetIds.push(id);
+    log("add", `Sprint: ${a.name}`, "", id);
+    commit("⚡ Added to sprint");
+  }
+}
+function toggleMul(id,key){
+  const a = byId(id); if (!a) return;
+  a.multiplication[key] = !a.multiplication[key];
+  if (a.multiplication[key]) log("edit", `Multiplied: ${a.assetId}`, `${key} ✓ (${mulScore(a.multiplication)}/6)`, id);
+  commit("Saved");
+}
+/* Mirrors operations.addDeployEntry — side effect: sets deployUrl AND forces stage "live". */
+function addDeploy(id,url){
+  url = (url || "").trim(); if (!url) return;
+  const a = byId(id); if (!a) return;
+  state.deployLog.unshift({id:"d"+(state.seq++), assetId:id, url, note:"", deployedAt:Date.now()});
+  a.deployUrl = url;
+  a.stage = "live";
+  log("deploy", "Deployed", url, id);
+  ui.deployUrl = "";
+  commit(`🚀 Deployed → ${url}`);
+}
+function removeAsset(id){
+  const a = byId(id); if (!a) return;
+  state.assets = state.assets.filter(x => x.id !== id);
+  state.deployLog = state.deployLog.filter(d => d.assetId !== id);   // cascade, like assets.remove
+  state.sprint.assetIds = state.sprint.assetIds.filter(x => x !== id);
+  state.assets.forEach(x => { if (x.parentId === id) x.parentId = null; });
+  ui.selected.delete(id);
+  if (ui.preview === id) ui.preview = null;
+  log("delete", `Deleted: ${a.name}`, a.assetId, null);
+  commit(`🗑️ Deleted "${a.name}"`);
+}
+function nextAssetId(prefix){
+  const nums = state.assets.filter(a => a.assetId.startsWith(prefix+"-"))
+    .map(a => parseInt(a.assetId.split("-")[1] || "0", 10)).filter(n => !isNaN(n));
+  return `${prefix}-${String(nums.length ? Math.max(...nums)+1 : 1).padStart(3,"0")}`;
+}
+
+/* ── filtering & sorting (client-side, as in the app) ─ */
+function filtered(){
+  const q = ui.search.trim().toLowerCase();
+  const out = state.assets.filter(a => {
+    if (q && !a.name.toLowerCase().includes(q) && !a.assetId.toLowerCase().includes(q) && !(a.notes||"").toLowerCase().includes(q)) return false;
+    if (ui.fType && a.type !== ui.fType) return false;
+    if (ui.fPillar && a.pillar !== ui.fPillar) return false;
+    if (ui.fStatus && a.status !== ui.fStatus) return false;
+    if (ui.fStage && a.stage !== ui.fStage) return false;
+    if (ui.fPri && a.priority !== ui.fPri) return false;
+    if (ui.fCat && a.category !== ui.fCat) return false;
+    if (ui.fSpecial === "starred" && !a.starred) return false;
+    if (ui.fSpecial === "sprint" && !a.sprint) return false;
+    if (ui.fSpecial === "live" && a.stage !== "live") return false;
+    return true;
+  });
+  const priOrder = {Critical:0,High:1,Medium:2,Low:3};
+  const stgOrder = {converting:0,promoted:1,live:2,ready:3,draft:4};
+  return out.sort((a,b) => {
+    let av = a[ui.sortField], bv = b[ui.sortField];
+    if (ui.sortField === "priority"){ av = priOrder[av] ?? 99; bv = priOrder[bv] ?? 99; }
+    if (ui.sortField === "stage"){ av = stgOrder[av] ?? 99; bv = stgOrder[bv] ?? 99; }
+    if (typeof av === "string" && typeof bv === "string") return ui.sortDir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
+    return ui.sortDir === "asc" ? (av ?? 0)-(bv ?? 0) : (bv ?? 0)-(av ?? 0);
+  });
+}
+function stats(){
+  const all = state.assets;
+  const mulDone = all.reduce((s,a) => s + mulScore(a.multiplication), 0);
+  const stageCounts = {};
+  STAGES.forEach(s => stageCounts[s] = 0);
+  all.forEach(a => stageCounts[a.stage] = (stageCounts[a.stage] || 0) + 1);
+  const catStats = {};
+  all.forEach(a => {
+    catStats[a.category] = catStats[a.category] || {count:0,kb:0,complete:0};
+    catStats[a.category].count++;
+    catStats[a.category].kb += a.kb;
+    if (a.status === "Complete") catStats[a.category].complete++;
+  });
+  return {
+    total:all.length,
+    complete:all.filter(a => a.status === "Complete").length,
+    inProgress:all.filter(a => a.status === "In Progress").length,
+    critical:all.filter(a => a.priority === "Critical").length,
+    starred:all.filter(a => a.starred).length,
+    sprint:all.filter(a => a.sprint).length,
+    totalKb:all.reduce((s,a) => s+a.kb, 0),
+    liveCount:stageCounts.live || 0,
+    converting:stageCounts.converting || 0,
+    leveragePct: all.length ? Math.round((mulDone/(all.length*6))*100) : 0,
+    stageCounts, catStats,
+  };
+}
+
+/* ── views ─────────────────────────────────────────── */
+function assetCard(a){
+  const kids = state.assets.filter(x => x.parentId === a.id).length;
+  return `<article class="acard" draggable="true" data-id="${a.id}" style="border-left-color:${pillarColor(a.pillar)}">
+    <div class="acard-h">
+      <span class="aid">${esc(a.assetId)}</span>
+      ${typePill(a.type)}
+      <button class="star ${a.starred?"on":""}" data-act="star" data-id="${a.id}" title="Star" aria-label="Star ${esc(a.name)}">${a.starred?"★":"☆"}</button>
+    </div>
+    <div class="acard-n" data-act="open" data-id="${a.id}">${esc(a.name)}</div>
+    <div class="acard-f">
+      ${priPill(a.priority)}
+      <span class="mono" style="font-size:.64rem;color:var(--dim)">${fmtKb(a.kb)}</span>
+      ${a.sprint?`<span class="pill" style="background:rgba(232,115,74,.14);color:var(--coral)">⚡ Sprint</span>`:""}
+      ${kids?`<span class="pill" style="background:rgba(88,166,255,.12);color:var(--blue)">↳ ${kids}</span>`:""}
+      <span style="margin-left:auto;display:flex;gap:3px">
+        <button class="btn btn--xs btn--ghost" data-act="advance" data-id="${a.id}" title="Advance stage">→</button>
+      </span>
+    </div>
+  </article>`;
+}
+function viewPipeline(){
+  const cols = STAGES.map(s => {
+    const items = filtered().filter(a => a.stage === s);
+    const m = STAGE_META[s];
+    return `<section class="col" data-stage="${s}">
+      <div class="col-h">
+        <span class="dot" style="background:${m.color}"></span>
+        <span class="col-t" style="color:${m.color}">${m.label}</span>
+        <span class="col-n">${items.length}</span>
+      </div>
+      <div class="col-b">
+        ${items.map(assetCard).join("") || `<div class="empty" style="padding:1.5rem .5rem;font-size:.75rem">Drop assets here</div>`}
+      </div>
+    </section>`;
+  }).join("");
+  return `<div class="sec-h">
+      <h2>Production Pipeline</h2>
+      <span class="sub">Drag a card to another column to change its stage — the activity log records every move.</span>
+    </div>
+    ${filterBar()}
+    <div class="pipe">${cols}</div>`;
+}
+function viewDashboard(){
+  const s = stats();
+  const tiles = [
+    {l:"Total Assets", v:s.total, s:`${fmtKb(s.totalKb)} tracked`, c:"var(--teal)"},
+    {l:"Complete", v:s.complete, s:`${s.inProgress} in progress`, c:"var(--green)"},
+    {l:"Live", v:s.liveCount, s:`${s.converting} converting`, c:"var(--blue)"},
+    {l:"Critical", v:s.critical, s:"highest priority", c:"var(--red)"},
+    {l:"Sprint Queue", v:s.sprint, s:esc(state.sprint.weekLabel), c:"var(--coral)"},
+    {l:"Leverage", v:s.leveragePct+"%", s:"of 6 formats per asset", c:"var(--gold)"},
+  ].map(t => `<div class="tile" style="--accent:${t.c}">
+      <div class="tile-l">${t.l}</div><div class="tile-v">${t.v}</div><div class="tile-s">${t.s}</div>
+    </div>`).join("");
+
+  const totalStage = Math.max(1, s.total);
+  const stageBar = STAGES.map(st => {
+    const n = s.stageCounts[st] || 0;
+    return n ? `<span style="width:${(n/totalStage)*100}%;background:${STAGE_META[st].color}" title="${STAGE_META[st].label}: ${n}"></span>` : "";
+  }).join("");
+  const stageLegend = STAGES.map(st => `<div style="display:flex;align-items:center;gap:7px;font-size:.76rem">
+      <span class="dot" style="background:${STAGE_META[st].color}"></span>
+      <span style="flex:1">${STAGE_META[st].label}</span>
+      <span class="mono" style="color:var(--dim)">${s.stageCounts[st] || 0}</span>
+    </div>`).join("");
+
+  const cats = Object.entries(s.catStats).sort((a,b) => b[1].count - a[1].count).map(([cat,c]) => {
+    const pct = Math.round((c.complete/c.count)*100);
+    return `<tr>
+      <td style="font-weight:500">${esc(cat)}</td>
+      <td class="mono">${c.count}</td>
+      <td class="mono">${fmtKb(c.kb)}</td>
+      <td style="min-width:150px">
+        <div style="display:flex;align-items:center;gap:9px">
+          <div class="bar" style="flex:1"><span style="width:${pct}%;background:${pct===100?"var(--green)":"var(--teal)"}"></span></div>
+          <span class="mono" style="font-size:.68rem;color:var(--dim);min-width:34px;text-align:right">${pct}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+
+  const topLeverage = [...state.assets].sort((a,b) => mulScore(b.multiplication)-mulScore(a.multiplication)).slice(0,6).map(a =>
+    `<div style="display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid rgba(48,54,61,.6)">
+      ${ring(leveragePct(a.multiplication),36)}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.79rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer" data-act="open" data-id="${a.id}">${esc(a.name)}</div>
+        <div class="mono" style="font-size:.66rem;color:var(--dim)">${esc(a.assetId)} · ${mulScore(a.multiplication)}/6 formats</div>
+      </div>
+      ${stagePill(a.stage)}
+    </div>`).join("");
+
+  return `<div class="sec-h"><h2>Dashboard</h2><span class="sub">Aggregates recompute on every change.</span></div>
+    <div class="tiles">${tiles}</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-bottom:14px">
+      <div class="card" style="padding:15px">
+        <h3 style="font-size:.95rem;margin-bottom:11px">Pipeline Distribution</h3>
+        <div class="bar" style="height:9px;margin-bottom:13px">${stageBar}</div>
+        <div style="display:flex;flex-direction:column;gap:7px">${stageLegend}</div>
+      </div>
+      <div class="card" style="padding:15px">
+        <h3 style="font-size:.95rem;margin-bottom:6px">Highest Leverage</h3>
+        <div class="sub" style="margin-bottom:5px">Assets multiplied into the most formats</div>
+        ${topLeverage}
+      </div>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Category</th><th>Assets</th><th>Size</th><th>Complete</th></tr></thead>
+      <tbody>${cats}</tbody>
+    </table></div>`;
+}
+function viewSprint(){
+  const items = state.assets.filter(a => a.sprint);
+  const done = items.filter(a => a.status === "Complete").length;
+  const pct = items.length ? Math.round((done/items.length)*100) : 0;
+  const rows = items.map(a => `<div style="display:flex;align-items:center;gap:11px;padding:11px 13px;border-bottom:1px solid rgba(48,54,61,.6)">
+      <span class="aid">${esc(a.assetId)}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:500;font-size:.83rem;cursor:pointer" data-act="open" data-id="${a.id}">${esc(a.name)}</div>
+        <div class="sub" style="font-size:.7rem">${esc(a.category)} · ${esc(a.pillar)}</div>
+      </div>
+      ${stagePill(a.stage)} ${priPill(a.priority)}
+      <button class="btn btn--xs btn--outline" data-act="advance" data-id="${a.id}">Advance →</button>
+      <button class="btn btn--xs btn--ghost" data-act="sprint" data-id="${a.id}" title="Remove from sprint">✕</button>
+    </div>`).join("");
+
+  const candidates = state.assets.filter(a => !a.sprint && a.status !== "Complete").slice(0,8).map(a =>
+    `<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid rgba(48,54,61,.5)">
+      <span class="aid">${esc(a.assetId)}</span>
+      <span style="flex:1;font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.name)}</span>
+      ${stagePill(a.stage)}
+      <button class="btn btn--xs btn--teal" data-act="sprint" data-id="${a.id}">+ Add</button>
+    </div>`).join("") || `<div class="empty" style="padding:1.2rem">Every asset is either complete or already queued.</div>`;
+
+  return `<div class="sec-h">
+      <h2>Sprint Queue</h2>
+      <span class="aid">${esc(state.sprint.weekLabel)}</span>
+      <span class="sub">${items.length} queued · ${done} complete</span>
+      ${items.length?`<button class="btn btn--sm btn--outline" data-act="clear-sprint" style="margin-left:auto">Clear sprint</button>`:""}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
+      <div class="card">
+        <div style="padding:13px 15px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:7px">
+            <span style="color:var(--muted)">Week progress</span><span class="mono" style="color:var(--gold)">${pct}%</span>
+          </div>
+          <div class="bar"><span style="width:${pct}%;background:linear-gradient(90deg,var(--teal),var(--gold))"></span></div>
+        </div>
+        ${rows || `<div class="empty">Sprint queue is empty — add assets from the list beside this one.</div>`}
+      </div>
+      <div class="card" style="padding:15px">
+        <h3 style="font-size:.95rem;margin-bottom:4px">Add to this week</h3>
+        <div class="sub" style="margin-bottom:9px">Unfinished assets not yet queued</div>
+        ${candidates}
+      </div>
+    </div>`;
+}
+function viewMultiply(){
+  const s = stats();
+  const heads = MUL_FORMATS.map(f => `<div class="mhead" title="${esc(f.desc)}">${f.icon}<br>${esc(f.label)}</div>`).join("");
+  const rows = filtered().map(a => {
+    const boxes = MUL_FORMATS.map(f => `<button class="mbox ${a.multiplication[f.key]?"on":""}" data-act="mul" data-id="${a.id}" data-key="${f.key}"
+        role="checkbox" aria-checked="${!!a.multiplication[f.key]}" aria-label="${esc(f.label)} for ${esc(a.name)}">${a.multiplication[f.key]?"✓":""}</button>`).join("");
+    return `<div class="mrow">
+      <div style="min-width:0">
+        <div style="font-size:.8rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer" data-act="open" data-id="${a.id}">${esc(a.name)}</div>
+        <div class="mono" style="font-size:.65rem;color:var(--dim)">${esc(a.assetId)}</div>
+      </div>
+      ${boxes}
+      <div style="display:grid;place-items:center">${ring(leveragePct(a.multiplication),38)}</div>
+    </div>`;
+  }).join("");
+  return `<div class="sec-h">
+      <h2>Multiplication Tracker</h2>
+      <span class="sub">1 source → 6 formats. Portfolio leverage: <strong style="color:var(--gold)">${s.leveragePct}%</strong></span>
+    </div>
+    ${filterBar()}
+    <div class="card" style="overflow-x:auto">
+      <div class="mrow" style="background:var(--raised);border-radius:10px 10px 0 0">
+        <div class="mhead" style="text-align:left">Asset</div>${heads}<div class="mhead">Leverage</div>
+      </div>
+      ${rows || `<div class="empty">No assets match the current filters.</div>`}
+    </div>`;
+}
+function viewRegistry(){
+  const rows = filtered();
+  const th = (f,l) => `<th class="sortable" data-act="sort" data-field="${f}">${l}${ui.sortField===f?(ui.sortDir==="asc"?" ▲":" ▼"):""}</th>`;
+  const body = rows.map(a => {
+    const sel = ui.selected.has(a.id);
+    const noteCell = ui.noteEditId === a.id
+      ? `<input class="note-in" id="note-in" value="${esc(a.notes)}" data-id="${a.id}" autofocus>`
+      : `<span data-act="edit-note" data-id="${a.id}" style="cursor:text;color:${a.notes?"var(--muted)":"var(--dim)"};font-size:.74rem" title="Click to edit">${esc(a.notes) || "— add note —"}</span>`;
+    return `<tr class="${sel?"sel":""}">
+      <td><input type="checkbox" data-act="sel" data-id="${a.id}" ${sel?"checked":""} aria-label="Select ${esc(a.assetId)}"></td>
+      <td><span class="aid">${esc(a.assetId)}</span></td>
+      <td class="nm" data-act="open" data-id="${a.id}">
+        <button class="star ${a.starred?"on":""}" data-act="star" data-id="${a.id}" aria-label="Star">${a.starred?"★":"☆"}</button>
+        ${esc(a.name)}
+      </td>
+      <td>${typePill(a.type)}</td>
+      <td style="font-size:.74rem;color:var(--muted)">${esc(a.category)}</td>
+      <td><span class="pill" style="background:${pillarColor(a.pillar)}18;color:${pillarColor(a.pillar)}">${esc(a.pillar)}</span></td>
+      <td>${stagePill(a.stage)}</td>
+      <td>${priPill(a.priority)}</td>
+      <td class="mono" style="font-size:.7rem;color:var(--muted)">${fmtKb(a.kb)}</td>
+      <td style="max-width:230px">${noteCell}</td>
+      <td style="white-space:nowrap">
+        <button class="btn btn--xs btn--ghost" data-act="advance" data-id="${a.id}" title="Advance stage">→</button>
+        <button class="btn btn--xs btn--ghost" data-act="edit" data-id="${a.id}" title="Edit">✎</button>
+        <button class="btn btn--xs btn--ghost" data-act="del" data-id="${a.id}" title="Delete">🗑</button>
+      </td>
+    </tr>`;
+  }).join("");
+
+  const bulk = ui.selected.size ? `<div class="banner" style="background:rgba(232,115,74,.08);border-color:rgba(232,115,74,.25);color:#f0b39a">
+      <strong>${ui.selected.size} selected</strong>
+      <select class="select" data-act="bulk-stage"><option value="">Set stage…</option>${STAGES.map(s=>`<option value="${s}">${STAGE_META[s].label}</option>`).join("")}</select>
+      <select class="select" data-act="bulk-status"><option value="">Set status…</option><option>In Progress</option><option>Complete</option></select>
+      <select class="select" data-act="bulk-pri"><option value="">Set priority…</option>${["Critical","High","Medium","Low"].map(p=>`<option>${p}</option>`).join("")}</select>
+      <button class="btn btn--xs btn--danger" data-act="bulk-del">Delete selected</button>
+      <button class="btn btn--xs btn--ghost" data-act="bulk-clear">Clear</button>
+    </div>` : "";
+
+  return `<div class="sec-h">
+      <h2>Asset Registry</h2>
+      <span class="sub">${rows.length} of ${state.assets.length} assets</span>
+    </div>
+    ${filterBar()}
+    ${bulk}
+    <div class="tw"><table>
+      <thead><tr>
+        <th><input type="checkbox" data-act="sel-all" ${rows.length && rows.every(a=>ui.selected.has(a.id))?"checked":""} aria-label="Select all"></th>
+        ${th("assetId","ID")}${th("name","Name")}${th("type","Type")}${th("category","Category")}${th("pillar","Pillar")}
+        ${th("stage","Stage")}${th("priority","Priority")}${th("kb","Size")}<th>Notes</th><th></th>
+      </tr></thead>
+      <tbody>${body || `<tr><td colspan="11"><div class="empty">No assets match the current filters.</div></td></tr>`}</tbody>
+    </table></div>`;
+}
+function viewUpload(){
+  const q = ui.uploadQueue.map((f,i) => `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:7px">
+      ${typePill(f.type)}
+      <span style="flex:1;font-weight:500;font-size:.8rem">${esc(f.name)}</span>
+      <span class="mono" style="font-size:.68rem;color:var(--dim)">${f.kb} KB</span>
+      <button class="btn btn--xs btn--teal" data-act="queue-add" data-i="${i}">+ Add to Registry</button>
+      <button class="btn btn--xs btn--ghost" data-act="queue-del" data-i="${i}">✕</button>
+    </div>`).join("");
+  const steps = [
+    {c:"var(--teal)",h:"Auto-detect",b:"Type, name, and KB read from file metadata"},
+    {c:"var(--coral)",h:"Content read",b:"Text files stored for preview & download"},
+    {c:"var(--gold)",h:"Pre-fill form",b:"Click Add → edit fields → saves at Draft stage"},
+    {c:"var(--green)",h:"Pipeline entry",b:"Asset appears in Draft, then advances stage by stage"},
+  ].map(s => `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px">
+      <span class="dot" style="background:${s.c};margin-top:7px"></span>
+      <div><strong style="font-size:.78rem">${s.h}:</strong> <span style="font-size:.76rem;color:var(--muted)">${s.b}</span></div>
+    </div>`).join("");
+  return `<div class="sec-h"><h2>Upload</h2><span class="sub">Files are read in your browser only — nothing is sent anywhere.</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+      <div>
+        <label class="drop" id="drop">
+          <input type="file" multiple accept=".md,.pdf,.json,.html,.jsx,.tsx,.xlsx,.csv,.txt,.docx" style="display:none" id="file-in">
+          <div style="font-size:2.2rem;color:var(--teal);margin-bottom:8px">☁</div>
+          <div style="font-family:var(--display);font-size:1.4rem;font-weight:700;margin-bottom:4px">Drop Files Here</div>
+          <div style="font-size:.78rem;color:var(--dim);margin-bottom:12px">MD · HTML · JSX · TSX · JSON · PDF · XLSX · TXT</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center">${["MD","HTML","JSX","TSX","JSON","PDF","XLSX"].map(typePill).join("")}</div>
+        </label>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">${q}</div>
+      </div>
+      <div class="card" style="padding:1.1rem">
+        <h3 style="font-size:1rem;margin-bottom:12px">Upload → Registry Flow</h3>
+        ${steps}
+        <div style="margin-top:12px;padding:10px 12px;background:var(--raised);border-radius:8px;font-size:.74rem;color:var(--muted)">
+          📦 Session total: ${ui.uploadQueue.length} queued · ${ui.uploadQueue.reduce((s,f)=>s+f.kb,0)} KB
+        </div>
+      </div>
+    </div>`;
+}
+function viewActivity(){
+  const rows = state.activity.map(e => {
+    const c = ACT_COLOR[e.type] ?? "var(--muted)";
+    return `<div class="act">
+      <div class="act-i" style="background:${c}1e;color:${c}">${ACT_ICON[e.type] ?? "•"}</div>
+      <div style="flex:1;min-width:0">
+        <div class="act-t">${esc(e.title)}</div>
+        ${e.detail?`<div class="act-d">${esc(e.detail)}</div>`:""}
+      </div>
+      <div class="act-ts">${fmtTs(e.timestamp)}</div>
+    </div>`;
+  }).join("");
+  const deploys = state.deployLog.slice(0,10).map(d => {
+    const a = byId(d.assetId);
+    return `<div style="display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid rgba(48,54,61,.5)">
+      <span class="aid">${a?esc(a.assetId):"—"}</span>
+      <span style="flex:1;font-size:.74rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(d.url)}</span>
+      <span class="act-ts">${fmtTs(d.deployedAt)}</span>
+    </div>`;
+  }).join("") || `<div class="empty" style="padding:1.2rem">No deploys yet — add a URL from an asset's Deploy tab.</div>`;
+
+  return `<div class="sec-h">
+      <h2>Activity</h2>
+      <span class="sub">Newest 100 entries — matches the server-side prune.</span>
+      <button class="btn btn--sm btn--outline" data-act="clear-act" style="margin-left:auto">Clear log</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
+      <div class="card" style="max-height:70vh;overflow-y:auto">${rows || `<div class="empty">No activity yet.</div>`}</div>
+      <div class="card" style="padding:15px;align-self:start">
+        <h3 style="font-size:.95rem;margin-bottom:4px">Deploy Log</h3>
+        <div class="sub" style="margin-bottom:8px">A deploy sets the URL and forces the stage to Live</div>
+        ${deploys}
+      </div>
+    </div>`;
+}
+function filterBar(){
+  const opt = (arr,val) => arr.map(o => `<option value="${esc(o)}" ${val===o?"selected":""}>${esc(o)}</option>`).join("");
+  return `<div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+    <input class="input" id="search" placeholder="Search assets…  (⌘K)" value="${esc(ui.search)}" style="flex:1;min-width:190px">
+    <select class="select" data-f="fType"><option value="">All types</option>${opt(TYPES,ui.fType)}</select>
+    <select class="select" data-f="fCat"><option value="">All categories</option>${opt(CATEGORIES,ui.fCat)}</select>
+    <select class="select" data-f="fPillar"><option value="">All pillars</option>${opt(PILLARS,ui.fPillar)}</select>
+    <select class="select" data-f="fStage"><option value="">All stages</option>${STAGES.map(s=>`<option value="${s}" ${ui.fStage===s?"selected":""}>${STAGE_META[s].label}</option>`).join("")}</select>
+    <select class="select" data-f="fPri"><option value="">All priorities</option>${opt(["Critical","High","Medium","Low"],ui.fPri)}</select>
+    <select class="select" data-f="fSpecial"><option value="">Everything</option>
+      <option value="starred" ${ui.fSpecial==="starred"?"selected":""}>★ Starred</option>
+      <option value="sprint" ${ui.fSpecial==="sprint"?"selected":""}>⚡ Sprint</option>
+      <option value="live" ${ui.fSpecial==="live"?"selected":""}>● Live</option></select>
+    ${(ui.search||ui.fType||ui.fCat||ui.fPillar||ui.fStage||ui.fPri||ui.fSpecial)?`<button class="btn btn--sm btn--ghost" data-act="clear-filters">Clear</button>`:""}
+  </div>`;
+}
+
+/* ── drawer ────────────────────────────────────────── */
+function drawer(){
+  const a = byId(ui.preview);
+  if (!a) return "";
+  const pct = leveragePct(a.multiplication);
+  const parent = a.parentId ? byId(a.parentId) : null;
+  const kids = state.assets.filter(x => x.parentId === a.id);
+  const logs = state.deployLog.filter(d => d.assetId === a.id);
+  const t = ui.previewTab;
+  let body = "";
+
+  if (t === "details"){
+    body = `<dl class="kv">
+        <dt>Asset ID</dt><dd><span class="aid">${esc(a.assetId)}</span></dd>
+        <dt>Type</dt><dd>${typePill(a.type)}</dd>
+        <dt>Category</dt><dd>${esc(a.category)}</dd>
+        <dt>Pillar</dt><dd><span class="pill" style="background:${pillarColor(a.pillar)}18;color:${pillarColor(a.pillar)}">${esc(a.pillar)}</span></dd>
+        <dt>Status</dt><dd>${esc(a.status)}</dd>
+        <dt>Stage</dt><dd>${stagePill(a.stage)}</dd>
+        <dt>Priority</dt><dd>${priPill(a.priority)}</dd>
+        <dt>Size</dt><dd class="mono">${fmtKb(a.kb)}</dd>
+        <dt>Date</dt><dd class="mono">${esc(a.date)}</dd>
+        ${parent?`<dt>Parent</dt><dd style="cursor:pointer;color:var(--teal)" data-act="open" data-id="${parent.id}">↑ ${esc(parent.assetId)} — ${esc(parent.name)}</dd>`:""}
+        ${kids.length?`<dt>Children</dt><dd>${kids.map(k=>`<div style="cursor:pointer;color:var(--blue);font-size:.76rem" data-act="open" data-id="${k.id}">↳ ${esc(k.assetId)} — ${esc(k.name)}</div>`).join("")}</dd>`:""}
+        <dt>Revenue</dt><dd>${a.revenueTag.length?a.revenueTag.map(i=>REV_TAGS[i]?`<span class="pill" style="background:${REV_TAGS[i].color}18;color:${REV_TAGS[i].color};margin-right:4px">${REV_TAGS[i].label}</span>`:"").join(""):`<span style="color:var(--dim)">Untagged</span>`}</dd>
+        <dt>Notes</dt><dd style="color:var(--muted)">${esc(a.notes) || "—"}</dd>
+      </dl>
+      <div style="display:flex;gap:7px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn btn--sm btn--teal" data-act="advance" data-id="${a.id}">Advance stage →</button>
+        <button class="btn btn--sm btn--outline" data-act="sprint" data-id="${a.id}">${a.sprint?"Remove from sprint":"⚡ Add to sprint"}</button>
+        <button class="btn btn--sm btn--outline" data-act="star" data-id="${a.id}">${a.starred?"★ Unstar":"☆ Star"}</button>
+        <button class="btn btn--sm btn--danger" data-act="del" data-id="${a.id}">Delete</button>
+      </div>`;
+  } else if (t === "lifecycle"){
+    const cur = STAGES.indexOf(a.stage);
+    body = `<div style="display:flex;flex-direction:column;gap:2px">
+      ${STAGES.map((s,i) => {
+        const m = STAGE_META[s], done = i <= cur;
+        return `<div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;background:${i===cur?m.bg:"transparent"};border:1px solid ${i===cur?m.color+"55":"transparent"}">
+          <span class="dot" style="width:11px;height:11px;background:${done?m.color:"#30363d"};box-shadow:${i===cur?`0 0 10px ${m.color}`:"none"}"></span>
+          <span style="flex:1;font-weight:${i===cur?600:400};color:${done?"var(--text)":"var(--dim)"};font-size:.83rem">${m.label}</span>
+          ${i===cur?`<span class="pill" style="background:${m.color}22;color:${m.color}">current</span>`:""}
+          ${i===cur+1?`<button class="btn btn--xs btn--teal" data-act="advance" data-id="${a.id}">Advance</button>`:""}
+          ${i!==cur?`<button class="btn btn--xs btn--ghost" data-act="set-stage" data-id="${a.id}" data-stage="${s}">Set</button>`:""}
+        </div>`;
+      }).join("")}
+    </div>
+    <div class="sub" style="margin-top:14px">Order is fixed by <span class="mono">nextStage()</span> in lib/types.ts — draft → ready → live → promoted → converting.</div>`;
+  } else if (t === "multiply"){
+    body = `<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+        ${ring(pct,64)}
+        <div><div style="font-size:.86rem;font-weight:600">${mulScore(a.multiplication)} of 6 formats</div>
+        <div class="sub">Each format multiplies one source asset</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+      ${MUL_FORMATS.map(f => `<button class="btn" data-act="mul" data-id="${a.id}" data-key="${f.key}"
+          style="justify-content:flex-start;padding:11px 13px;background:${a.multiplication[f.key]?"rgba(0,144,144,.12)":"var(--raised)"};border:1px solid ${a.multiplication[f.key]?"var(--teal)":"var(--border)"};width:100%">
+          <span style="font-size:1.05rem">${f.icon}</span>
+          <span style="flex:1;text-align:left">
+            <span style="display:block;font-size:.82rem;font-weight:500;color:var(--text)">${esc(f.label)}</span>
+            <span style="display:block;font-size:.7rem;color:var(--muted)">${esc(f.desc)}</span>
+          </span>
+          <span style="color:${a.multiplication[f.key]?"var(--teal)":"var(--dim)"};font-size:1rem">${a.multiplication[f.key]?"✓":"○"}</span>
+        </button>`).join("")}
+      </div>`;
+  } else if (t === "deploy"){
+    body = `<label class="fld" style="margin-bottom:12px">
+        <span>Deploy URL</span>
+        <div style="display:flex;gap:7px">
+          <input class="input" id="deploy-in" placeholder="https://…" value="${esc(ui.deployUrl)}" style="flex:1">
+          <button class="btn btn--sm btn--teal" data-act="deploy" data-id="${a.id}">🚀 Deploy</button>
+        </div>
+      </label>
+      ${a.deployUrl?`<div class="sub" style="margin-bottom:14px">Current: <a href="${esc(a.deployUrl)}" target="_blank" rel="noopener" style="color:var(--teal)">${esc(a.deployUrl)}</a></div>`:""}
+      <h3 style="font-size:.9rem;margin-bottom:8px">History</h3>
+      ${logs.length?logs.map(d=>`<div style="display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid rgba(48,54,61,.5)">
+        <span class="dot" style="background:var(--green)"></span>
+        <span style="flex:1;font-size:.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(d.url)}</span>
+        <span class="act-ts">${fmtTs(d.deployedAt)}</span></div>`).join(""):`<div class="empty" style="padding:1.2rem">No deploys recorded.</div>`}
+      <div class="sub" style="margin-top:14px">Deploying also forces the stage to <strong style="color:var(--green)">Live</strong>.</div>`;
+  } else if (t === "code"){
+    body = a.code
+      ? `<pre class="code">${esc(a.code)}</pre>`
+      : `<div class="empty">No stored content for this asset.<br><span style="font-size:.75rem">Only 8 of the 47 seed assets carry a code payload.</span></div>`;
+  } else if (t === "render"){
+    body = (a.code && (a.type === "HTML"))
+      ? `<iframe sandbox="allow-same-origin" srcdoc="${esc(a.code)}" style="width:100%;height:420px;border:1px solid var(--border);border-radius:8px;background:#fff"></iframe>`
+      : `<div class="empty">Live render is available for HTML assets with stored content.<br><span style="font-size:.75rem">This asset is ${esc(a.type)}${a.code?"":" and has no stored content"}.</span></div>`;
+  }
+
+  return `<div class="scrim" data-act="close-drawer"></div>
+  <aside class="drawer" role="dialog" aria-label="Asset details">
+    <div class="dr-h">
+      <span class="aid">${esc(a.assetId)}</span>
+      <span class="dr-t">${esc(a.name)}</span>
+      <button class="btn btn--sm btn--outline" data-act="edit" data-id="${a.id}">✎ Edit</button>
+      <button class="btn btn--ghost" data-act="close-drawer" aria-label="Close">✕</button>
+    </div>
+    <div class="dr-tabs" role="tablist">
+      ${["details","lifecycle","multiply","deploy","code","render"].map(x =>
+        `<button class="dr-tab" role="tab" aria-selected="${t===x}" data-act="dr-tab" data-t="${x}">${x}</button>`).join("")}
+    </div>
+    <div class="dr-b">${body}</div>
+  </aside>`;
+}
+
+/* ── modals ────────────────────────────────────────── */
+function modal(){
+  if (ui.modal !== "form") return "";
+  const f = ui.form || {};
+  const isEdit = !!ui.editId;
+  const parent = ui.spawnParentId ? byId(ui.spawnParentId) : null;
+  const fields = [
+    {l:"Asset Name *",k:"name",t:"text",span:true},
+    {l:"Asset ID",k:"assetId",t:"text"},
+    {l:"Date",k:"date",t:"text"},
+    {l:"File Type *",k:"type",t:"sel",o:TYPES},
+    {l:"Category *",k:"category",t:"sel",o:["",...CATEGORIES]},
+    {l:"Pillar",k:"pillar",t:"sel",o:PILLARS},
+    {l:"Pipeline Stage",k:"stage",t:"sel",o:STAGES,labels:STAGE_META},
+    {l:"Status",k:"status",t:"sel",o:["In Progress","Complete"]},
+    {l:"Priority",k:"priority",t:"sel",o:["Critical","High","Medium","Low"]},
+    {l:"Size (KB)",k:"kb",t:"number"},
+    {l:"Notes",k:"notes",t:"text",span:true},
+    {l:"Deploy URL",k:"deployUrl",t:"text",span:true},
+  ].map(x => {
+    const err = ui.formErrors[x.k];
+    const ctl = x.t === "sel"
+      ? `<select class="select" data-k="${x.k}" style="${err?"border-color:var(--red)":""}">${x.o.map(o =>
+          `<option value="${esc(o)}" ${String(f[x.k] ?? "")===o?"selected":""}>${o===""?"— select —":esc(x.labels?x.labels[o].label:o)}</option>`).join("")}</select>`
+      : `<input class="input" type="${x.t}" data-k="${x.k}" value="${esc(f[x.k] ?? "")}" style="${err?"border-color:var(--red)":""}">`;
+    return `<label class="fld ${x.span?"span2":""}"><span>${x.l}</span>${ctl}${err?`<span class="err">${esc(err)}</span>`:""}</label>`;
+  }).join("");
+
+  return `<div class="modal-w" data-act="close-modal-bg">
+    <div class="modal" role="dialog" aria-label="${isEdit?"Edit asset":"Add asset"}">
+      <div class="modal-h">
+        <span class="aid">${esc(f.assetId || "NEW")}</span>
+        <h2 style="font-size:1.2rem;flex:1">${isEdit?"Edit Asset":parent?`Spawn from ${esc(parent.assetId)}`:"Add New Asset"}</h2>
+        <button class="btn btn--ghost" data-act="close-modal" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-b">
+        ${parent?`<div class="banner" style="margin-bottom:12px">↑ Child of <strong>${esc(parent.assetId)}</strong> — ${esc(parent.name)}</div>`:""}
+        <div class="grid2">
+          ${fields}
+          <label class="fld span2"><span>Code / Content <span style="text-transform:none;letter-spacing:0;font-weight:400">(preview &amp; download)</span></span>
+            <textarea class="input" data-k="code" rows="4" placeholder="Paste code or content…" style="font-family:var(--mono);font-size:.72rem;min-height:82px;resize:vertical">${esc(f.code ?? "")}</textarea>
+          </label>
+        </div>
+      </div>
+      <div class="modal-f">
+        <button class="btn btn--sm btn--outline" data-act="close-modal">Cancel</button>
+        <button class="btn btn--sm btn--teal" data-act="save">💾 ${isEdit?"Update":"Save"}</button>
+      </div>
+    </div>
+  </div>`;
+}
+function confirmModal(){
+  if (!ui.confirm) return "";
+  return `<div class="modal-w">
+    <div class="modal" style="max-width:440px" role="alertdialog" aria-label="Confirm">
+      <div class="modal-b" style="padding:1.5rem">
+        <h2 style="font-size:1.1rem;margin-bottom:8px">Are you sure?</h2>
+        <p style="font-size:.83rem;color:var(--muted);margin:0">${esc(ui.confirm.msg)}</p>
+      </div>
+      <div class="modal-f">
+        <button class="btn btn--sm btn--outline" data-act="confirm-no">Cancel</button>
+        <button class="btn btn--sm btn--danger" data-act="confirm-yes">Confirm</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── render ────────────────────────────────────────── */
+const TABS = [
+  {k:"pipeline",i:"⊞",l:"Pipeline"},{k:"dashboard",i:"◈",l:"Dashboard"},{k:"sprint",i:"⚡",l:"Sprint"},
+  {k:"multiply",i:"⊕",l:"Multiply"},{k:"registry",i:"≡",l:"Registry"},{k:"upload",i:"↑",l:"Upload"},{k:"activity",i:"○",l:"Activity"},
+];
+function renderNav(){
+  const badges = {sprint:state.assets.filter(a=>a.sprint).length, registry:state.assets.length, activity:state.activity.length};
+  document.getElementById("nav").innerHTML = TABS.map(t => {
+    const b = badges[t.k];
+    return `<button class="tab" role="tab" aria-selected="${ui.tab===t.k}" data-act="tab" data-tab="${t.k}">
+      <span aria-hidden="true">${t.i}</span> ${t.l}${b?`<span class="badge-n">${b}</span>`:""}</button>`;
+  }).join("");
+}
+function renderLayers(){
+  document.getElementById("layers").innerHTML =
+    drawer() + modal() + confirmModal() + (ui.toast ? `<div class="toast" role="status">${esc(ui.toast)}</div>` : "");
+}
+function render(){
+  const active = document.activeElement;
+  const focusId = active && active.id ? active.id : null;
+  const selStart = focusId && "selectionStart" in active ? active.selectionStart : null;
+
+  renderNav();
+  const views = {pipeline:viewPipeline,dashboard:viewDashboard,sprint:viewSprint,multiply:viewMultiply,registry:viewRegistry,upload:viewUpload,activity:viewActivity};
+  document.getElementById("view").innerHTML = (views[ui.tab] || viewPipeline)();
+  renderLayers();
+  wireDnD();
+
+  if (focusId){
+    const el = document.getElementById(focusId);
+    if (el){
+      el.focus();
+      if (selStart != null && "setSelectionRange" in el){ try { el.setSelectionRange(selStart,selStart); } catch(e){} }
+    }
+  }
+}
+
+/* ── drag & drop ───────────────────────────────────── */
+let dragId = null;
+function wireDnD(){
+  document.querySelectorAll(".acard").forEach(el => {
+    el.addEventListener("dragstart", e => {
+      dragId = el.dataset.id;
+      el.classList.add("drag");
+      e.dataTransfer.effectAllowed = "move";
+      // Carry the id in the payload too — the closure alone is not reliable
+      // once dragend races the drop across browsers.
+      try { e.dataTransfer.setData("text/plain", dragId); } catch(err){}
+    });
+    el.addEventListener("dragend", () => { el.classList.remove("drag"); });
+  });
+  document.querySelectorAll(".col").forEach(col => {
+    col.addEventListener("dragover", e => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; col.classList.add("over"); });
+    col.addEventListener("dragleave", e => { if (!col.contains(e.relatedTarget)) col.classList.remove("over"); });
+    col.addEventListener("drop", e => {
+      e.preventDefault();
+      col.classList.remove("over");
+      let id = "";
+      try { id = e.dataTransfer.getData("text/plain"); } catch(err){}
+      id = id || dragId;
+      dragId = null;
+      if (id) setStage(id, col.dataset.stage);
+    });
+  });
+}
+
+/* ── form ──────────────────────────────────────────── */
+function openForm(id, parentId, prefill){
+  ui.editId = id ?? null;
+  ui.spawnParentId = parentId ?? null;
+  ui.formErrors = {};
+  if (id){
+    const a = byId(id);
+    ui.form = {assetId:a.assetId,name:a.name,type:a.type,category:a.category,pillar:a.pillar,status:a.status,stage:a.stage,priority:a.priority,date:a.date,kb:a.kb,notes:a.notes,code:a.code,deployUrl:a.deployUrl};
+  } else {
+    const p = parentId ? byId(parentId) : null;
+    ui.form = {
+      assetId: nextAssetId("MMM"),
+      name: p ? p.name + " — " : "",
+      type:"MD", category:"", pillar:"Multi-Pillar", status:"In Progress", stage:"draft", priority:"High",
+      date: new Date().toLocaleDateString("en-US",{month:"short",day:"2-digit"}),
+      kb:0, notes:"", code:"", deployUrl:"",
+      ...(prefill || {}),
+    };
+  }
+  ui.modal = "form";
+  render();
+}
+function saveForm(){
+  const f = ui.form, errs = {};
+  if (!String(f.name || "").trim()) errs.name = "Name is required";
+  if (!f.type) errs.type = "Type is required";
+  if (!f.category) errs.category = "Category is required";
+  if (!String(f.assetId || "").trim()) errs.assetId = "Asset ID is required";
+  ui.formErrors = errs;
+  if (Object.keys(errs).length){ render(); return toast("Fix the highlighted fields"); }
+
+  if (ui.editId){
+    const a = byId(ui.editId);
+    Object.assign(a, {...f, kb:Number(f.kb) || 0});
+    log("edit", `Edited: ${a.name}`, `Stage: ${a.stage}`, a.id);
+    ui.modal = null; ui.form = null; ui.editId = null;
+    commit(`✓ Updated "${a.name}"`);
+  } else {
+    const a = {
+      id:"a"+(state.seq++), assetId:f.assetId, name:f.name, type:f.type, category:f.category,
+      pillar:f.pillar || "Multi-Pillar", status:f.status || "In Progress", stage:f.stage || "draft",
+      priority:f.priority || "High", date:f.date, kb:Number(f.kb) || 0, notes:f.notes || "",
+      code:f.code || "", deployUrl:f.deployUrl || "", starred:false, sprint:false,
+      parentId: ui.spawnParentId || null, revenueTag:[],
+      multiplication:{newsletter:false,blog:false,video:false,leadMagnet:false,courseModule:false,landingPage:false},
+    };
+    state.assets.push(a);
+    log("add", `Added: ${a.name}`, `Type: ${a.type}`, a.id);
+    ui.modal = null; ui.form = null; ui.spawnParentId = null;
+    commit(`✓ Added "${a.name}"`);
+  }
+}
+
+/* ── export ────────────────────────────────────────── */
+/* Hosted views hand files to the viewer through the downloads capability;
+   a plain blob link is inert there. Opened as a local file, fall back to it. */
+const downloadsReady = (window.claude && typeof window.claude.use === "function")
+  ? window.claude.use("downloads").catch(() => null)
+  : Promise.resolve(null);
+
+function blobDownload(name, text, mime){
+  const url = URL.createObjectURL(new Blob([text],{type:mime}));
+  const el = document.createElement("a");
+  el.href = url; el.download = name; document.body.appendChild(el); el.click();
+  el.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+async function offerFile(name, text, mime, okMsg){
+  const d = await downloadsReady;
+  if (d){
+    try { await d.save({filename:name, data:text}); return toast(okMsg); }
+    catch(err){
+      const code = err && err.code;
+      if (code === "declined") return toast("Save cancelled");
+      if (code === "rate_limited") return toast("A save prompt is already open");
+      if (code === "extension_not_enabled" && name.endsWith(".csv")){
+        try { await d.save({filename:name.replace(/\.csv$/,".txt"), data:text}); return toast(okMsg+" (as .txt)"); }
+        catch(e2){ if (e2 && e2.code === "declined") return toast("Save cancelled"); }
+      }
+      return toast("Couldn't save the file here");
+    }
+  }
+  blobDownload(name, text, mime);
+  toast(okMsg);
+}
+function exportJSON(){
+  const data = state.assets.map(({code, id, ...rest}) => rest);   // code stripped, as in the app
+  offerFile(`mmm-assets-${Date.now()}.json`, JSON.stringify(data,null,2), "application/json", "📦 JSON exported");
+}
+function exportCSV(){
+  const cols = ["assetId","name","type","category","pillar","status","stage","priority","date","kb","notes","deployUrl"];
+  const rows = [cols.join(","), ...state.assets.map(a => cols.map(c => `"${String(a[c] ?? "").replace(/"/g,'""')}"`).join(","))];
+  offerFile(`mmm-assets-${Date.now()}.csv`, rows.join("\n"), "text/csv", "📊 CSV exported");
+}
+
+/* ── events ────────────────────────────────────────── */
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]");
+  if (!el) return;
+  const act = el.dataset.act, id = el.dataset.id;
+
+  switch(act){
+    case "tab": ui.tab = el.dataset.tab; ui.selected.clear(); render(); break;
+    case "open": ui.preview = id; ui.previewTab = "details"; ui.deployUrl = ""; renderLayers(); break;
+    case "close-drawer": ui.preview = null; renderLayers(); break;
+    case "dr-tab": ui.previewTab = el.dataset.t; renderLayers(); break;
+    case "star": toggleStar(id); break;
+    case "sprint": toggleSprint(id); break;
+    case "advance": advance(id); break;
+    case "set-stage": setStage(id, el.dataset.stage); break;
+    case "mul": toggleMul(id, el.dataset.key); break;
+    case "new": openForm(null,null,null); break;
+    case "edit": openForm(id,null,null); break;
+    case "save": saveForm(); break;
+    case "close-modal": ui.modal = null; ui.form = null; ui.editId = null; ui.spawnParentId = null; render(); break;
+    case "close-modal-bg": if (e.target.classList.contains("modal-w")){ ui.modal = null; ui.form = null; ui.editId = null; render(); } break;
+    case "deploy": {
+      const inp = document.getElementById("deploy-in");
+      addDeploy(id, inp ? inp.value : "");
+      break;
+    }
+    case "del": {
+      const a = byId(id);
+      ui.confirm = {msg:`Delete "${a.name}" (${a.assetId})? This cannot be undone.`, run:() => removeAsset(id)};
+      renderLayers(); break;
+    }
+    case "confirm-yes": { const c = ui.confirm; ui.confirm = null; if (c) c.run(); else renderLayers(); break; }
+    case "confirm-no": ui.confirm = null; renderLayers(); break;
+    case "sort":
+      if (ui.sortField === el.dataset.field) ui.sortDir = ui.sortDir === "asc" ? "desc" : "asc";
+      else { ui.sortField = el.dataset.field; ui.sortDir = "asc"; }
+      render(); break;
+    case "sel": ui.selected.has(id) ? ui.selected.delete(id) : ui.selected.add(id); render(); break;
+    case "sel-all": {
+      const rows = filtered();
+      const all = rows.length && rows.every(a => ui.selected.has(a.id));
+      all ? ui.selected.clear() : rows.forEach(a => ui.selected.add(a.id));
+      render(); break;
+    }
+    case "bulk-clear": ui.selected.clear(); render(); break;
+    case "bulk-del": {
+      const n = ui.selected.size;
+      ui.confirm = {msg:`Delete ${n} selected asset${n>1?"s":""}? This cannot be undone.`, run:() => {
+        [...ui.selected].forEach(sid => {
+          const a = byId(sid); if (!a) return;
+          state.assets = state.assets.filter(x => x.id !== sid);
+          state.deployLog = state.deployLog.filter(d => d.assetId !== sid);
+          state.sprint.assetIds = state.sprint.assetIds.filter(x => x !== sid);
+        });
+        log("delete", `Deleted ${n} assets`, "Bulk operation", null);
+        ui.selected.clear();
+        commit(`🗑️ Deleted ${n} assets`);
+      }};
+      renderLayers(); break;
+    }
+    case "clear-filters":
+      ui.search = ""; ui.fType = ui.fPillar = ui.fStatus = ui.fStage = ui.fPri = ui.fCat = ui.fSpecial = "";
+      render(); break;
+    case "clear-sprint":
+      state.assets.forEach(a => a.sprint = false);
+      state.sprint.assetIds = [];
+      commit("Sprint cleared"); break;
+    case "clear-act": state.activity = []; commit("Activity log cleared"); break;
+    case "edit-note": ui.noteEditId = id; render(); document.getElementById("note-in")?.focus(); break;
+    case "queue-add": {
+      const f = ui.uploadQueue[+el.dataset.i];
+      if (f) openForm(null, null, {name:f.name, type:f.type, kb:f.kb, code:f.code});
+      break;
+    }
+    case "queue-del": ui.uploadQueue.splice(+el.dataset.i,1); render(); break;
+    case "export-json": exportJSON(); break;
+    case "export-csv": exportCSV(); break;
+    case "reset":
+      ui.confirm = {msg:"Discard all changes and restore the 47 seed assets?", run:() => {
+        state = freshState(); ui.selected.clear(); ui.preview = null; commit("Reset to seed data");
+      }};
+      renderLayers(); break;
+  }
+});
+
+document.addEventListener("input", e => {
+  const t = e.target;
+  if (t.id === "search"){ ui.search = t.value; render(); return; }
+  if (t.dataset.f){ ui[t.dataset.f] = t.value; render(); return; }
+  if (t.dataset.k && ui.form){ ui.form[t.dataset.k] = t.value; return; }
+  if (t.id === "deploy-in"){ ui.deployUrl = t.value; return; }
+});
+document.addEventListener("change", e => {
+  const t = e.target;
+  const act = t.dataset.act;
+  if (act === "bulk-stage" && t.value){
+    [...ui.selected].forEach(id => { const a = byId(id); if (a) a.stage = t.value; });
+    log("stage", `Bulk stage → ${STAGE_META[t.value].label}`, `${ui.selected.size} assets`, null);
+    commit(`→ ${STAGE_META[t.value].label} for ${ui.selected.size} assets`);
+  }
+  if (act === "bulk-status" && t.value){
+    [...ui.selected].forEach(id => { const a = byId(id); if (a) a.status = t.value; });
+    log("edit", `Bulk status → ${t.value}`, `${ui.selected.size} assets`, null);
+    commit(`Status set for ${ui.selected.size} assets`);
+  }
+  if (act === "bulk-pri" && t.value){
+    [...ui.selected].forEach(id => { const a = byId(id); if (a) a.priority = t.value; });
+    log("edit", `Bulk priority → ${t.value}`, `${ui.selected.size} assets`, null);
+    commit(`Priority set for ${ui.selected.size} assets`);
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.target.id === "note-in" && (e.key === "Enter" || e.key === "Escape")){
+    const a = byId(e.target.dataset.id);
+    if (a && e.key === "Enter"){ a.notes = e.target.value; ui.noteEditId = null; commit("✓ Note saved"); }
+    else { ui.noteEditId = null; render(); }
+    return;
+  }
+  if (e.target.id === "deploy-in" && e.key === "Enter"){
+    const btn = document.querySelector('[data-act="deploy"]');
+    if (btn) addDeploy(btn.dataset.id, e.target.value);
+    return;
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === "k"){
+    e.preventDefault();
+    if (!["pipeline","registry","multiply"].includes(ui.tab)){ ui.tab = "registry"; render(); }
+    document.getElementById("search")?.focus();
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === "n"){ e.preventDefault(); openForm(null,null,null); }
+  if (e.key === "Escape"){
+    if (ui.confirm){ ui.confirm = null; renderLayers(); }
+    else if (ui.modal){ ui.modal = null; ui.form = null; ui.editId = null; render(); }
+    else if (ui.preview){ ui.preview = null; renderLayers(); }
+  }
+});
+
+/* ── uploads (browser-local only) ──────────────────── */
+function handleFiles(files){
+  if (!files || !files.length) return;
+  const typeMap = {md:"MD",jsx:"JSX",tsx:"TSX",html:"HTML",xlsx:"XLSX",pdf:"PDF",json:"JSON",csv:"XLSX",txt:"TXT",docx:"MD"};
+  [...files].forEach(file => {
+    const ext = (file.name.split(".").pop() || "").toLowerCase();
+    const type = typeMap[ext] ?? "TXT";
+    const kb = Math.ceil(file.size/1024);
+    const name = file.name.replace(/\.[^.]+$/, "");
+    if (["md","html","jsx","tsx","json","txt","csv"].includes(ext)){
+      const r = new FileReader();
+      r.onload = ev => { ui.uploadQueue.push({name,kb,type,code:String(ev.target.result || "").slice(0,20000)}); render(); };
+      r.readAsText(file);
+    } else {
+      ui.uploadQueue.push({name,kb,type,code:""});
+    }
+    log("upload", `Uploaded: ${file.name}`, `${kb} KB`, null);
+  });
+  commit(`✓ ${files.length} file(s) queued`);
+}
+document.addEventListener("change", e => { if (e.target.id === "file-in") handleFiles(e.target.files); });
+document.addEventListener("dragover", e => { if (e.target.closest("#drop")){ e.preventDefault(); e.target.closest("#drop").classList.add("over"); } });
+document.addEventListener("dragleave", e => { const d = e.target.closest("#drop"); if (d) d.classList.remove("over"); });
+document.addEventListener("drop", e => {
+  const d = e.target.closest("#drop");
+  if (d){ e.preventDefault(); d.classList.remove("over"); handleFiles(e.dataTransfer.files); }
+});
+
+render();
+</script>
