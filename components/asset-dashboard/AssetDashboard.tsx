@@ -99,7 +99,7 @@ function pillarColor(pillar: string) {
 // MAIN COMPONENT
 // ═════════════════════════════════════════════════════════════
 export function AssetDashboard() {
-  const [tab, setTab] = useState<"pipeline"|"dashboard"|"sprint"|"multiply"|"registry"|"upload"|"activity">("pipeline");
+  const [tab, setTab] = useState<"pipeline"|"dashboard"|"sprint"|"multiply"|"registry"|"upload"|"activity"|"revenue">("pipeline");
   const [view, setView] = useState<"table"|"card">("table");
   const [preview, setPreview] = useState<Asset | null>(null);
   const [previewTab, setPreviewTab] = useState("details");
@@ -963,6 +963,297 @@ export function AssetDashboard() {
       </div>
     );
   }
+  // ── REVENUE TAB ───────────────────────────────────────────
+  function RevenueTab() {
+    const PILLAR_META = [
+      { key:"P1: Exercise",     label:"Exercise & Mobility",   icon:"🏃", color:"#009090", bg:"rgba(0,144,144,.08)" },
+      { key:"P2: Nutrition",    label:"Nutrition & Metabolism", icon:"🥦", color:"#D4A843", bg:"rgba(212,168,67,.08)" },
+      { key:"P3: Recovery",     label:"Recovery & Stress",     icon:"🧘", color:"#bc8cff", bg:"rgba(188,140,255,.08)" },
+      { key:"P4: Brain Health", label:"Balance & Brain Health", icon:"🧠", color:"#3fb950", bg:"rgba(63,185,80,.08)" },
+    ];
+
+    const REV_STREAM_PRICES: Record<number, number> = { 0: 47, 1: 47, 2: 47, 3: 0, 4: 0 };
+
+    // Per-pillar stats
+    const pillarStats = PILLAR_META.map(p => {
+      const group = assets.filter((a: Asset) =>
+        a.pillar === p.key || a.pillar === "Multi-Pillar"
+      );
+      const own = assets.filter((a: Asset) => a.pillar === p.key);
+      const live = own.filter((a: Asset) => a.stage === "live" || a.stage === "promoted" || a.stage === "converting").length;
+      const complete = own.filter((a: Asset) => a.status === "Complete").length;
+      const mulDone = own.reduce((s: number, a: Asset) => s + Object.values(a.multiplication).filter(Boolean).length, 0);
+      const mulPossible = own.length * 6;
+      const leverage = mulPossible > 0 ? Math.round((mulDone / mulPossible) * 100) : 0;
+      return { ...p, total: own.length, live, complete, leverage, group };
+    });
+
+    // Per-revenue-stream stats
+    const streamStats = REV_TAGS.map((tag, i) => {
+      const tagged = assets.filter((a: Asset) => a.revenueTag.includes(i));
+      const live = tagged.filter((a: Asset) => a.stage === "live" || a.stage === "promoted" || a.stage === "converting").length;
+      const ready = tagged.filter((a: Asset) => a.stage === "ready").length;
+      const draft = tagged.filter((a: Asset) => a.stage === "draft").length;
+      return { ...tag, i, tagged: tagged.length, live, ready, draft, price: REV_STREAM_PRICES[i] ?? 0 };
+    });
+
+    // Revenue-ready assets (live/promoted/converting with revenue tags)
+    const revenueReady = assets
+      .filter((a: Asset) =>
+        (a.stage === "live" || a.stage === "promoted" || a.stage === "converting") &&
+        a.revenueTag.length > 0
+      )
+      .sort((a: Asset, b: Asset) => b.revenueTag.length - a.revenueTag.length)
+      .slice(0, 8);
+
+    // Quick wins: stage=ready with revenue tags
+    const quickWins = assets
+      .filter((a: Asset) => a.stage === "ready" && a.revenueTag.length > 0)
+      .sort((a: Asset, b: Asset) => {
+        const priMap: Record<string,number> = { Critical:0, High:1, Medium:2, Low:3 };
+        return (priMap[a.priority]??3) - (priMap[b.priority]??3);
+      })
+      .slice(0, 6);
+
+    // MRR estimate: each converting asset with a priced revenue tag = $47/mo notional
+    const convertingCount = assets.filter((a: Asset) =>
+      a.stage === "converting" && a.revenueTag.some((i: number) => REV_STREAM_PRICES[i] > 0)
+    ).length;
+    const mrrEstimate = Math.min(convertingCount * 47, 5000);
+    const mrrTarget = 5000;
+    const mrrPct = Math.round((mrrEstimate / mrrTarget) * 100);
+
+    const CARD: React.CSSProperties = {
+      background:"#161b22", border:"1px solid #30363d", borderRadius:10, padding:"1.2rem",
+    };
+    const LABEL: React.CSSProperties = {
+      fontFamily:"Cormorant Garamond,serif", fontSize:".9rem", fontWeight:700, color:"#e6edf3", marginBottom:12,
+    };
+
+    return (
+      <div style={{ display:"flex", flexDirection:"column" as const, gap:18 }}>
+
+        {/* MRR Banner */}
+        <div style={{ ...CARD, background:"linear-gradient(135deg,#0d1a1a,#161b22)", borderColor:"rgba(0,144,144,.35)", display:"flex", alignItems:"center", gap:20, padding:"1.4rem 1.6rem" }}>
+          <div style={{ flex:1 }}>
+            <div style={{ fontSize:".62rem", fontWeight:700, letterSpacing:".14em", textTransform:"uppercase" as const, color:"#009090", marginBottom:6 }}>Revenue Engine — Path to MRR</div>
+            <div style={{ display:"flex", alignItems:"baseline", gap:8, marginBottom:8 }}>
+              <span style={{ fontFamily:"Cormorant Garamond,serif", fontSize:"3rem", fontWeight:700, color:"#D4A843", lineHeight:1 }}>${mrrEstimate.toLocaleString()}</span>
+              <span style={{ color:"#484f58", fontSize:".8rem" }}>/ ${mrrTarget.toLocaleString()} target MRR</span>
+            </div>
+            <div style={{ height:6, background:"#30363d", borderRadius:3, overflow:"hidden", maxWidth:480 }}>
+              <div style={{ height:"100%", width:`${mrrPct}%`, background:"linear-gradient(90deg,#009090,#D4A843)", borderRadius:3, transition:"width 1s ease" }} />
+            </div>
+            <div style={{ fontSize:".7rem", color:"#484f58", marginTop:6 }}>
+              {convertingCount} converting asset{convertingCount !== 1 ? "s" : ""} · {revenueReady.length} revenue-linked live · {quickWins.length} quick-win ready to launch
+            </div>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,auto)", gap:"8px 24px", flexShrink:0 }}>
+            {[
+              { label:"Founding Cohort", price:"$47/mo", color:"#009090" },
+              { label:"Mito-Recharge", price:"$47/mo", color:"#E8734A" },
+              { label:"VILPA Course", price:"$47", color:"#D4A843" },
+              { label:"Lead Magnet", price:"Free → Convert", color:"#3fb950" },
+              { label:"Newsletter", price:"Nurture", color:"#bc8cff" },
+              { label:"Practitioner Lic.", price:"$97/mo", color:"#58a6ff" },
+            ].map(s => (
+              <div key={s.label} style={{ fontSize:".67rem" }}>
+                <span style={{ color: s.color, fontWeight:700 }}>{s.price}</span>
+                <span style={{ color:"#484f58", marginLeft:5 }}>{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pillar Coverage Row */}
+        <div>
+          <div style={{ fontSize:".62rem", fontWeight:700, letterSpacing:".14em", textTransform:"uppercase" as const, color:"#484f58", marginBottom:10 }}>4-Pillar Content Coverage</div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:12 }}>
+            {pillarStats.map(p => (
+              <div key={p.key} style={{ ...CARD, borderColor: `${p.color}30`, background: p.bg, position:"relative", overflow:"hidden" }}>
+                <div style={{ position:"absolute", top:0, left:0, right:0, height:2, background: p.color }} />
+                <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:10 }}>
+                  <span style={{ fontSize:"1.4rem" }}>{p.icon}</span>
+                  <div>
+                    <div style={{ fontSize:".76rem", fontWeight:700, color:"#e6edf3" }}>{p.label}</div>
+                    <div style={{ fontSize:".6rem", color: p.color, fontFamily:"Space Mono,monospace" }}>{p.key}</div>
+                  </div>
+                </div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6, marginBottom:10 }}>
+                  {[
+                    { val: p.total,    label:"assets" },
+                    { val: p.live,     label:"live" },
+                    { val: p.complete, label:"done" },
+                  ].map(s => (
+                    <div key={s.label} style={{ textAlign:"center" as const, background:"rgba(0,0,0,.2)", borderRadius:6, padding:"6px 4px" }}>
+                      <div style={{ fontFamily:"Cormorant Garamond,serif", fontSize:"1.4rem", fontWeight:700, color: p.color, lineHeight:1 }}>{s.val}</div>
+                      <div style={{ fontSize:".6rem", color:"#484f58" }}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ fontSize:".67rem", color:"#8b949e", marginBottom:4 }}>Multiply leverage</div>
+                <div style={{ height:4, background:"rgba(0,0,0,.3)", borderRadius:2, overflow:"hidden" }}>
+                  <div style={{ height:"100%", width:`${p.leverage}%`, background: p.color, borderRadius:2, transition:"width 1s ease" }} />
+                </div>
+                <div style={{ fontSize:".65rem", color: p.color, textAlign:"right" as const, marginTop:3, fontFamily:"Space Mono,monospace" }}>{p.leverage}%</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Revenue Streams + Quick Wins */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16 }}>
+
+          {/* Revenue Stream Matrix */}
+          <div style={CARD}>
+            <div style={LABEL}>Revenue Stream Coverage</div>
+            <div style={{ display:"flex", flexDirection:"column" as const, gap:8 }}>
+              {streamStats.map(s => {
+                const total = s.tagged || 1;
+                const livePct = Math.round((s.live / total) * 100);
+                return (
+                  <div key={s.i} style={{ padding:"10px 12px", background:"rgba(0,0,0,.2)", borderRadius:8, border:"1px solid #30363d" }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:6 }}>
+                      <span style={{ width:8, height:8, borderRadius:"50%", background: s.color, flexShrink:0 }} />
+                      <span style={{ fontSize:".78rem", fontWeight:600, color:"#e6edf3", flex:1 }}>{s.label}</span>
+                      {s.price > 0 && (
+                        <span style={{ fontSize:".65rem", color: s.color, fontFamily:"Space Mono,monospace", fontWeight:700 }}>${s.price}</span>
+                      )}
+                    </div>
+                    <div style={{ display:"flex", gap:6, marginBottom:6 }}>
+                      {[
+                        { val: s.tagged, label:"tagged", c:"#8b949e" },
+                        { val: s.live,   label:"live",   c:"#3fb950" },
+                        { val: s.ready,  label:"ready",  c:"#58a6ff" },
+                        { val: s.draft,  label:"draft",  c:"#484f58" },
+                      ].map(m => (
+                        <span key={m.label} style={{ fontSize:".65rem", padding:"2px 6px", background:"rgba(0,0,0,.3)", borderRadius:4 }}>
+                          <span style={{ color: m.c, fontWeight:700 }}>{m.val}</span>
+                          <span style={{ color:"#484f58", marginLeft:3 }}>{m.label}</span>
+                        </span>
+                      ))}
+                    </div>
+                    <div style={{ height:3, background:"#30363d", borderRadius:2, overflow:"hidden" }}>
+                      <div style={{ height:"100%", width:`${livePct}%`, background: s.color, borderRadius:2, transition:"width 1s ease" }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Quick Wins */}
+          <div style={CARD}>
+            <div style={{ ...LABEL, display:"flex", alignItems:"center", justifyContent:"space-between" as const }}>
+              <span>Quick Wins — Ready to Launch</span>
+              <span style={{ fontSize:".65rem", color:"#58a6ff", fontWeight:500 }}>{quickWins.length} assets</span>
+            </div>
+            {quickWins.length === 0 ? (
+              <div style={{ color:"#484f58", fontSize:".78rem", padding:"1.5rem 0", textAlign:"center" as const }}>
+                No stage=ready assets with revenue tags.<br />
+                <span style={{ fontSize:".7rem" }}>Tag assets with revenue streams to track here.</span>
+              </div>
+            ) : (
+              <div style={{ display:"flex", flexDirection:"column" as const, gap:6 }}>
+                {quickWins.map((a: Asset) => (
+                  <div key={a._id}
+                    onClick={() => { setPreview(a); setPreviewTab("details"); }}
+                    style={{ display:"flex", alignItems:"center", gap:10, padding:"8px 10px", background:"rgba(88,166,255,.05)", border:"1px solid rgba(88,166,255,.15)", borderRadius:8, cursor:"pointer", transition:"all .15s" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(88,166,255,.1)"}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(88,166,255,.05)"}
+                  >
+                    <span style={{ fontFamily:"Space Mono,monospace", fontSize:".62rem", color:"#009090", flexShrink:0 }}>{a.assetId}</span>
+                    <span style={{ fontSize:".76rem", color:"#e6edf3", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" as const }}>{a.name}</span>
+                    <PriBadge priority={a.priority} />
+                    <div style={{ display:"flex", gap:3, flexShrink:0 }}>
+                      {a.revenueTag.map((i: number) => (
+                        <span key={i} style={{ width:8, height:8, borderRadius:"50%", background: REV_TAGS[i]?.color ?? "#484f58" }} title={REV_TAGS[i]?.label} />
+                      ))}
+                    </div>
+                    <Btn xs teal onClick={() => handleStageAdvance(a)}>→ Live</Btn>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Revenue-ready live assets */}
+            {revenueReady.length > 0 && (
+              <>
+                <div style={{ fontSize:".7rem", fontWeight:700, letterSpacing:".1em", textTransform:"uppercase" as const, color:"#3fb950", margin:"14px 0 8px" }}>Revenue-Active Live</div>
+                <div style={{ display:"flex", flexDirection:"column" as const, gap:5 }}>
+                  {revenueReady.slice(0, 4).map((a: Asset) => (
+                    <div key={a._id}
+                      onClick={() => { setPreview(a); setPreviewTab("details"); }}
+                      style={{ display:"flex", alignItems:"center", gap:10, padding:"7px 10px", background:"rgba(63,185,80,.05)", border:"1px solid rgba(63,185,80,.15)", borderRadius:8, cursor:"pointer", transition:"all .15s" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(63,185,80,.1)"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(63,185,80,.05)"}
+                    >
+                      <span style={{ fontFamily:"Space Mono,monospace", fontSize:".62rem", color:"#009090", flexShrink:0 }}>{a.assetId}</span>
+                      <span style={{ fontSize:".76rem", color:"#e6edf3", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" as const }}>{a.name}</span>
+                      <StageBadge stage={a.stage as AssetStage} />
+                      <MulRing pct={leveragePct(a.multiplication)} size={32} />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Multiplication Gap Analysis */}
+        <div style={CARD}>
+          <div style={{ ...LABEL, display:"flex", alignItems:"center", justifyContent:"space-between" as const }}>
+            <span>Multiply Gap — High-Value Assets Under-Leveraged</span>
+            <span style={{ fontSize:".65rem", color:"#E8734A", fontWeight:500 }}>Live or promoted · &lt;50% leverage</span>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:8 }}>
+            {assets
+              .filter((a: Asset) =>
+                (a.stage === "live" || a.stage === "promoted" || a.stage === "converting") &&
+                leveragePct(a.multiplication) < 50
+              )
+              .sort((a: Asset, b: Asset) => leveragePct(a.multiplication) - leveragePct(b.multiplication))
+              .slice(0, 9)
+              .map((a: Asset) => {
+                const pct = leveragePct(a.multiplication);
+                const missing = Object.entries(a.multiplication)
+                  .filter(([, v]) => !v)
+                  .map(([k]) => MUL_FORMATS.find(f => f.key === k)?.label ?? k);
+                return (
+                  <div key={a._id}
+                    onClick={() => { setPreview(a); setPreviewTab("multiply"); }}
+                    style={{ padding:"10px 12px", background:"rgba(232,115,74,.05)", border:"1px solid rgba(232,115,74,.18)", borderRadius:8, cursor:"pointer", transition:"all .15s" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(232,115,74,.1)"}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(232,115,74,.05)"}
+                  >
+                    <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:6 }}>
+                      <span style={{ fontFamily:"Space Mono,monospace", fontSize:".6rem", color:"#009090" }}>{a.assetId}</span>
+                      <span style={{ fontSize:".74rem", color:"#e6edf3", flex:1, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" as const }}>{a.name}</span>
+                      <MulRing pct={pct} size={34} />
+                    </div>
+                    <div style={{ display:"flex", flexWrap:"wrap" as const, gap:3 }}>
+                      {missing.map(m => (
+                        <span key={m} style={{ fontSize:".6rem", padding:"2px 6px", background:"rgba(232,115,74,.15)", color:"#E8734A", borderRadius:4 }}>+ {m}</span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })
+            }
+            {assets.filter((a: Asset) =>
+              (a.stage === "live" || a.stage === "promoted" || a.stage === "converting") &&
+              leveragePct(a.multiplication) < 50
+            ).length === 0 && (
+              <div style={{ gridColumn:"1/-1", textAlign:"center" as const, padding:"2rem", color:"#484f58", fontSize:".8rem" }}>
+                All live/promoted assets are well-leveraged (≥50%). Great work!
+              </div>
+            )}
+          </div>
+        </div>
+
+      </div>
+    );
+  }
   // ── ADD/EDIT FORM ─────────────────────────────────────────
   const [form, setForm] = useState<Record<string,any>>({});
   const [formErrors, setFormErrors] = useState<Record<string,string>>({});
@@ -1384,6 +1675,7 @@ export function AssetDashboard() {
     { key:"registry",  icon:"≡", label:"Registry", badge: assets.length },
     { key:"upload",    icon:"↑", label:"Upload" },
     { key:"activity",  icon:"○", label:"Activity", badge: activity.length },
+    { key:"revenue",   icon:"$", label:"Revenue" },
   ];
   return (
     <>
@@ -1435,6 +1727,7 @@ export function AssetDashboard() {
         {tab === "registry"  && <RegistryTab />}
         {tab === "upload"    && <UploadTab />}
         {tab === "activity"  && <ActivityTab />}
+        {tab === "revenue"   && <RevenueTab />}
       </main>
       <PreviewPanel />
       <AddEditModal />
