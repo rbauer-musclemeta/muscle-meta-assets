@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muscle power and fast-twitch fibers with age: 45-second explainer</title>
+<meta name="description" content="A 45-second captioned motion graphic on age-related change in muscle power and fast-twitch (Type II) fibers. Muscle-Meta Matrix.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =============================================================================
+   MUSCLE-META MATRIX™  •  BRAND TOKENS
+   Clinical Intelligence for Active Aging
+   ========================================================================== */
+
+:root {
+  /* ---------- CORE PALETTE --------------------------------------------------- */
+  --teal:          #009090;
+  --teal-dark:     #006b6b;
+  --teal-light:    #00b3b3;
+  --teal-muted:    #e6f5f5;
+  --teal-tint:     #f0f9f9;
+
+  --gold:          #D4AF37;
+  --gold-dark:     #B5952F;
+  --gold-light:    #e3c56a;
+  --gold-muted:    #faf6e8;
+
+  --purple:        #7c3aed;
+  --purple-dark:   #6d28d9;
+  --purple-muted:  #f3f0fd;
+
+  --green:         #16a34a;
+  --green-dark:    #15803d;
+  --green-muted:   #f0fdf4;
+
+  /* ---------- NEUTRALS ------------------------------------------------------- */
+  --ink:           #1a2332;   /* headlines */
+  --ink-soft:      #344256;   /* body */
+  --ink-muted:     #6b7b8f;   /* captions, eyebrows */
+  --ink-faint:     #a8b3c2;   /* disabled, subtle */
+
+  --surface:       #f7f6f3;   /* warm off-white page bg */
+  --surface-tint:  #fdfcfa;
+  --border:        #e8e6e1;
+  --border-soft:   #f0eeea;
+  --white:         #ffffff;
+
+  /* ---------- SEMANTIC (Risk Tier) ------------------------------------------- */
+  --tier-1: #009090;          /* Optimized (teal) */
+  --tier-2: #3b82f6;          /* Functional (blue) */
+  --tier-3: #f59e0b;          /* Declining (amber) */
+  --tier-4: #f97316;          /* At Risk (orange) */
+  --tier-5: #dc2626;          /* Critical (red) */
+
+  --tier-1-muted: #e6f5f5;
+  --tier-2-muted: #eff6ff;
+  --tier-3-muted: #fef3c7;
+  --tier-4-muted: #ffedd5;
+  --tier-5-muted: #fee2e2;
+
+  /* ---------- TYPOGRAPHY ----------------------------------------------------- */
+  --font-display:  'Cormorant Garamond', 'Cormorant', Georgia, serif;
+  --font-body:     'Outfit', 'Helvetica Neue', Arial, sans-serif;
+
+  --fs-eyebrow: 11px;        --lh-eyebrow: 1.4;     --tr-eyebrow: 0.18em;
+  --fs-caption: 12px;        --lh-caption: 1.5;
+  --fs-micro:   13px;        --lh-micro:   1.55;
+  --fs-body:    16px;        --lh-body:    1.65;
+  --fs-lede:    19px;        --lh-lede:    1.6;
+  --fs-h4:      22px;        --lh-h4:      1.25;
+  --fs-h3:      28px;        --lh-h3:      1.2;
+  --fs-h2:      40px;        --lh-h2:      1.12;
+  --fs-h1:      64px;        --lh-h1:      1.05;
+  --fs-display: 88px;        --lh-display: 1.02;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  /* ---------- SPACING (8pt grid) --------------------------------------------- */
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  --content-max: 1200px;
+  --content-narrow: 880px;
+  --gutter: 32px;
+  --gutter-mobile: 20px;
+
+  /* ---------- RADII ---------------------------------------------------------- */
+  --r-1:  6px;
+  --r-2:  10px;
+  --r-3:  14px;
+  --r-4:  20px;
+  --r-5:  28px;
+  --r-pill: 999px;
+
+  /* ---------- SHADOWS (clinical luxury — low and soft) ---------------------- */
+  --shadow-xs:  0 1px 2px rgba(26, 35, 50, 0.04);
+  --shadow-sm:  0 2px 8px rgba(26, 35, 50, 0.05);
+  --shadow-md:  0 6px 20px rgba(26, 35, 50, 0.07);
+  --shadow-lg:  0 12px 40px rgba(26, 35, 50, 0.08);
+  --shadow-teal: 0 8px 30px rgba(0, 144, 144, 0.15);
+  --shadow-gold: 0 4px 16px rgba(212, 175, 55, 0.25);
+
+  /* ---------- MOTION --------------------------------------------------------- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    150ms;
+  --dur-base:    240ms;
+  --dur-slow:    420ms;
+  --dur-reveal:  900ms;
+
+  /* ---------- Z ------------------------------------------------------------- */
+  --z-grain: 1;
+  --z-nav:   50;
+  --z-sticky: 60;
+  --z-modal: 100;
+}
+
+/* =============================================================================
+   BASE ELEMENTS
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: -0.015em; }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+h4 { font-size: var(--fs-h4); line-height: var(--lh-h4); }
+
+p  { margin: 0; color: var(--ink-soft); }
+
+em { font-style: italic; }
+
+a { color: var(--teal); text-decoration: none; transition: color var(--dur-fast) var(--ease-out); }
+a:hover { color: var(--gold-dark); }
+
+button { font-family: var(--font-body); }
+
+::selection { background: var(--teal-muted); color: var(--ink); }
+
+/* =============================================================================
+   TYPE UTILITIES
+   ========================================================================== */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.eyebrow-ink    { color: var(--ink); }
+.eyebrow-gold   { color: var(--gold-dark); }
+.eyebrow-muted  { color: var(--ink-muted); }
+
+.lede {
+  font-family: var(--font-body);
+  font-size: var(--fs-lede);
+  line-height: var(--lh-lede);
+  color: var(--ink-soft);
+  font-weight: var(--fw-regular);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  font-weight: var(--fw-bold);
+}
+
+.serif-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--fw-medium);
+  color: var(--teal);
+}
+
+/* =============================================================================
+   BUTTONS
+   ========================================================================== */
+.mmm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: var(--fw-semi);
+  letter-spacing: 0.01em;
+  border-radius: var(--r-pill);
+  padding: 14px 28px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+  text-decoration: none;
+  line-height: 1;
+}
+.mmm-btn-primary {
+  background: var(--teal);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.mmm-btn-primary:hover {
+  background: var(--ink);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+.mmm-btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--border);
+}
+.mmm-btn-ghost:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  background: var(--teal-tint);
+}
+.mmm-btn-gold {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: var(--shadow-gold);
+}
+.mmm-btn-gold:hover {
+  background: var(--gold-dark);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.mmm-btn-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+.mmm-btn-dark:hover {
+  background: var(--teal);
+  border-color: var(--gold);
+}
+.mmm-btn-lg { padding: 18px 36px; font-size: 16px; }
+.mmm-btn-sm { padding: 10px 20px; font-size: 13px; }
+
+/* =============================================================================
+   CARDS
+   ========================================================================== */
+.mmm-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-3);
+  padding: var(--s-6);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.mmm-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+/* =============================================================================
+   GRAIN TEXTURE OVERLAY
+   ========================================================================== */
+.mmm-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain);
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+/* =============================================================================
+   SCROLL REVEAL
+   ========================================================================== */
+.mmm-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+              transform var(--dur-reveal) var(--ease-out);
+}
+.mmm-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.mmm-reveal-delay-1 { transition-delay: 80ms; }
+.mmm-reveal-delay-2 { transition-delay: 160ms; }
+.mmm-reveal-delay-3 { transition-delay: 240ms; }
+.mmm-reveal-delay-4 { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mmm-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* =============================================================================
+   LAYOUT HELPERS
+   ========================================================================== */
+.mmm-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.mmm-section { padding: var(--s-9) 0; }
+.mmm-section-sm { padding: var(--s-7) 0; }
+
+@media (max-width: 768px) {
+  :root {
+    --fs-h1: 40px;
+    --fs-h2: 30px;
+    --fs-h3: 24px;
+    --fs-display: 56px;
+    --gutter: var(--gutter-mobile);
+    --s-9: 64px;
+  }
+  .mmm-btn { padding: 13px 22px; font-size: 14px; }
+}
+
+
+/* ===== Motion player ===== */
+html, body { height: 100%; background: #f7f6f3; }
+body { display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
+.player { width: 100%; max-width: 1280px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.stage-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-3); box-shadow: var(--shadow-md); background: var(--surface); border: 1px solid var(--border); }
+#stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; background: #f7f6f3; overflow: hidden; }
+#vis { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+.tx { position: absolute; opacity: 0; will-change: opacity, transform; }
+.tx .eb { font-family: var(--font-body); font-weight: 600; font-size: 26px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-dark); }
+.tx .hd { font-family: var(--font-display); font-weight: 700; font-size: 82px; line-height: 1.04; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
+.tx .sub { font-family: var(--font-body); font-size: 30px; line-height: 1.4; color: var(--ink-soft); }
+.tx .src { font-family: var(--font-body); font-size: 24px; line-height: 1.4; color: var(--ink-soft); }
+.tx .stat { font-variant-numeric: lining-nums; font-family: var(--font-display); font-weight: 700; font-size: 130px; line-height: 1; letter-spacing: -0.03em; color: var(--teal); }
+.tx .statl { margin-top: 14px; font-family: var(--font-body); font-weight: 500; font-size: 32px; line-height: 1.35; color: var(--ink); }
+.cap { position: absolute; left: 140px; width: 1640px; bottom: 70px; opacity: 0; }
+.cap p { margin: 0; display: inline-block; font-family: var(--font-body); font-weight: 500; font-size: 38px; line-height: 1.35; color: var(--ink); background: rgba(255,255,255,0.94); border: 1px solid var(--border); border-radius: var(--r-4); padding: 20px 36px; box-shadow: var(--shadow-sm); }
+.brand { position: absolute; left: 140px; top: 70px; font-family: var(--font-body); font-weight: 600; font-size: 24px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+.brand i { font-style: normal; color: var(--teal-dark); }
+.edu { position: absolute; right: 140px; top: 70px; font-family: var(--font-body); font-size: 24px; color: var(--ink-soft); text-align: right; }
+.endcard { position: absolute; inset: 0; opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 200px 150px; }
+.endcard .tag { font-family: var(--font-display); font-weight: 700; font-size: 128px; line-height: 1.04; letter-spacing: -0.025em; color: var(--ink); }
+.endcard .tag em { color: var(--teal); }
+.endcard .ask { margin-top: 36px; font-family: var(--font-body); font-size: 34px; color: var(--ink-soft); }
+.endcard .cta { margin-top: 44px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-weight: 600; font-size: 36px; padding: 22px 56px; border-radius: var(--r-pill); background: var(--teal); color: #fff; box-shadow: var(--shadow-teal); border: 2px solid var(--gold); }
+.endcard .disc { margin-top: 44px; max-width: 1300px; font-family: var(--font-body); font-size: 24px; line-height: 1.45; color: var(--ink-soft); }
+.rule-gold { width: 120px; height: 4px; background: var(--gold); border-radius: 2px; margin: 0 auto 36px; }
+/* svg classes */
+.card { fill: #fff; stroke: var(--border); stroke-width: 2; filter: drop-shadow(0 12px 40px rgba(26,35,50,0.08)); }
+.t1f { fill: var(--teal-muted); stroke: var(--teal); stroke-width: 4; }
+.t2f { fill: var(--gold-muted); stroke: var(--gold-dark); stroke-width: 4; }
+.lbl { font-family: var(--font-body); font-size: 24px; fill: var(--ink-soft); }
+.lbl-b { font-family: var(--font-body); font-size: 26px; font-weight: 600; fill: var(--ink); }
+.axis { stroke: var(--ink-soft); stroke-width: 3; fill: none; stroke-linecap: round; }
+.pill { fill: var(--teal-muted); }
+.pilltx { font-family: var(--font-body); font-size: 22px; font-weight: 600; fill: var(--teal-dark); letter-spacing: 0.04em; }
+.numtx { font-variant-numeric: lining-nums; font-family: var(--font-display); font-weight: 700; font-size: 64px; fill: var(--ink); }
+
+/* controls */
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; background: #fff; border: 1px solid var(--border); border-radius: var(--r-3); padding: 8px 12px; box-shadow: var(--shadow-xs); }
+.btn { min-width: 44px; min-height: 44px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--r-pill); border: 1px solid var(--border); background: var(--surface); color: var(--ink); font-family: var(--font-body); font-weight: 600; font-size: 15px; cursor: pointer; transition: all var(--dur-fast) var(--ease-out); }
+.btn:hover { border-color: var(--teal); color: var(--teal-dark); }
+.btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+.btn.primary:hover { background: var(--teal-dark); color: #fff; }
+.btn:focus-visible, #scrub:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.btn svg { width: 20px; height: 20px; fill: currentColor; }
+#scrub { flex: 1 1 220px; min-width: 160px; height: 44px; accent-color: var(--teal); cursor: pointer; }
+.readout { font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 500; color: var(--ink); min-width: 118px; text-align: center; }
+.hint { font-size: 13px; color: var(--ink-soft); padding: 0 4px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body.capture { background: #f7f6f3; }
+body.capture .player { padding: 0; max-width: none; }
+body.capture .controls, body.capture .hint { display: none; }
+body.capture .stage-wrap { border: 0; border-radius: 0; box-shadow: none; }
+body.reduced #btn-play, body.reduced #btn-replay { display: none; }
+@media (max-width: 768px) {
+  .player { padding: 12px 16px; }
+  .hint { display: none; }
+  .readout { order: 3; flex: 1 1 100%; }
+}
+</style>
+</head>
+<body>
+<main class="player">
+  <div class="stage-wrap" id="wrap" role="img" aria-label="Captioned 45-second motion graphic: how muscle power and fast-twitch fibers tend to change with age, and how they respond to training. Captions are always on screen. Use the controls below to play, pause, replay or step through.">
+    <div id="stage">
+      <svg id="vis" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+      <div class="brand">Muscle-Meta Matrix<i>&#8482;</i></div>
+      <div class="edu" id="edu">Educational content, not medical advice</div>
+      <div id="texts"></div>
+      <div id="caps"></div>
+      <div class="endcard" id="endcard">
+        <div class="rule-gold"></div>
+        <div class="tag">Small Steps.<br><em>Exponential Gains.</em>&#8482;</div>
+        <div class="ask">Ask your PT or clinician what is right for you.</div>
+        <div class="cta">Take the assessment</div>
+        <div class="disc">Educational information only. Not individualized medical advice and not a diagnosis. Talk with a clinician before changing your exercise, especially after a fall, hospital stay, injury or surgery.</div>
+      </div>
+    </div>
+  </div>
+  <div class="controls" role="group" aria-label="Playback controls">
+    <button class="btn primary" id="btn-play" type="button" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="ico-play" d="M7 4l13 8-13 8z"/></svg><span id="lbl-play">Play</span></button>
+    <button class="btn" id="btn-replay" type="button" aria-label="Replay from the start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6.5 12 11V8a5 5 0 11-5 5H5a7 7 0 107-8z"/></svg><span>Replay</span></button>
+    <button class="btn" id="btn-prev" type="button" aria-label="Previous scene"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+    <button class="btn" id="btn-next" type="button" aria-label="Next scene"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5l11 7L4 19z"/></svg></button>
+    <input id="scrub" type="range" min="0" max="4500" step="1" value="0" aria-label="Timeline position">
+    <div class="readout" id="readout" aria-live="off">0:00.0 / 0:45.0</div>
+  </div>
+  <div class="hint">Space: play or pause. Left and right arrows: 2 seconds. Shift plus arrow, or the scene buttons: previous or next scene. Home: start.</div>
+</main>
+
+<script>
+(function () {
+'use strict';
+var DURATION = 45.0;
+window.__duration = DURATION;
+
+/* ---------- figures cleared by the research handoff (handoff-findings.json) ---------- */
+var NUM = {
+  rate:  { on: true,  text: '1 to 2%', src: 'Baltasar-Fernández 2025; Garcia-Aguirre 2025' },       // PMID 41094174, 39790033 (Promising)
+  typeII:{ on: true,  text: '29 to 35%', src: 'Nilwik 2013; Lexell 1991' },                              // PMID 23425621, 2032938 (Promising)
+  bed:   { on: true,  src: 'Kortebein 2008' },                                                          // PMID 18948558 (Promising)
+  devos: { on: true,  src: 'de Vos 2005' }                                                              // PMID 15972618 (Established)
+};
+
+/* ---------- easing ---------- */
+function bez(x1, y1, x2, y2) {
+  function bx(t) { var u = 1 - t; return 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t; }
+  function by(t) { var u = 1 - t; return 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t; }
+  return function (x) {
+    if (x <= 0) return 0; if (x >= 1) return 1;
+    var lo = 0, hi = 1, m;
+    for (var i = 0; i < 28; i++) { m = (lo + hi) / 2; if (bx(m) < x) lo = m; else hi = m; }
+    return by((lo + hi) / 2);
+  };
+}
+var EASE = bez(0.16, 1, 0.3, 1);
+function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+function pr(t, a, b) { return cl((t - a) / (b - a)); }
+function ez(t, a, b) { return EASE(pr(t, a, b)); }
+function lerp(a, b, u) { return a + (b - a) * u; }
+function win(t, a, b, fi, fo) { // visibility 0..1 with fade in/out
+  fi = fi == null ? 0.6 : fi; fo = fo == null ? 0.4 : fo;
+  var i = fi > 0 ? ez(t, a, a + fi) : (t >= a ? 1 : 0);
+  var o = fo > 0 ? 1 - pr(t, b - fo, b) : (t < b ? 1 : 0);
+  return i * o;
+}
+function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- svg helpers ---------- */
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) {
+  var e = document.createElementNS(NS, tag);
+  for (var k in attrs) { if (k === 'text') e.textContent = attrs[k]; else e.setAttribute(k, attrs[k]); }
+  if (parent) parent.appendChild(e);
+  return e;
+}
+var vis = document.getElementById('vis');
+var CARD = { x: 1000, y: 170, w: 780, h: 620 };
+var root = el('g', {}, vis);
+var cardG = el('g', { transform: 'translate(' + CARD.x + ',' + CARD.y + ')' }, root);
+el('rect', { 'class': 'card', x: 0, y: 0, width: CARD.w, height: CARD.h, rx: 28 }, cardG);
+function grp(parent) { return el('g', { opacity: 0 }, parent || cardG); }
+function setG(g, o, dy) { g.setAttribute('opacity', o.toFixed(3)); g.setAttribute('transform', 'translate(0,' + ((1 - o) * (dy == null ? 18 : dy)).toFixed(2) + ')'); }
+function tag(g, txt) { // illustrative / schematic label
+  var w = txt.length * 14.4 + 40;
+  el('rect', { 'class': 'pill', x: 36, y: 30, width: w, height: 40, rx: 20 }, g);
+  el('text', { 'class': 'pilltx', x: 54, y: 57, text: txt.toUpperCase() }, g);
+}
+function txt(g, x, y, s, cls, anchor) { var t = el('text', { 'class': cls || 'lbl', x: x, y: y, text: s }, g); if (anchor) t.setAttribute('text-anchor', anchor); return t; }
+
+/* =========================================================
+   V0  chair rise (0 - 5)
+   ========================================================= */
+var v0 = grp();
+(function () {
+  tag(v0, 'Everyday moment');
+  el('line', { 'class': 'axis', x1: 80, y1: 520, x2: 700, y2: 520, stroke: '#a8b3c2' }, v0);
+  // chair
+  el('rect', { x: 170, y: 390, width: 180, height: 16, rx: 6, fill: '#a8b3c2' }, v0);
+  el('rect', { x: 170, y: 220, width: 16, height: 186, rx: 6, fill: '#a8b3c2' }, v0);
+  el('rect', { x: 184, y: 406, width: 14, height: 114, rx: 5, fill: '#a8b3c2' }, v0);
+  el('rect', { x: 322, y: 406, width: 14, height: 114, rx: 5, fill: '#a8b3c2' }, v0);
+  // speed lines (power)
+  var burst = el('g', { opacity: 0 }, v0);
+  [[560, 300, 640, 300], [570, 340, 660, 340], [560, 380, 630, 380]].forEach(function (l) {
+    el('line', { x1: l[0], y1: l[1], x2: l[2], y2: l[3], stroke: '#D4AF37', 'stroke-width': 8, 'stroke-linecap': 'round' }, burst);
+  });
+  var P = {
+    seat: { head: [312, 189], sh: [300, 236], hip: [272, 372], kn: [420, 376], an: [425, 520], hand: [380, 330] },
+    mid:  { head: [462, 150], sh: [430, 192], hip: [336, 292], kn: [452, 378], an: [430, 520], hand: [520, 262] },
+    std:  { head: [440, 45],  sh: [440, 92],  hip: [440, 228], kn: [440, 376], an: [440, 520], hand: [452, 235] }
+  };
+  var parts = {};
+  ['torso', 'thigh', 'shank', 'foot', 'arm'].forEach(function (n) {
+    parts[n] = el('line', { stroke: '#009090', 'stroke-width': 24, 'stroke-linecap': 'round' }, v0);
+  });
+  parts.arm.setAttribute('stroke', '#006b6b'); parts.arm.setAttribute('stroke-width', 18);
+  var head = el('circle', { r: 30, fill: '#1a2332' }, v0);
+  function pose(u) {
+    var a, b, k;
+    if (u < 0.5) { a = P.seat; b = P.mid; k = u / 0.5; } else { a = P.mid; b = P.std; k = (u - 0.5) / 0.5; }
+    var r = {};
+    for (var j in a) r[j] = [lerp(a[j][0], b[j][0], k), lerp(a[j][1], b[j][1], k)];
+    return r;
+  }
+  function ln(p, a, b) { p.setAttribute('x1', a[0]); p.setAttribute('y1', a[1]); p.setAttribute('x2', b[0]); p.setAttribute('y2', b[1]); }
+  v0.render = function (t) {
+    var u = pr(t, 1.0, 3.6); u = u * u * (3 - 2 * u);
+    var r = pose(u);
+    ln(parts.torso, r.hip, r.sh); ln(parts.thigh, r.hip, r.kn); ln(parts.shank, r.kn, r.an);
+    ln(parts.foot, r.an, [r.an[0] + 52, 520]); ln(parts.arm, r.sh, r.hand);
+    head.setAttribute('cx', r.head[0]); head.setAttribute('cy', r.head[1]);
+    burst.setAttribute('opacity', (Math.sin(Math.PI * pr(t, 1.8, 3.4))).toFixed(3));
+    setG(v0, win(t, 0.0, 5.0, 0.7, 0.5));
+  };
+})();
+
+/* =========================================================
+   V1  force x speed concept (5 - 9)
+   ========================================================= */
+var v1 = grp();
+(function () {
+  tag(v1, 'Concept sketch');
+  var ox = 120, oy = 500, W = 540, H = 360;
+  el('path', { 'class': 'axis', d: 'M' + ox + ',' + (oy - H - 10) + ' L' + ox + ',' + oy + ' L' + (ox + W + 10) + ',' + oy }, v1);
+  txt(v1, ox + W / 2, oy + 56, 'Speed of movement', 'lbl', 'middle');
+  var yl = txt(v1, 56, oy - H / 2, 'Force', 'lbl', 'middle'); yl.setAttribute('transform', 'rotate(-90 56 ' + (oy - H / 2) + ')');
+  var pts = [];
+  for (var i = 0; i <= 40; i++) { var v = i / 40; var f = (1 - v) / (1 + 2.4 * v); pts.push([ox + v * W, oy - f * H]); }
+  var d = 'M' + pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' L');
+  var curve = el('path', { d: d, fill: 'none', stroke: '#009090', 'stroke-width': 7, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, v1);
+  var px = ox + 0.36 * W, py = oy - ((1 - 0.36) / (1 + 2.4 * 0.36)) * H;
+  var rect = el('rect', { x: ox, y: py, width: px - ox, height: oy - py, fill: '#faf6e8', stroke: '#B5952F', 'stroke-width': 4, rx: 6, opacity: 0 }, v1);
+  var dot = el('circle', { cx: px, cy: py, r: 14, fill: '#D4AF37', stroke: '#fff', 'stroke-width': 4, opacity: 0 }, v1);
+  var lb = el('g', { opacity: 0 }, v1);
+  txt(lb, ox + 24, py + 70, 'Power', 'lbl-b');
+  txt(lb, ox + 24, py + 104, 'force × speed', 'lbl');
+  v1.render = function (t) {
+    curve.setAttribute('stroke-dashoffset', (1 - ez(t, 5.5, 7.0)).toFixed(4));
+    var u = ez(t, 6.8, 7.8);
+    rect.setAttribute('opacity', u.toFixed(3)); rect.setAttribute('transform', 'translate(0,' + ((1 - u) * 40).toFixed(1) + ')');
+    rect.setAttribute('height', (oy - py).toFixed(1));
+    dot.setAttribute('opacity', u.toFixed(3));
+    lb.setAttribute('opacity', ez(t, 7.4, 8.2).toFixed(3));
+    setG(v1, win(t, 5.0, 9.0, 0.6, 0.5));
+  };
+})();
+
+/* =========================================================
+   Fibers (9 - 13 young, 18 - 23 older)
+   ========================================================= */
+function makeFibers(aged, a, b) {
+  var g = grp();
+  tag(g, 'Schematic, illustrative');
+  var R = rng(7), cells = [];
+  var cols = 6, rows = 5, x0 = 104, y0 = 150, dx = 104, dy = 84;
+  for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+    var x = x0 + c * dx + (r % 2 ? dx / 2 : 0), y = y0 + r * dy;
+    var two = R() < 0.46;
+    var el1 = el('circle', { cx: x, cy: y, r: 40, 'class': two ? 't2f' : 't1f' }, g);
+    cells.push({ e: el1, two: two, i: r * cols + c, x: x, y: y, j: 0.9 + R() * 0.2 });
+  }
+  // legend
+  el('circle', { cx: 80, cy: 574, r: 14, 'class': 't1f' }, g);
+  txt(g, 106, 582, 'Type I: slow, steady', 'lbl');
+  el('circle', { cx: 400, cy: 574, r: 14, 'class': 't2f' }, g);
+  txt(g, 426, 582, 'Type II: quick, strong', 'lbl');
+  var note = null;
+  if (aged) { note = el('g', { opacity: 0 }, g); txt(note, CARD.w - 36, 57, 'Older muscle', 'lbl-b', 'end'); }
+  else { txt(g, CARD.w - 36, 57, 'Younger muscle', 'lbl-b', 'end'); }
+  g.render = function (t) {
+    var vv = win(t, a, b, 0.6, 0.5);
+    cells.forEach(function (c) {
+      var appear = ez(t, a + 0.1 + c.i * 0.025, a + 0.9 + c.i * 0.025);
+      var s = 0.5 + 0.5 * appear;
+      var rad = 40;
+      if (aged && c.two) rad = 40 * lerp(1, 0.80, ez(t, a + 1.6, a + 3.6));
+      c.e.setAttribute('r', (rad * s).toFixed(2));
+      c.e.setAttribute('opacity', appear.toFixed(3));
+    });
+    if (note) note.setAttribute('opacity', ez(t, a + 0.3, a + 1.0).toFixed(3));
+    setG(g, vv);
+  };
+  return g;
+}
+var v2 = makeFibers(false, 9.0, 13.0);
+var v4 = makeFibers(true, 18.0, 23.0);
+
+/* =========================================================
+   V3  strength vs power curves (13 - 18)
+   ========================================================= */
+var v3 = grp();
+(function () {
+  tag(v3, 'Illustrative shape, not measured data');
+  var ox = 110, oy = 500, W = 560, H = 340;
+  el('path', { 'class': 'axis', d: 'M' + ox + ',' + (oy - H - 10) + ' L' + ox + ',' + oy + ' L' + (ox + W + 10) + ',' + oy }, v3);
+  txt(v3, ox + 6, oy + 50, 'Midlife', 'lbl');
+  txt(v3, ox + W * 0.63, oy + 50, 'About 65', 'lbl', 'middle');
+  txt(v3, ox + W, oy + 50, 'Later life', 'lbl', 'end');
+  var yl = txt(v3, 50, oy - H / 2, 'Capacity', 'lbl', 'middle'); yl.setAttribute('transform', 'rotate(-90 50 ' + (oy - H / 2) + ')');
+  var mark = el('line', { x1: ox + W * 0.63, y1: oy - H, x2: ox + W * 0.63, y2: oy, stroke: '#a8b3c2', 'stroke-width': 3, 'stroke-dasharray': '8 8' }, v3);
+  function path(endv, bend) {
+    var p = [];
+    for (var i = 0; i <= 40; i++) { var u = i / 40; var f = 1 - (1 - endv) * (bend * u * u + (1 - bend) * u); p.push([ox + u * W, oy - (f - 0.0) * (H - 20) - 10]); }
+    return p;
+  }
+  function dstr(p) { return 'M' + p.map(function (q) { return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' L'); }
+  var ps = path(0.64, 0.5), pp = path(0.32, 0.7);
+  var cs = el('path', { d: dstr(ps), fill: 'none', stroke: '#009090', 'stroke-width': 8, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, v3);
+  var cp = el('path', { d: dstr(pp), fill: 'none', stroke: '#D4AF37', 'stroke-width': 8, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, v3);
+  var ls = el('g', { opacity: 0 }, v3), lp = el('g', { opacity: 0 }, v3);
+  var es = ps[40], ep = pp[40];
+  txt(ls, es[0] - 40, es[1] - 50, 'Strength', 'lbl-b', 'end');
+  txt(lp, ep[0] - 12, ep[1] + 40, 'Power', 'lbl-b', 'end');
+  v3.render = function (t) {
+    cs.setAttribute('stroke-dashoffset', (1 - ez(t, 13.7, 16.4)).toFixed(4));
+    cp.setAttribute('stroke-dashoffset', (1 - ez(t, 13.9, 16.6)).toFixed(4));
+    ls.setAttribute('opacity', ez(t, 16.0, 16.8).toFixed(3));
+    lp.setAttribute('opacity', ez(t, 16.2, 17.0).toFixed(3));
+    setG(v3, win(t, 13.0, 18.0, 0.6, 0.5));
+  };
+})();
+
+/* =========================================================
+   V5  time off your feet (23 - 31)
+   ========================================================= */
+var v5 = grp();
+(function () {
+  tag(v5, 'Older adults, 10 days of bed rest');
+  var chips = ['Time off your feet', 'Injury or surgery', 'Acute illness'];
+  var cg = [];
+  var cx = 36;
+  chips.forEach(function (c, i) {
+    var g = el('g', { opacity: 0 }, v5), w = c.length * 12.2 + 34;
+    el('rect', { x: cx, y: 96, width: w, height: 48, rx: 24, fill: '#f0f9f9', stroke: '#009090', 'stroke-width': 2 }, g);
+    el('text', { 'class': 'lbl', x: cx + w / 2, y: 128, 'text-anchor': 'middle', text: c, style: 'fill:#1a2332;font-weight:500;font-size:22px' }, g);
+    cx += w + 10; cg.push(g);
+  });
+  var base = 225;
+  el('line', { 'class': 'axis', x1: 90, y1: base, x2: 700, y2: base }, v5);
+  txt(v5, 90, base - 12, 'Starting level', 'lbl');
+  var bars = [];
+  function bar(x, hpx, label, val, name) {
+    var g = el('g', { opacity: 0 }, v5);
+    var r = el('rect', { x: x, y: base, width: 150, height: 0, rx: 10, fill: '#D4AF37' }, g);
+    var v = txt(g, x + 75, base + hpx + 52, val, 'numtx', 'middle');
+    var l = txt(g, x + 75, base + hpx + 90, label, 'lbl', 'middle');
+    bars.push({ g: g, r: r, v: v, l: l, h: hpx });
+  }
+  bar(160, 172, 'Knee strength', '−13.2%');
+  bar(430, 182, 'Stair-climbing power', '−14%');
+  var note = el('g', { opacity: 0 }, v5);
+  el('rect', { x: 36, y: 528, width: 708, height: 64, rx: 14, fill: '#f0f9f9' }, note);
+  txt(note, 56, 568, 'Regaining takes time and gradual, progressive activity.', 'lbl-b').setAttribute('style', 'font-size:24px');
+  v5.render = function (t) {
+    cg.forEach(function (g, i) { var o = ez(t, 23.5 + i * 0.35, 24.3 + i * 0.35); g.setAttribute('opacity', o.toFixed(3)); g.setAttribute('transform', 'translate(0,' + ((1 - o) * 14).toFixed(1) + ')'); });
+    bars.forEach(function (b, i) {
+      var o = ez(t, 25.0 + i * 0.3, 25.8 + i * 0.3);
+      var gr = ez(t, 25.3 + i * 0.3, 27.2 + i * 0.3);
+      b.g.setAttribute('opacity', o.toFixed(3));
+      b.r.setAttribute('height', (b.h * gr).toFixed(1));
+      var vo = ez(t, 26.6 + i * 0.3, 27.4 + i * 0.3);
+      b.v.setAttribute('opacity', vo.toFixed(3)); b.l.setAttribute('opacity', vo.toFixed(3));
+    });
+    note.setAttribute('opacity', ez(t, 28.4, 29.2).toFixed(3));
+    setG(v5, win(t, 23.0, 31.0, 0.6, 0.5));
+  };
+})();
+
+/* =========================================================
+   V6  training response (31 - 39)
+   ========================================================= */
+var v6 = grp();
+(function () {
+  tag(v6, 'Measured peak power');
+  var base = 470, scale = 20; // px per percent
+  el('line', { 'class': 'axis', x1: 90, y1: base, x2: 700, y2: base }, v6);
+  var items = [];
+  function bar(x, val, vtxt, label, col) {
+    var g = el('g', { opacity: 0 }, v6);
+    var r = el('rect', { x: x, y: base, width: 190, height: 0, rx: 10, fill: col }, g);
+    var v = txt(g, x + 95, base - val * scale - 16, vtxt, 'numtx', 'middle');
+    var l = txt(g, x + 95, base + 44, label, 'lbl', 'middle');
+    items.push({ g: g, r: r, v: v, h: val * scale, y: val * scale });
+  }
+  bar(150, 3, '+3%', 'Control group', '#a8b3c2');
+  bar(440, 14.5, '+14 to 15%', 'Explosive training', '#009090');
+  var note = el('g', { opacity: 0 }, v6);
+  el('rect', { x: 36, y: 528, width: 708, height: 64, rx: 14, fill: '#faf6e8' }, note);
+  txt(note, 56, 568, 'Power measured. Falls were not tested.', 'lbl-b').setAttribute('style', 'font-size:25px');
+  v6.render = function (t) {
+    items.forEach(function (b, i) {
+      var o = ez(t, 31.6 + i * 0.5, 32.4 + i * 0.5);
+      var gr = ez(t, 32.0 + i * 0.7, 34.2 + i * 0.7);
+      b.g.setAttribute('opacity', o.toFixed(3));
+      b.r.setAttribute('height', (b.h * gr).toFixed(1)); b.r.setAttribute('y', (470 - b.h * gr).toFixed(1));
+      var vo = ez(t, 33.6 + i * 0.7, 34.4 + i * 0.7);
+      b.v.setAttribute('opacity', vo.toFixed(3));
+      b.v.setAttribute('y', (470 - b.h * gr - 16).toFixed(1));
+    });
+    note.setAttribute('opacity', ez(t, 36.0, 36.8).toFixed(3));
+    setG(v6, win(t, 31.0, 39.0, 0.6, 0.5));
+  };
+})();
+
+/* =========================================================
+   V7  small steps (39 - 42)
+   ========================================================= */
+var v7 = grp();
+(function () {
+  tag(v7, 'A gradual path');
+  var steps = [['Build a base', 280], ['Add control', 370], ['Add speed, with guidance', 460]];
+  var sg = [];
+  steps.forEach(function (s, i) {
+    var g = el('g', { opacity: 0 }, v7);
+    var x = 70 + i * 220, h = s[1] - 150;
+    el('rect', { x: x, y: 520 - h, width: 210, height: h, rx: 12, fill: i === 2 ? '#009090' : '#e6f5f5', stroke: '#009090', 'stroke-width': 3 }, g);
+    var t = el('text', { 'class': 'lbl-b', x: x + 105, y: 520 - h + 52, 'text-anchor': 'middle', style: 'font-size:24px;fill:' + (i === 2 ? '#fff' : '#1a2332') }, g);
+    var words = s[0].split(' '), l1 = '', l2 = '';
+    if (words.length > 2) { l1 = words.slice(0, 2).join(' '); l2 = words.slice(2).join(' '); } else { l1 = s[0]; }
+    el('tspan', { x: x + 105, dy: 0, text: l1 }, t);
+    if (l2) el('tspan', { x: x + 105, dy: 32, text: l2 }, t);
+    sg.push(g);
+  });
+  v7.render = function (t) {
+    sg.forEach(function (g, i) { var o = ez(t, 39.3 + i * 0.4, 40.1 + i * 0.4); g.setAttribute('opacity', o.toFixed(3)); g.setAttribute('transform', 'translate(0,' + ((1 - o) * 30).toFixed(1) + ')'); });
+    setG(v7, win(t, 39.0, 42.0, 0.5, 0.5));
+  };
+})();
+
+var VIS = [v0, v1, v2, v3, v4, v5, v6, v7];
+
+/* =========================================================
+   Text and captions
+   ========================================================= */
+var textsEl = document.getElementById('texts'), capsEl = document.getElementById('caps');
+var HEAD_X = 140, HEAD_W = 780;
+function mk(html, a, b, o) {
+  var d = document.createElement('div'); d.className = 'tx'; d.style.left = HEAD_X + 'px'; d.style.top = o.top + 'px'; d.style.width = (o.w || HEAD_W) + 'px';
+  d.innerHTML = html; textsEl.appendChild(d);
+  return { e: d, a: a + (o.delay || 0), b: b, noOut: !!o.noOut };
+}
+var ITEMS = [];
+function head(eb, hd, a, b) {
+  ITEMS.push(mk('<div class="eb">' + eb + '</div>', a, b, { top: 190 }));
+  ITEMS.push(mk('<h2 class="hd">' + hd + '</h2>', a, b, { top: 240, delay: 0.12 }));
+}
+function body(html, a, b, top, delay) { ITEMS.push(mk(html, a, b, { top: top, delay: delay == null ? 0.35 : delay })); }
+
+head('Muscle power and aging', 'Standing up takes more than strength', 0, 5);
+head('Strength and power', 'Power is force, delivered fast', 5, 9);
+body('<div class="sub">Strength is how much force a muscle can make. Power adds speed.</div>', 5, 9, 480);
+head('Fast-twitch fibers', 'Type II fibers do the quick work', 9, 13);
+body('<div class="sub">Slow-twitch (Type I) fibers keep steady effort going. Fast-twitch (Type II) fibers add the burst.</div>', 9, 13, 480);
+head('What tends to change', 'Power tends to fall earlier than strength', 13, 18);
+body('<div class="stat">' + NUM.rate.text + '</div><div class="statl">a year, on average, after about 65. It varies by person.</div><div class="src" style="margin-top:10px">Sit-to-stand power, cohort studies. ' + NUM.rate.src + '.</div>', 13, 18, 450, 0.9);
+head('What tends to change', 'Fast-twitch fibers tend to get smaller', 18, 23);
+body('<div class="stat">' + NUM.typeII.text + '</div><div class="statl">smaller Type II fiber area in older men studied by biopsy. Type I changed less.</div><div class="src" style="margin-top:10px">Men only, small samples. ' + NUM.typeII.src + '.</div>', 18, 23, 450, 1.2);
+head('It is not only age', 'Time off your feet can speed the loss', 23, 31);
+body('<div class="sub">After 10 days of bed rest, healthy older adults had lower leg strength and stair-climbing power.</div><div class="src" style="margin-top:14px">' + NUM.bed.src + ', 11 adults, average age 67. Not the same as illness.</div>', 23, 31, 480, 1.6);
+head('The capacity responds', 'Measured power can improve with training', 31, 39);
+body('<div class="sub">8 to 12 weeks of explosive-intent training in 112 healthy adults, average age 69.</div><div class="src" style="margin-top:14px">' + NUM.devos.src + ', randomized trial. Peak power only; falls and independence were not tested.</div>', 31, 39, 480, 1.0);
+head('Next step', 'Small steps. Then ask your clinician.', 39, 42);
+body('<div class="sub">Start where you are today. Add control, then speed, with guidance from your PT or care team.</div>', 39, 42, 480, 0.5);
+
+var CAPS = [
+  [0, 5, 'Standing up from a chair looks simple. It asks your legs for force, and for speed.'],
+  [5, 9, 'Strength is how much force your muscles can make. Power is that force, delivered quickly.'],
+  [9, 13, 'Fast-twitch, or Type II, fibers are the quick fibers that do much of that work.'],
+  [13, 18, 'Power often falls earlier than strength. After about 65, sit-to-stand power tends to fall roughly 1 to 2% a year.'],
+  [18, 23, 'In biopsy studies of older men, fast-twitch fibers were noticeably smaller, while slow fibers changed less.'],
+  [23, 27, 'Time off your feet, injury and illness can speed the loss. It is not only age.'],
+  [27, 31, 'Strength and power can fall within days of bed rest. Regaining them takes time and gradual activity.'],
+  [31, 35, 'In a randomized trial, measured peak power rose about 14 to 15% with training, compared with 3% in controls.'],
+  [35, 39, 'That is a power measurement in healthy adults. It does not tell us about falls or independence.'],
+  [39, 42, 'Small steps add up. Ask your PT or clinician what is right for you.'],
+  [42, 45, 'Small Steps. Exponential Gains.&#8482; Take the assessment when you are ready.']
+];
+var CAPEL = CAPS.map(function (c) {
+  var d = document.createElement('div'); d.className = 'cap'; d.innerHTML = '<p>' + c[2] + '</p>'; capsEl.appendChild(d); return { e: d, a: c[0], b: c[1] };
+});
+var endcard = document.getElementById('endcard');
+var edu = document.getElementById('edu');
+var lastCap = CAPEL[CAPEL.length - 1];
+
+/* =========================================================
+   Master render: pure function of t
+   ========================================================= */
+var T = 0;
+function render(t) {
+  t = Math.max(0, Math.min(DURATION, t)); T = t;
+  VIS.forEach(function (v) { v.render(t); });
+  // card hides for end card
+  cardG.setAttribute('opacity', (1 - pr(t, 41.6, 42.2)).toFixed(3));
+  ITEMS.forEach(function (it) {
+    var o = win(t, it.a, it.b, 0.6, 0.4);
+    it.e.style.opacity = o.toFixed(3);
+    it.e.style.transform = 'translateY(' + ((1 - o) * 24).toFixed(1) + 'px)';
+  });
+  CAPEL.forEach(function (c, i) {
+    var last = i === CAPEL.length - 1;
+    var o = win(t, c.a, c.b, 0.45, last ? 0 : 0.3);
+    c.e.style.opacity = o.toFixed(3);
+    c.e.style.transform = 'translateY(' + ((1 - o) * 14).toFixed(1) + 'px)';
+  });
+  // end card (42 - 45)
+  var eo = ez(t, 42.0, 42.9);
+  endcard.style.opacity = eo.toFixed(3);
+  endcard.style.transform = 'translateY(' + ((1 - eo) * 20).toFixed(1) + 'px)';
+  ui(t);
+}
+window.__seek = function (t) { render(+t); return T; };
+window.__time = function () { return T; };
+
+/* =========================================================
+   Player
+   ========================================================= */
+var wrap = document.getElementById('wrap'), stage = document.getElementById('stage');
+var btnPlay = document.getElementById('btn-play'), lblPlay = document.getElementById('lbl-play');
+var scrub = document.getElementById('scrub'), readout = document.getElementById('readout');
+var capture = /[?&]capture/.test(location.search);
+if (capture) document.body.classList.add('capture');
+var reduced = false;
+try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+if (reduced) document.body.classList.add('reduced');
+
+function fit() {
+  var w = wrap.clientWidth;
+  var s = w / 1920;
+  stage.style.transform = 'scale(' + s + ')';
+}
+window.addEventListener('resize', fit); fit();
+if (window.ResizeObserver) new ResizeObserver(fit).observe(wrap);
+
+function fmt(t) { var m = Math.floor(t / 60), s = t - m * 60; return m + ':' + (s < 10 ? '0' : '') + s.toFixed(1); }
+function ui(t) {
+  scrub.value = Math.round(t * 100);
+  readout.textContent = fmt(t) + ' / ' + fmt(DURATION);
+  scrub.setAttribute('aria-valuetext', fmt(t) + ' of ' + fmt(DURATION));
+}
+
+var playing = false, startWall = 0, startT = 0, raf = 0;
+function frame(now) {
+  if (!playing) return;
+  var t = startT + (now - startWall) / 1000;
+  if (t >= DURATION) { render(DURATION); pause(); return; }
+  render(t);
+  raf = requestAnimationFrame(frame);
+}
+function play() {
+  if (reduced) return;
+  if (T >= DURATION) T = 0;
+  playing = true; startT = T; startWall = performance.now();
+  lblPlay.textContent = 'Pause'; btnPlay.setAttribute('aria-label', 'Pause');
+  document.getElementById('ico-play').setAttribute('d', 'M6 4h4v16H6zM14 4h4v16h-4z');
+  raf = requestAnimationFrame(function (n) { startWall = n; frame(n); });
+}
+function pause() {
+  playing = false; cancelAnimationFrame(raf);
+  lblPlay.textContent = T >= DURATION ? 'Play again' : 'Play'; btnPlay.setAttribute('aria-label', 'Play');
+  document.getElementById('ico-play').setAttribute('d', 'M7 4l13 8-13 8z');
+}
+function seek(t) { var was = playing; if (was) pause(); render(t); if (was) play(); }
+var SCENES = [0, 5, 9, 13, 18, 23, 27, 31, 35, 39, 42];
+function settle(i) { var b = i + 1 < SCENES.length ? SCENES[i + 1] : DURATION; return b >= DURATION ? DURATION : b - 0.5; }
+function sceneIndex(t) { var k = 0; for (var i = 0; i < SCENES.length; i++) if (t >= SCENES[i] - 0.01) k = i; return k; }
+function step(dir) {
+  var k = sceneIndex(T);
+  if (reduced) {
+    // static stepping: scene by scene at settled state
+    var cur = -1; for (var i = 0; i < SCENES.length; i++) if (Math.abs(T - settle(i)) < 0.05) cur = i;
+    var n = cur < 0 ? (dir > 0 ? k : Math.max(0, k - 1)) : cur + dir;
+    n = Math.max(0, Math.min(SCENES.length - 1, n));
+    seek(settle(n));
+  } else {
+    var inScene = T - SCENES[k] > 0.6;
+    var n2 = dir > 0 ? Math.min(SCENES.length - 1, k + 1) : (inScene ? k : Math.max(0, k - 1));
+    seek(SCENES[n2] + 0.0);
+  }
+}
+btnPlay.addEventListener('click', function () { playing ? pause() : play(); });
+document.getElementById('btn-replay').addEventListener('click', function () { render(0); play(); });
+document.getElementById('btn-prev').addEventListener('click', function () { step(-1); });
+document.getElementById('btn-next').addEventListener('click', function () { step(1); });
+scrub.addEventListener('input', function () { seek(scrub.value / 100); });
+document.addEventListener('keydown', function (e) {
+  if (e.target && e.target.tagName === 'INPUT' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { return; }
+  if (e.key === ' ' || e.code === 'Space') { e.preventDefault(); if (reduced) step(1); else playing ? pause() : play(); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); (e.shiftKey || reduced) ? step(1) : seek(T + 2); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); (e.shiftKey || reduced) ? step(-1) : seek(T - 2); }
+  else if (e.key === 'Home') { e.preventDefault(); seek(0); }
+});
+try {
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function (e) { reduced = e.matches; document.body.classList.toggle('reduced', reduced); if (reduced) { pause(); seek(settle(sceneIndex(T))); } });
+} catch (e) {}
+
+if (reduced) { render(settle(0)); } else { render(0); }
+if (!capture && !reduced) { /* wait for user: no autoplay with sound-less video is fine, but start paused so the first frame is calm */ }
+window.__ready = true;
+})();
+</script>
+</body>
+</html>
