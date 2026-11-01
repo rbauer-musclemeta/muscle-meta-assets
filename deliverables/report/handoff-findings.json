@@ -1,0 +1,394 @@
+{
+  "meta": {
+    "title": "Muscle power and fast-twitch fiber with aging: handoff findings",
+    "source_report": "power-fast-twitch-decline-report.md",
+    "date": "2026-11-01",
+    "pillar": "P1 Exercise & Mobility",
+    "categories": [
+      "P1-C4 Strength",
+      "P1-C2 Functional Independence"
+    ],
+    "audience": "Adults 50+ with declines in muscle function from aging, disuse, injury or catabolic crisis (acute illness, hospitalization, bed rest, major surgery)",
+    "rule": "Display only key_numbers with safe_to_display true. Use the exact value strings and populations. Where a number is not safe, use the qualitative wording provided."
+  },
+  "headline_takeaways": [
+    "Muscle power, the ability to produce force quickly, tends to fall earlier and often faster than muscle size, and in many studies faster than strength; how much faster varies by person, sex and test.",
+    "After about 65, strength and power tend to fall roughly 1 to 2% a year on average (faster at older ages); muscle size usually changes more slowly.",
+    "In older men studied by biopsy, fast-twitch (Type II) fibers are noticeably smaller than in younger men, and loss of motor units is a leading explanation under study.",
+    "In an 8-year cohort of 565 adults 65+, about 95% of the decline in relative sit-to-stand power was attributed to lower specific power and about 5% to leg muscle loss: size is only part of the story.",
+    "Power is trainable: in a 112-person randomized trial, peak power rose 14 to 15% after 8 to 12 weeks of explosive training (light, moderate or heavy loads) vs 3% in controls. That trial measured power, not falls or independence.",
+    "Bed rest or time off your feet can lower leg strength and power within days in older adults; gradual, supervised, progressive movement is the supported way back, with your care team's guidance.",
+    "Lower sit-to-stand power is associated with more falls history, mobility limitation and mortality in observational studies; association is not proof that training changes those outcomes."
+  ],
+  "approved_wording": {
+    "decline_rate": "Muscle strength and power tend to begin declining in midlife and, after about 65, often fall by roughly 1 to 2% a year on average, faster for some people and at older ages. Muscle size usually changes more slowly than strength or power.",
+    "power_vs_strength": "Power tends to fall earlier and faster than strength, though how much faster varies by person, sex and test.",
+    "type_ii": "In biopsy studies of older men, fast-twitch (Type II) fibers are often noticeably smaller than in younger men, while slow-twitch (Type I) fibers change less.",
+    "rfd": "Rapid force production tends to be lower in older adults than in younger adults.",
+    "disuse": "Muscle strength and power can fall within days of bed rest or immobilization, and regaining them takes time and progressive activity."
+  },
+  "two_percent_claim_verdict": {
+    "claim": "About 2% per year after age 40",
+    "verdict": "Does not hold as stated. No verified source supports a single ~2%/yr decline starting at 40. Mass, strength and power differ in rate and onset.",
+    "by_quantity": {
+      "muscle_mass": "Under 1% per year: cross-sectional median 0.47%/yr men, 0.37%/yr women; longitudinal at 75: 0.64-0.70%/yr women, 0.80-0.98%/yr men (PMID 22934016)",
+      "strength": "About 14-16% per decade (roughly 1.4-1.6%/yr) in mid-to-late life (initial ages 46-78, n=120; PMID 11320101); 3-4%/yr men and 2.5-3%/yr women at age 75 per review (PMID 22934016)",
+      "power": "Sit-to-stand power about 1-2%/yr after 65 (PMID 41094174, 39790033); leg extensor power ~3.5%/yr cross-sectional 65-89 (PMID 7825481); significant after 50, not significant 30-50 (PMID 34216098)",
+      "onset": "Baltimore upper-extremity data: declines beginning by age 40 (PMID 9310077); masters athletes 0.55-1.04%/yr at 35-60 in power events (PMID 39019444); athletes are not the general population"
+    },
+    "defensible_version": "Roughly 1 to 2% a year on average for strength and power after about 65, faster at older ages, with muscle size changing more slowly; onset detectable in midlife (about 40 to 50 in some cohorts).",
+    "grade_of_defensible_version": "Promising",
+    "safe_to_display_2pct_after_40": false
+  },
+  "key_numbers": [
+    {
+      "claim": "Relative sit-to-stand power fell by 11.8% in men and 8.0% in women over 8 years",
+      "value": "11.8% (men), 8.0% (women), 8 years",
+      "population": "565 adults aged 65+ (143 men, 422 women)",
+      "pmid": "41094174",
+      "doi": "10.1007/s00421-025-05947-3",
+      "grade": "Promising",
+      "safe_to_display": true
+    },
+    {
+      "claim": "About 95% of the average decline in relative sit-to-stand power attributed to lower specific power, about 5% to leg muscle loss",
+      "value": "~95% specific power / ~5% leg muscle loss",
+      "population": "565 adults 65+, 8-year cohort",
+      "pmid": "41094174",
+      "doi": "10.1007/s00421-025-05947-3",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Association within one cohort; not proof of mechanism. Say 'attributed to'."
+    },
+    {
+      "claim": "Annual loss of relative sit-to-stand power by age band",
+      "value": "men 1.1%/yr and women 0.7%/yr at 65-69; about 2.0%/yr (both sexes) at 75+",
+      "population": "565 adults 65+",
+      "pmid": "41094174",
+      "doi": "10.1007/s00421-025-05947-3",
+      "grade": "Promising",
+      "safe_to_display": true
+    },
+    {
+      "claim": "Linear decline of relative 30-s sit-to-stand power",
+      "value": "1.0%/yr (men), 1.5%/yr (women)",
+      "population": "1,475 adults aged 65-98, cross-sectional",
+      "pmid": "39790033",
+      "doi": "10.1002/jcsm.13676",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Cross-sectional: differences between people of different ages."
+    },
+    {
+      "claim": "Relative sit-to-stand power decline by age band, in W/kg per year",
+      "value": "-0.10 to -0.13 W/kg/yr at 50-80; -0.07 to -0.08 at 80+; not significant at 30-50",
+      "population": "9,320 adults 60-103 plus 586 adults 20-60, cross-sectional",
+      "pmid": "34216098",
+      "doi": "10.1002/jcsm.12737",
+      "grade": "Promising",
+      "safe_to_display": true
+    },
+    {
+      "claim": "Peak muscle power improvement after explosive resistance training vs control",
+      "value": "+14% (80% 1RM), +15% (50%), +14% (20%) vs +3% control",
+      "population": "112 healthy adults, mean age 69, 8-12 weeks",
+      "pmid": "15972618",
+      "doi": "10.1093/gerona/60.5.638",
+      "grade": "Established",
+      "safe_to_display": true,
+      "note": "Power outcome only. Do not link to falls or independence."
+    },
+    {
+      "claim": "Power training vs strength training on physical function (meta-analysis)",
+      "value": "SMD 0.30, 95% CI 0.05 to 0.54, low certainty",
+      "population": "20 RCTs, 566 community-living older adults",
+      "pmid": "35544136",
+      "doi": "10.1001/jamanetworkopen.2022.11623",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Show with the words 'low certainty'."
+    },
+    {
+      "claim": "Power training vs strength training on muscle power and activity tests",
+      "value": "power SMD 0.99 (0.54-1.44); activity tests SMD 0.37 and 0.43",
+      "population": "15 RCTs, 583 older adults",
+      "pmid": "35953775",
+      "doi": "10.1186/s11556-022-00297-x",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "No included study measured daily-life physical activity."
+    },
+    {
+      "claim": "Type II fiber size in older vs young men",
+      "value": "29% smaller (Type II); Type I only a trend (p=0.052)",
+      "population": "26 older men (71 y) vs 25 young men (23 y), biopsy",
+      "pmid": "23425621",
+      "doi": "10.1016/j.exger.2013.02.012",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Men only; small sample."
+    },
+    {
+      "claim": "Type 2 vs Type 1 fiber area in older vs young muscle",
+      "value": "Type 2 about 35% smaller; Type 1 just over 6% smaller (not significant)",
+      "population": "20 men aged 19-84, whole vastus lateralis",
+      "pmid": "2032938",
+      "doi": null,
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Men only. DOI not returned by PubMed."
+    },
+    {
+      "claim": "Motor-unit loss in older vastus lateralis",
+      "value": "50-60% fewer motor units than in young men",
+      "population": "22 young and 20 physically active older men (71 y)",
+      "pmid": "26486316",
+      "doi": "10.1113/JP271087",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Estimates (MUNE); active older men."
+    },
+    {
+      "claim": "Resistance training enlarges Type II fibers in older adults",
+      "value": "Type II size +24% (6 months); Type II area about +28% (12 weeks, derived); mean Type II +23% (16 weeks)",
+      "population": "Older men and women, 3 small trials",
+      "pmid": "23425621; 19196907; 16614355",
+      "doi": "10.1016/j.exger.2013.02.012; 10.1093/gerona/gln050; 10.1152/japplphysiol.01474.2005",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Conventional resistance training, not power-specific. Use 'about a quarter'."
+    },
+    {
+      "claim": "Leg strength and stair-climbing power after 10 days of bed rest",
+      "value": "-13.2% knee extensor strength; -14% stair-climbing power",
+      "population": "11 healthy older adults (67 y), no control group",
+      "pmid": "18948558",
+      "doi": "10.1093/gerona/63.10.1076",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Healthy volunteers; short; not the same as illness."
+    },
+    {
+      "claim": "Knee extension power after bed rest (meta-analysis)",
+      "value": "effect size -1.06 (95% CI -1.37 to -0.75); leg lean mass -0.86 kg older vs -0.24 kg younger",
+      "population": "118 healthy older volunteers, 5-14 days bed rest",
+      "pmid": "34422875",
+      "doi": "10.3389/fnut.2021.633987",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Show effect size only as 'large'; early function loss exceeded mass loss."
+    },
+    {
+      "claim": "Muscle mass loss rate vs strength loss rate",
+      "value": "mass: 0.47%/yr (men), 0.37%/yr (women) cross-sectional; strength lost 2-5x faster than mass in studies measuring both",
+      "population": "Quantitative review",
+      "pmid": "22934016",
+      "doi": "10.3389/fphys.2012.00260",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Review-level. Prefer 'strength tends to fall faster than muscle size'."
+    },
+    {
+      "claim": "Leg strength decline over about 10 years",
+      "value": "about 14% per decade (knee extension), 16% per decade (knee flexion)",
+      "population": "120 adults, initial age 46-78, n=120",
+      "pmid": "11320101",
+      "doi": "10.1093/gerona/56.5.b209",
+      "grade": "Promising",
+      "safe_to_display": true
+    },
+    {
+      "claim": "Low relative sit-to-stand power and mobility limitation",
+      "value": "age-adjusted OR 10.6 (women), 14.1 (men)",
+      "population": "9,320 older adults, cross-sectional",
+      "pmid": "34216098",
+      "doi": "10.1002/jcsm.12737",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Association; use qualitative phrasing on slides."
+    },
+    {
+      "claim": "Low relative sit-to-stand power and all-cause mortality",
+      "value": "HR 1.57 (men), 2.04 (women)",
+      "population": "1,876 adults 65+, follow-up ~9.7 y",
+      "pmid": "40816636",
+      "doi": "10.1016/j.jshs.2025.101080",
+      "grade": "Promising",
+      "safe_to_display": true,
+      "note": "Association; avoid fear framing."
+    },
+    {
+      "claim": "Osteosarcopenia associated with fracture and mortality",
+      "value": "fracture HR 2.13; mortality HR 1.75; falls HR 1.54",
+      "population": "66 studies, 64,404 people",
+      "pmid": "38086772",
+      "doi": "10.1002/jcsm.13392",
+      "grade": "Established",
+      "safe_to_display": true,
+      "note": "Do NOT attach 'frailty 4.7x' as an outcome: OR 4.72 was a risk factor for osteosarcopenia."
+    },
+    {
+      "claim": "Muscle power declines faster than strength by a fixed multiple ('2-3x')",
+      "value": "none",
+      "population": "n/a",
+      "pmid": null,
+      "doi": null,
+      "grade": "RESEARCH-NEEDED",
+      "safe_to_display": false,
+      "note": "Use qualitative wording only."
+    },
+    {
+      "claim": "Rate of force development declines 3-5% per year after 50",
+      "value": "none",
+      "population": "n/a",
+      "pmid": null,
+      "doi": null,
+      "grade": "RESEARCH-NEEDED",
+      "safe_to_display": false,
+      "note": "No PMID-backed per-year RFD figure found."
+    },
+    {
+      "claim": "Type II fiber loss/decline '2x faster' than Type I",
+      "value": "none as a rate",
+      "population": "n/a",
+      "pmid": null,
+      "doi": null,
+      "grade": "RESEARCH-NEEDED",
+      "safe_to_display": false,
+      "note": "Only group size differences exist (29-35% smaller); not rates."
+    },
+    {
+      "claim": "About 2% per year decline after age 40",
+      "value": "none as stated",
+      "population": "n/a",
+      "pmid": null,
+      "doi": null,
+      "grade": "RESEARCH-NEEDED",
+      "safe_to_display": false,
+      "note": "See two_percent_claim_verdict; use approved wording instead."
+    },
+    {
+      "claim": "18-month accelerated decline spiral after injury/surgery at 55+",
+      "value": "none",
+      "population": "n/a",
+      "pmid": null,
+      "doi": null,
+      "grade": "RESEARCH-NEEDED",
+      "safe_to_display": false,
+      "note": "Unsourced."
+    },
+    {
+      "claim": "Per-decade equivalent of 1-2%/yr (about 10-20% per decade)",
+      "value": "derived arithmetic",
+      "population": "n/a",
+      "pmid": null,
+      "doi": null,
+      "grade": "Promising",
+      "safe_to_display": false,
+      "note": "Derived, not reported in any paper; do not display unless Randy approves 'approximately'."
+    }
+  ],
+  "visual_concepts": [
+    {
+      "id": "v1",
+      "title": "Sit-to-stand power by age band",
+      "type": "bar/line chart",
+      "uses": "Annual loss by age band (65-69: 1.1% men, 0.7% women; 75+: ~2.0%) from PMID 41094174, and W/kg per year slopes from PMID 34216098",
+      "note": "Label 'average, varies by person'. Do not draw a projected line."
+    },
+    {
+      "id": "v2",
+      "title": "Power vs size: where the loss comes from",
+      "type": "split donut or stacked bar (95% / 5%)",
+      "uses": "PMID 41094174 attributed split",
+      "note": "Caption: 'attributed to, in one 8-year cohort'."
+    },
+    {
+      "id": "v3",
+      "title": "Fast-twitch fibers, young vs older muscle",
+      "type": "before/after cross-section animation: Type II fibers shrink about 29-35% while Type I changes little",
+      "uses": "PMID 23425621, 2032938",
+      "note": "Show 'men studied by biopsy'. Do not animate fiber disappearance (number loss is unresolved)."
+    },
+    {
+      "id": "v4",
+      "title": "Signal to the muscle: motor units",
+      "type": "animated nerve-to-fiber schematic showing fewer, larger motor units",
+      "uses": "PMID 26486316 (50-60% fewer motor units)",
+      "note": "Label as 'in older active men'."
+    },
+    {
+      "id": "v5",
+      "title": "Power responds to training",
+      "type": "bar chart of de Vos results: 14/15/14% vs 3%",
+      "uses": "PMID 15972618",
+      "note": "Add caption 'peak power measured; falls and independence were not tested'."
+    },
+    {
+      "id": "v6",
+      "title": "Ten days off your feet",
+      "type": "two bars: strength -13.2%, stair power -14%",
+      "uses": "PMID 18948558",
+      "note": "Follow with return-to-movement message; no fear copy."
+    },
+    {
+      "id": "v7",
+      "title": "Mass, strength and power: three different curves",
+      "type": "conceptual line sketch (unlabeled y-axis) or three small rate tiles: under 1%/yr mass, ~1.4-1.6%/yr strength, ~1-2%/yr power",
+      "uses": "PMID 22934016, 11320101, 41094174",
+      "note": "Mark 'typical averages'; do not imply one shared 2% figure."
+    },
+    {
+      "id": "v8",
+      "title": "Small steps back: return-to-movement path",
+      "type": "stepped staircase animation tied to tagline",
+      "uses": "No numbers; qualitative guidance only",
+      "note": "Include clinician-guidance step."
+    }
+  ],
+  "claims_to_avoid": [
+    "Rate of force development declines 3-5% per year after 50",
+    "Type II fiber loss or decline is '2x faster' (than Type I or than anything)",
+    "Muscle power declines '2-3x faster than strength' after 50",
+    "'About 2% per year after 40' as a single figure",
+    "'18-month accelerated decline spiral' after injury or surgery",
+    "'Bone demineralization precedes muscle atrophy by 7-14 days'",
+    "Power training reduces falls or improves independence or makes you more independent",
+    "Power training builds or shifts fast-twitch fibers specifically (not tested)",
+    "Fast-twitch fibers are 'lost' or 'dying' in number (primary evidence conflicts; say 'smaller')",
+    "Disuse or bed rest hits Type II fibers or power first or most in older adults (untested)",
+    "Chen 2023: 'frailty risk +4.7x' as an outcome of osteosarcopenia",
+    "Any 'reverse', 'cure', 'fix', 'frail', 'just age' language or fear copy such as 'before it's too late'",
+    "Any individual prediction or diagnosis from a power test; cut-offs are research reference points from European cohorts"
+  ],
+  "mm_brand": {
+    "palette": {
+      "teal": "#009090",
+      "teal_dark": "#006b6b",
+      "teal_muted": "#e6f5f5",
+      "gold": "#D4AF37",
+      "gold_dark": "#B5952F",
+      "gold_muted": "#faf6e8",
+      "ink": "#1a2332",
+      "ink_soft": "#344256",
+      "ink_muted": "#6b7b8f",
+      "surface": "#f7f6f3",
+      "border": "#e8e6e1",
+      "purple": "#7c3aed",
+      "green": "#16a34a"
+    },
+    "pillar_color": "Exercise & Mobility = teal (#009090)",
+    "fonts": {
+      "display": "Cormorant Garamond",
+      "body": "Outfit"
+    },
+    "tagline": "Small Steps. Exponential Gains.™",
+    "rules": [
+      "Sentence case; no emoji",
+      "Never gate or lock any pillar/category",
+      "Motion: ease cubic-bezier(0.16,1,0.3,1); include prefers-reduced-motion fallback"
+    ]
+  },
+  "disclaimer": "Educational information only; not individualized medical advice and not a diagnosis. Discuss new or modified exercise with an appropriate clinician when health or safety concerns apply, including after a recent fall, hospital stay, injury or surgery.",
+  "clinician_safety_note": "Ask a clinician or physical therapist before adding fast or heavy resistance work after a recent fall, new or worsening pain, balance concerns, hospitalization, surgery, or a heart, joint, bone or neurologic condition. Seek urgent medical care for chest pain, fainting or severe shortness of breath."
+}

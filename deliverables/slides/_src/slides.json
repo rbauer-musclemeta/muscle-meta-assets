@@ -1,0 +1,110 @@
+{
+"deck_title": "Muscle power and fast-twitch fibers after 50",
+"tag": "P1 Exercise &amp; Mobility · P1-C4 Strength",
+"disclaimer": "Educational information only; not individualized medical advice and not a diagnosis. Discuss new or modified exercise with an appropriate clinician when health or safety concerns apply.",
+"slides": [
+{"layout":"title","eyebrow":"Pillar 1 · Exercise &amp; Mobility · Strength","title":"Muscle power and fast-twitch fibers after 50",
+ "lede":"What the research shows about force produced quickly, what it does not show, and how you can build it at your own pace.",
+ "byline":"Randy Bauer, PT · Muscle-Meta Matrix™ · Interactive slide set, about 10 minutes"},
+
+{"layout":"cards","eyebrow":"What power is","title":"Power is strength, delivered with speed",
+ "lede":"Strength is how much force a muscle can make. Power is how quickly you can make it. Both matter when you rise, step and push off.",
+ "cards":[
+ {"title":"Strength","text":"The most force a muscle can produce.","more":"Think of pushing up from a chair slowly. Strength sets the ceiling for what you can lift, press or hold."},
+ {"title":"Speed of force","text":"How quickly force builds at the start of a movement.","more":"Researchers call this rate of force development. It is lower in older adults than in younger adults in the studies we reviewed, but we do not have a trustworthy per-year figure for it."},
+ {"title":"Power","text":"Force times speed. Standing up smoothly is a power task.","more":"Clinics often estimate power from a timed sit-to-stand test. It is an equation-based estimate, so a clinician reading it matters more than a self-timed result."}],
+ "source":null},
+
+{"layout":"tabs","eyebrow":"The aging pattern","title":"Mass, strength and power change at different rates",
+ "lede":"Muscle size tends to change more slowly than the force and power it can produce. Select a measure.",
+ "grade":"promising",
+ "tabs":[
+ {"label":"Muscle mass","number":"Under 1%","text":"Muscle mass tends to fall less than 1% a year on average, so size alone understates the change in force and power.","grade":"promising","source":"Mitchell 2012, PMID 22934016 (quantitative review)."},
+ {"label":"Strength","number":"About 1.5%","text":"In one longitudinal study, knee strength fell about 14 to 16% per decade (initial ages 46 to 78). Older ages tended to lose faster.","grade":"promising","source":"Hughes 2001, PMID 11320101 (n = 120); Mitchell 2012, PMID 22934016."},
+ {"label":"Power","number":"1 to 2%","text":"After about 65, sit-to-stand power fell roughly 1 to 2% a year on average in two cohorts, faster for some people and at older ages.","grade":"promising","source":"Baltasar-Fernández 2025, PMID 41094174; Garcia-Aguirre 2025, PMID 39790033."}]},
+
+{"layout":"bars","eyebrow":"The aging pattern","title":"How sit-to-stand power changed per year",
+ "lede":"Relative power on a sit-to-stand test, followed for 8 years in 565 adults aged 65 and older. Select a bar.",
+ "grade":"promising",
+ "bars":[
+ {"label":"Men, ages 65 to 69","value":"1.1%","width":44,"detail":"Men lost about 1.1% a year at ages 65 to 69, and 11.8% in total over 8 years."},
+ {"label":"Women, ages 65 to 69","value":"0.7%","width":28,"detail":"Women lost about 0.7% a year at ages 65 to 69, and 8.0% in total over 8 years. Sex differences are real but inconsistent across studies."},
+ {"label":"Both sexes, 75 and older","value":"2.0%","width":80,"color":"gold","detail":"At 75 and older the average loss was about 2.0% a year. About 95% of the decline was attributed to lower muscle quality (specific power) and about 5% to leg muscle loss. That is an association within one cohort, not proof of cause."}],
+ "hint":"Select a bar to see the detail. These are group averages, not a forecast for you.",
+ "source":{"text":"<b>Baltasar-Fernández 2025</b>, PMID 41094174, 8-year longitudinal cohort, n = 565 (74% women). Equation-based estimate of power."}},
+
+{"layout":"bars","eyebrow":"Fast-twitch fibers","title":"Type II fibers are smaller in older muscle",
+ "lede":"Fast-twitch (Type II) fibers produce quick force. In biopsy studies of older men they are noticeably smaller, while slow-twitch fibers change less.",
+ "grade":"established",
+ "bars":[
+ {"label":"Type II, older vs young men (1991)","value":"35%","width":87,"detail":"Type II fiber area was about 35% smaller in older than younger men (20 men aged 19 to 84). This is a group difference at one point in time, not a yearly rate."},
+ {"label":"Type II, older vs young men (2013)","value":"29%","width":72,"detail":"26 older men (71 y) vs 25 young men (23 y): Type II fibers 29% smaller. Size, not a loss of fiber count, explained the smaller muscle in this healthy group."},
+ {"label":"Type I, older vs young men (1991)","value":"6%","width":15,"color":"gold","detail":"Slow-twitch (Type I) fiber area was just over 6% smaller, which was not statistically significant."}],
+ "hint":"Select a bar. Whether fibers are also lost in number is disputed in the research, so we say smaller, not lost.",
+ "source":{"text":"<b>Lexell 1991</b>, PMID 2032938; <b>Nilwik 2013</b>, PMID 23425621. Men only, small samples. Qualitative direction is consistent across studies (Larsson 1979, PMID 438011)."}},
+
+{"layout":"evidence","eyebrow":"What the numbers do and do not say","title":"Evidence grades at a glance",
+ "lede":"Filter by grade. Claims we could not source are left out of these slides.",
+ "rows":[
+ {"claim":"Muscle power declines with age","grade":"established","ref":"Skelton 1994, PMID 7825481; Alcazar 2021, PMID 34216098","caveat":"Measures differ across studies."},
+ {"claim":"Sit-to-stand power falls about 1 to 2% a year after 65","grade":"promising","ref":"PMID 41094174; 39790033","caveat":"One equation-based test; Spanish cohorts."},
+ {"claim":"Power often falls earlier than strength (direction only)","grade":"promising","ref":"Reid 2012, PMID 22016147; Metter 1997, PMID 9310077","caveat":"Clear in men, not in women."},
+ {"claim":"Type II fibers are smaller in older muscle","grade":"established","ref":"PMID 438011; 2032938; 23425621","caveat":"Mostly men; small samples."},
+ {"claim":"Fast-twitch fibers are lost in number","grade":"bridge","ref":"Lexell 1988, PMID 3379447 vs Nilwik 2013, PMID 23425621","caveat":"Studies conflict."},
+ {"claim":"Peak power rose 14 to 15% after 8 to 12 weeks of explosive training","grade":"established","ref":"de Vos 2005, PMID 15972618","caveat":"Healthy adults; power test outcome only."},
+ {"claim":"Power training reduces falls or improves independence","grade":"bridge","ref":"Not tested in de Vos; Mañas 2021, PMID 34022464 found no fall effect","caveat":"We do not claim this."},
+ {"claim":"A yearly percentage for rate of force development","grade":"needed","ref":"None located","caveat":"Qualitative wording only."}]},
+
+{"layout":"bars","eyebrow":"Disuse, injury and catabolic crisis","title":"Time off your feet lowers strength and power quickly",
+ "lede":"In one small study of healthy older adults, 10 days of bed rest lowered leg function. Recovery takes time and progressive activity, and you can start from where you are.",
+ "grade":"promising",
+ "bars":[
+ {"label":"Knee extensor strength","value":"-13%","width":66,"detail":"Down 13.2% after 10 days of continuous bed rest (11 healthy adults, mean age 67)."},
+ {"label":"Stair-climbing power","value":"-14%","width":70,"detail":"Down 14% over the same 10 days. In a pooled analysis of bed-rest studies, performance fell faster than muscle mass in the early days."},
+ {"label":"Aerobic capacity","value":"-12%","width":60,"color":"gold","detail":"Down about 12%. Standard physical performance batteries were not significantly different, so everyday tests can miss early change."}],
+ "hint":"Select a bar. Direction is well supported; the exact size comes from one small study.",
+ "source":{"text":"<b>Kortebein 2008</b>, PMID 18948558 (n = 11, no control); pooled data Di Girolamo 2021, PMID 34422875. Healthy volunteers: real illness adds inflammation, poor intake and pain. Whether fast-twitch fibers are hit first in older adults is not established."}},
+
+{"layout":"cards","eyebrow":"Mechanisms","title":"Why power may change: several contributors",
+ "lede":"No single mechanism explains any one person. Select a card for what is known.",
+ "cards":[
+ {"kicker":"Promising","title":"Motor units","text":"The nervous system sends the signal to fast fibers.","more":"Older active men had 50 to 60% fewer motor units in the thigh muscle than young men (Piasecki 2016, PMID 26486316). Men only."},
+ {"kicker":"Promising","title":"Nerve activation","text":"Activation fell before size and strength did.","more":"Over 3 years in 48 healthy older adults, power fell while strength and size held. Authors say neural change may be an early driver (Reid 2014, PMID 24122149)."},
+ {"kicker":"Promising","title":"Velocity","text":"Contraction speed matters more with age.","more":"Speed of contraction became a larger determinant of power in older mobility-limited adults (Pojednic 2012, PMID 22626972). Small study."},
+ {"kicker":"Unproven-Bridge","title":"Tendon stiffness","text":"A possible contributor, still modest.","more":"Tendon stiffness explained a small share of slower torque development (R-squared 0.15; Quinlan 2018, PMID 28977366). Fifty men."},
+ {"kicker":"Unproven-Bridge","title":"Calcium handling","text":"Seen in single fibers, link to whole-body power is inferred.","more":"Eight young and eight older men; the overall rate of force redevelopment did not differ by age (Mazara 2021, PMID 33862138)."},
+ {"kicker":"Promising","title":"Fiber type shifts","text":"Late-life fibers show more hybrid types.","more":"Very elderly biopsies show many hybrid fibers and fiber grouping (Andersen 2003, PMID 12535316). Descriptive, method-dependent."}],
+ "source":null},
+
+{"layout":"tabs","eyebrow":"Trainability","title":"Power can be trained, within honest limits",
+ "lede":"Select a finding. The evidence is about test results, not about falls.",
+ "grade":"established",
+ "tabs":[
+ {"label":"de Vos trial","number":"+14 to 15%","text":"In 112 healthy adults (mean age 69), 8 to 12 weeks of twice-weekly explosive training raised peak power by 14 to 15% at light, moderate and heavy loads, compared with +3% in controls.","grade":"established","source":"de Vos 2005, PMID 15972618. RCT, n = 112. Outcomes were power, strength and endurance only."},
+ {"label":"Power vs strength","number":"Modest","text":"Across 20 trials, power training beat traditional strength training on physical function by a small amount, with low certainty.","grade":"promising","source":"Balachandran 2022, PMID 35544136 (SMD 0.30, 95% CI 0.05 to 0.54); El Hadouchi 2022, PMID 35953775."},
+ {"label":"Fast-twitch size","number":"About 23 to 28%","text":"Resistance training enlarged Type II fibers in older adults in small trials. These were conventional resistance programs, not power-specific, so we do not claim power training builds fast-twitch fibers.","grade":"promising","source":"Kosek 2006, PMID 16614355; Verdijk 2009, PMID 19196907; Nilwik 2013, PMID 23425621."},
+ {"label":"What is not shown","number":"","text":"No trial we reviewed tested falls or independence as the result of power training. A review of home-based resistance programs found no fall benefit. Associations in observational data are not treatment effects.","grade":"bridge","source":"Mañas 2021, PMID 34022464; Garcia-Aguirre 2025, PMID 40816636."}]},
+
+{"layout":"steps","eyebrow":"A practical safe start","title":"Your body, your pace",
+ "lede":"Educational ideas to talk through with your care team, not a prescription.",
+ "steps":[
+ {"title":"Strength first","text":"Build comfortable, controlled strength on a stable movement such as a chair stand or supported step-up."},
+ {"title":"Add speed with control","text":"When ready, move up with intent and come down slowly. Fast does not mean rushed."},
+ {"title":"Stop when form fades","text":"End a set when speed or form drops. Quality beats quantity."},
+ {"title":"Add in small steps","text":"After illness, surgery or time off your feet, start from where you are today and add load and speed gradually, with your care team's guidance."},
+ {"title":"Track what you notice","text":"Standing smoothly from your usual chair is a good conversation starter with a clinician."}],
+ "source":null},
+
+{"layout":"cards","eyebrow":"Safety","title":"When to check in with a clinician first",
+ "lede":"Ask a clinician or physical therapist before adding fast or heavy work in these situations.",
+ "cards":[
+ {"kicker":"Before you start","title":"Recent change","text":"A recent fall, new or worsening pain, or balance concerns.","more":"A physical therapist can check your movement and suggest a starting point that fits."},
+ {"kicker":"Before you start","title":"Health conditions","text":"A heart, joint, bone or neurologic condition that affects exercise.","more":"Your care team can tell you what is safe and what to watch for."},
+ {"kicker":"Seek urgent care","title":"Warning signs","text":"Chest pain, fainting or severe shortness of breath.","more":"Stop and seek urgent medical care. Also mention medications to your clinician; in one cohort medication use was linked to greater power loss, which is an association, not advice to change anything."}],
+ "source":null},
+
+{"layout":"closing","eyebrow":"Small Steps. Exponential Gains.™","title":"Where to go from here",
+ "lede":"Power is one part of the Muscle-Meta Matrix™. A short assessment shows where you are today.",
+ "points":["Power and strength tend to change with age, at different rates for each person.","Power can improve with training, measured on tests.","We do not claim fewer falls or more independence from power training.","Your pace and your care team set the next step."],
+ "cta":"Take the assessment","cta_href":"https://muscle-meta.com"}
+]}
