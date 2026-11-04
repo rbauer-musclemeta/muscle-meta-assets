@@ -325,7 +325,7 @@
       '<div><dt>How to train it</dt><dd>'+esc(d.train)+'</dd></div>'+
       '<div><dt>Nerve supply</dt><dd>'+esc(d.nerve)+'</dd></div></dl>'+
       '<div class="callout note mt-5" style="padding:var(--s-4)"><div><p class="small">'+esc(d.note)+'</p></div></div>'+
-      '<div class="row mt-5" style="justify-content:space-between">'+S.evBadge(d.ev)+'<a class="mmm-btn mmm-btn-primary mmm-btn-sm" href="exercises.html?emph='+d.emph+'">See matching exercises</a></div>';
+      '<div class="row mt-5" style="justify-content:space-between">'+S.evBadge(d.ev)+'<a class="mmm-btn mmm-btn-primary mmm-btn-sm" href="exercises.html#emph-'+d.emph+'">See matching exercises</a></div>';
   }
   function select(k){ state.sel = k; paint(); }
   svg.addEventListener('click', function(e){ var p = e.target.closest('.m'); if(p) select(p.getAttribute('data-m')); });

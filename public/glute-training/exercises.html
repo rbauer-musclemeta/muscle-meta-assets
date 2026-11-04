@@ -110,6 +110,9 @@
   try { var u = new URLSearchParams(location.search);
     if(u.get('emph') && ['um','lm','mm'].indexOf(u.get('emph'))>-1) F.emph = u.get('emph');
     if(u.get('cat') && G.CATS[u.get('cat')]) F.cat = u.get('cat'); } catch(e){}
+  try { var hm = location.hash.match(/^#(emph|cat)-(\w+)$/);
+    if(hm && hm[1]==='emph' && ['um','lm','mm'].indexOf(hm[2])>-1) F.emph = hm[2];
+    if(hm && hm[1]==='cat' && G.CATS[hm[2]]) F.cat = hm[2]; } catch(e){}
 
   var COMFORT = [['knee','Kind to knees'],['spine','Spine-conscious'],['balance','Low balance demand'],['hip','Hip-comfort']];
   var EMPH = [['all','All regions'],['um','Upper glute max'],['lm','Lower glute max'],['mm','Glute med and min']];
