@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gluteal anatomy explained · Muscle-Meta Matrix™</title>
+<meta name="description" content="An interactive map of the four gluteal regions: upper and lower gluteus maximus, gluteus medius and gluteus minimus. What each does for standing, stairs, walking and joint health.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/glute.css">
+<style>
+  .map-wrap { display:grid; grid-template-columns:1.05fr .95fr; gap:var(--s-6); align-items:start; }
+  @media (max-width:960px){ .map-wrap { grid-template-columns:1fr; } }
+  .map-card { padding:var(--s-5); }
+  .map-card svg { display:block; width:100%; height:auto; }
+  .m { cursor:pointer; stroke:#fff; stroke-width:2; transition:opacity var(--dur-base) var(--ease-out), stroke var(--dur-fast); }
+  .m:hover { stroke:var(--ink); }
+  .m:focus-visible { outline:none; stroke:var(--ink); stroke-width:4; }
+  .m.dim { opacity:.22; }
+  .m.sel { stroke:var(--ink); stroke-width:3.5; }
+  .m.hidden { display:none; }
+  .bone { fill:#ece9e2; stroke:#c9c4b8; stroke-width:1.5; }
+  .ghost { fill:none; stroke:#b9b2a0; stroke-width:1.5; stroke-dasharray:5 4; }
+  .lm { font-family:var(--font-body); font-size:11px; fill:var(--ink-muted); letter-spacing:.06em; }
+  .lm-line { stroke:var(--ink-faint); stroke-width:1; }
+  .detail { position:sticky; top:96px; }
+  @media (max-width:960px){ .detail { position:static; } }
+  .detail dl { display:grid; gap:var(--s-4); margin:var(--s-5) 0 0; }
+  .detail dt { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-dark); font-weight:var(--fw-semi); }
+  .detail dd { margin:4px 0 0; }
+  .swatch { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:8px; vertical-align:-2px; }
+  .sel-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:var(--s-4); }
+  .dots { display:inline-flex; gap:5px; }
+  .dots i { width:12px; height:12px; border-radius:50%; background:var(--border); display:block; }
+  .dots i.on { background:var(--teal); }
+  .act-row { display:grid; grid-template-columns:1.2fr .8fr; gap:var(--s-3); align-items:center; padding:14px 0; border-bottom:1px solid var(--border-soft); }
+  .act-row:last-child { border-bottom:0; }
+  .act-row .lvl { font-size:13px; color:var(--ink-muted); margin-left:10px; }
+  #pel svg { max-width:380px; display:block; margin:0 auto; }
+  .tfade { transition:transform 600ms var(--ease-out), opacity 600ms var(--ease-out); }
+</style>
+</head>
+<body class="mmm-grain">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-nav">
+  <div class="mmm-container nav-in">
+    <a class="brand" href="index.html"><b>Muscle-Meta Matrix<sup class="tm">™</sup></b><small>Pillar 1 · Glute training</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="anatomy.html" aria-current="page">Anatomy</a></li>
+      <li><a href="exercises.html">Exercises</a></li>
+      <li><a href="program.html">Your program</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" style="padding:var(--s-7) 0 var(--s-6)">
+    <div class="mmm-container">
+      <p class="crumbs"><a href="index.html">Glute training</a> / Anatomy</p>
+      <p class="eyebrow">Step 1 · Understand</p>
+      <h1 style="font-size:clamp(40px,5vw,56px)">Four regions, <em class="serif-italic">one job: keep you moving.</em></h1>
+      <p class="lede mt-4">Tap any region on the map to see where it sits, what it does in everyday life, and which exercises train it. Use the layer buttons to peel back the surface and see the muscles underneath.</p>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="mmm-section-sm" style="padding-top:var(--s-5)">
+    <div class="mmm-container">
+      <div class="map-wrap">
+        <div class="mmm-card map-card">
+          <div class="row" style="justify-content:space-between;margin-bottom:var(--s-4)">
+            <div class="seg" role="group" aria-label="Layer">
+              <button data-layer="surface" aria-pressed="true">Surface</button>
+              <button data-layer="mid" aria-pressed="false">Maximus removed</button>
+              <button data-layer="deep" aria-pressed="false">Deepest layer</button>
+            </div>
+          </div>
+          <div class="sel-tabs" id="regionChips" role="group" aria-label="Highlight region">
+            <button class="chip" data-focus="all" aria-pressed="true">All regions</button>
+            <button class="chip" data-focus="upper" aria-pressed="false">Upper glutes</button>
+            <button class="chip" data-focus="lower" aria-pressed="false">Lower glute max</button>
+          </div>
+          <svg id="mapsvg" viewBox="-130 0 860 540" role="group" aria-label="Back view of the pelvis and hips showing the gluteal muscles"></svg>
+          <p class="small muted mt-3">Back view. Both sides respond to your selection. Stylised for teaching, not to scale.</p>
+        </div>
+
+        <aside class="mmm-card detail" id="detail" aria-live="polite"></aside>
+      </div>
+      <div class="callout note mt-6">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 15v7M16 10.5v.5"/></svg>
+        <div><p><b>What &ldquo;upper glutes&rdquo; means here.</b> The source groups the gluteus medius, gluteus minimus and the upper fibers of the gluteus maximus together. Those are the muscles that squats and thrusts reach least, so they are the ones to train directly.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY IN THE LIFE -->
+  <section class="mmm-section section-alt" id="daily">
+    <div class="mmm-container">
+      <div class="grid g2" style="gap:var(--s-8);align-items:start">
+        <div class="mmm-reveal">
+          <p class="eyebrow">Day in the life</p>
+          <h2 style="margin:var(--s-2) 0 var(--s-4)">Which muscles does that task use?</h2>
+          <p class="lede">Choose an everyday movement to see how each region is involved.</p>
+          <div class="stack mt-5" id="actChips" role="group" aria-label="Everyday activity" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+          <p class="small muted mt-5">These are clinical teaching estimates of relative involvement, not measured muscle-activity data.</p>
+        </div>
+        <div class="mmm-card mmm-reveal mmm-reveal-delay-1" id="actPanel" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PELVIC LEVEL -->
+  <section class="mmm-section" id="pel-sec">
+    <div class="mmm-container">
+      <div class="grid g2" style="gap:var(--s-8);align-items:center">
+        <div id="pel" class="mmm-card mmm-reveal">
+          <div class="row" style="justify-content:center;margin-bottom:var(--s-4)">
+            <div class="seg" role="group" aria-label="Pelvic control demo">
+              <button data-state="strong" aria-pressed="true">Strong</button>
+              <button data-state="weak" aria-pressed="false">Tiring</button>
+              <button data-state="lean" aria-pressed="false">Leaning</button>
+            </div>
+          </div>
+          <svg viewBox="0 0 320 300" role="img" aria-label="Back view of a person standing on their right leg with the left foot lifted">
+            <rect x="0" y="278" width="320" height="2" fill="#e8e6e1"/>
+            <!-- stance leg -->
+            <path d="M200 150 L204 276" stroke="#006b6b" stroke-width="10" stroke-linecap="round" fill="none"/>
+            <!-- pelvis + swing leg -->
+            <g id="pelvisG" class="tfade" style="transform-origin:200px 150px">
+              <path d="M118 150 L200 150" stroke="#1a2332" stroke-width="12" stroke-linecap="round"/>
+              <path d="M120 152 L116 214 L138 244" stroke="#a8b3c2" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+            <!-- trunk -->
+            <g id="trunkG" class="tfade" style="transform-origin:160px 150px">
+              <path d="M160 150 L160 70" stroke="#1a2332" stroke-width="10" stroke-linecap="round"/>
+              <path d="M120 72 L200 72" stroke="#1a2332" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="160" cy="36" r="18" fill="#fff" stroke="#1a2332" stroke-width="5"/>
+            </g>
+            <!-- stance gluteus medius -->
+            <path id="medFan" class="tfade" d="M200 150 C 212 120 236 112 252 118 C 252 136 232 156 214 164 Z" fill="#D4AF37" opacity=".95" style="transform-origin:208px 150px"/>
+            <text x="218" y="190" class="lm" font-weight="600" style="fill:#7a6417">Gluteus medius</text>
+            <text x="218" y="205" class="lm">(standing leg)</text>
+            <text x="22" y="230" class="lm">Lifted leg</text>
+          </svg>
+        </div>
+        <div class="mmm-reveal mmm-reveal-delay-1">
+          <p class="eyebrow">A closer look</p>
+          <h2 style="margin:var(--s-2) 0 var(--s-4)">Why a level pelvis matters</h2>
+          <p class="lede" id="pelTitle"></p>
+          <p class="mt-4" id="pelText"></p>
+          <div class="callout care mt-5">
+            <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#7a6417" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 9v8M16 21.5v.5"/></svg>
+            <div><p><b>Try it at home.</b> Stand at a counter, lift one foot, and watch the mirror or ask someone to look from behind. A hip that drops, or a trunk that leans hard to one side, tells you where to focus. Single-leg stance time is also a useful balance measure for Pillar 4.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORTING CAST + JOINT HEALTH -->
+  <section class="mmm-section section-alt" id="joints">
+    <div class="mmm-container">
+      <div class="section-head mmm-reveal">
+        <p class="eyebrow">Joint health</p>
+        <h2>How the glutes protect the joints around them</h2>
+        <p class="lede">The glutes do not work alone. They share the job with the hamstrings, adductor magnus, quadriceps, and the deep hip rotators, and they influence the joints above and below.</p>
+      </div>
+      <div class="grid g3">
+        <div class="mmm-card mmm-reveal"><div class="icon-bubble"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="12" r="6"/><path d="M8 28c0-6 3.5-10 8-10s8 4 8 10"/></svg></div><h4 class="mt-3">Hip</h4><p class="small">The gluteus minimus and medius help hold the ball of the femur centred in its socket, which spreads load across the joint surface.</p></div>
+        <div class="mmm-card mmm-reveal mmm-reveal-delay-1"><div class="icon-bubble"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4v10M16 18v10"/><circle cx="16" cy="16" r="3"/></svg></div><h4 class="mt-3">Knee</h4><p class="small">When the hip muscles tire, the thigh can drift inward on stairs and squats. Strong hip abductors help keep the knee tracking over the foot.</p></div>
+        <div class="mmm-card mmm-reveal mmm-reveal-delay-2"><div class="icon-bubble"><svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="4" width="10" height="5" rx="2"/><rect x="11" y="12" width="10" height="5" rx="2"/><rect x="11" y="20" width="10" height="5" rx="2"/></svg></div><h4 class="mt-3">Low back and pelvis</h4><p class="small">The gluteus maximus connects with the ligaments and fascia around the sacrum, helping transfer force between your legs and trunk.</p></div>
+      </div>
+
+      <div class="mt-7">
+        <h3 class="mmm-reveal" style="margin-bottom:var(--s-4)">Common situations and how to adapt</h3>
+        <details class="acc"><summary>Pain on the outer hip (gluteal tendon irritation)</summary><div class="acc-body">
+          <p>Pain over the bony point at the side of the hip, especially when lying on that side, climbing stairs or standing with your weight hung on one hip, often involves the tendons of the gluteus medius and minimus.</p>
+          <ul class="mt-3"><li>Avoid crossing the top leg across the midline when side-lying; place a pillow between your knees.</li><li>Avoid habitually standing with your weight hung on one hip.</li><li>Start with exercises that load the muscle without compressing the tendon, such as bridges and standing abduction to a small range, and build gradually.</li><li>Persistent outer-hip pain deserves a clinical assessment before heavy loading.</li></ul>
+          <p class="mt-3 ev-slot" data-ev="prom"></p></div></details>
+        <details class="acc"><summary>Hip osteoarthritis or a hip or knee replacement</summary><div class="acc-body">
+          <p>Strengthening the muscles around an arthritic or replaced joint is generally recommended. Choose ranges that feel comfortable, favour supported exercises such as bridges, leg press and machine abduction, and follow your surgeon&rsquo;s precautions after joint replacement.</p>
+          <p class="mt-3 ev-slot" data-ev="est"></p></div></details>
+        <details class="acc"><summary>Low bone density or osteoporosis</summary><div class="acc-body">
+          <p>Hip-focused strengthening is valuable, but the spine needs protection. Prefer bridges, thrusts, leg press, step-ups and cable pull-throughs. Avoid exercises that load a rounded spine, including the rounded-back 45-degree hyper described in the source notes, deep loaded spinal flexion, and deadlifts to failure. The exercise library has a spine-conscious filter.</p>
+          <p class="mt-3 ev-slot" data-ev="prom"></p></div></details>
+        <details class="acc"><summary>I lose my balance on one leg</summary><div class="acc-body">
+          <p>Single-leg work builds the gluteus medius, and a rail or counter lets you train it safely while balance catches up. Keep a hand on the support and reduce it gradually. The balance-demand filter in the library shows which exercises need no support.</p>
+          <p class="mt-3 ev-slot" data-ev="unp"></p></div></details>
+      </div>
+      <div class="row mt-7" style="gap:var(--s-4)">
+        <a class="mmm-btn mmm-btn-primary mmm-btn-lg" href="exercises.html">Browse exercises</a>
+        <a class="mmm-btn mmm-btn-ghost mmm-btn-lg" href="program.html#finder">Find your starting point</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="mmm-container">
+    <div class="foot-grid">
+      <div><div class="brand"><b>Muscle-Meta Matrix<sup class="tm">™</sup></b></div><p class="mt-3">Clinical intelligence for active aging.<br><em>Small Steps. Exponential Gains.™</em></p></div>
+      <div><h4 style="font-size:18px">Glute training</h4><ul><li><a href="index.html">Overview</a></li><li><a href="anatomy.html">Anatomy</a></li><li><a href="exercises.html">Exercises</a></li><li><a href="program.html">Your program</a></li></ul></div>
+      <div><h4 style="font-size:18px">Pillar 1 categories</h4><ul class="small"><li>P1-C1 Joint health</li><li>P1-C2 Functional independence</li><li>P1-C3 Mobility</li><li>P1-C4 Strength</li><li>P1-C5 Endurance</li></ul></div>
+    </div>
+    <div class="foot-legal"><p>This guide is for education and does not replace advice from your clinician. If you have a joint replacement, osteoporosis, heart or blood-pressure conditions, or ongoing pain, talk with your care team before starting.</p></div>
+  </div>
+</footer>
+
+<script src="assets/glute-data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  var S = window.MMSite, G = window.MMGlute, esc = S.esc;
+
+  /* evidence badges for the static accordions */
+  document.querySelectorAll('.ev-slot').forEach(function(p){
+    var k = p.getAttribute('data-ev');
+    p.innerHTML = S.evBadge(k) + ' <span class="small muted">' + esc(G.EVIDENCE[k].text) + '</span>';
+  });
+
+  /* ---------- data ---------- */
+  var COL = { maxU:'#00b3b3', maxL:'#009090', med:'#D4AF37', min:'#B5952F' };
+  var M = {
+    maxU:{ name:'Gluteus maximus, upper fibers', region:'Upper glute',
+      where:'Back of the pelvis (the outer back edge of the ilium and the sacrum) to the iliotibial band on the outer thigh.',
+      does:'Extends the hip, turns it outward, and, in the upper fibers, helps lift the leg out to the side.',
+      daily:'Pushing up from a chair, climbing, rising from the floor, driving a longer stride.',
+      train:'Hip thrusts and bridges, abduction (seated, leaning forward from the hips), squats.',
+      nerve:'Inferior gluteal nerve (L5–S2)', ev:'prom', emph:'um',
+      note:'Source: heavy squats and thrusts load the maximus but do not isolate the upper fibers, so include abduction.' },
+    maxL:{ name:'Gluteus maximus, lower fibers', region:'Lower glute max',
+      where:'Lower sacrum and coccyx, and the sacrotuberous ligament, to the gluteal tuberosity at the back of the femur and the iliotibial band.',
+      does:'Strong hip extension, bringing the thigh back behind you. Its lower fibers also help bring the thigh toward the midline.',
+      daily:'Standing up from low seats, stairs, getting off the floor, hill walking.',
+      train:'Deeper squats and step-ups, split squats, hinges (RDL), full-range hip thrusts.',
+      nerve:'Inferior gluteal nerve (L5–S2)', ev:'prom', emph:'lm',
+      note:'Source: use full-range hip extension. Deeper squats may be better than shallow ones, but going past parallel adds little.' },
+    med:{ name:'Gluteus medius', region:'Upper glute',
+      where:'Fan-shaped from the outer surface of the ilium, between the iliac crest and the gluteal lines, to the side of the greater trochanter.',
+      does:'Lifts the leg out to the side. The front fibers also turn the hip inward, the back fibers turn it outward and extend it. In standing, it holds the pelvis level.',
+      daily:'Every step you take; standing on one leg; stepping off a curb; stable stairs.',
+      train:'Direct abduction from several angles, including seated and bridged versions, plus single-leg exercises.',
+      nerve:'Superior gluteal nerve (L4–S1)', ev:'prom', emph:'mm',
+      note:'Source: squats alone will not necessarily grow it. Train it directly, ideally at varying angles, with a 30-degree diagonal as the ideal path.' },
+    min:{ name:'Gluteus minimus', region:'Upper glute',
+      where:'Deep to the gluteus medius, from the outer ilium below the medius fan to the front of the greater trochanter and the hip capsule.',
+      does:'Assists abduction and inward rotation, and steadies the head of the femur inside the hip socket.',
+      daily:'Fine hip control when walking on uneven ground or turning with your weight on one leg.',
+      train:'The same abduction work as the medius, plus rotary drills such as clamshells and hip external rotation.',
+      nerve:'Superior gluteal nerve (L4–S1)', ev:'prom', emph:'mm',
+      note:'Source: multiple subdivisions mean training from different angles gives more complete development.' }
+  };
+
+  /* ---------- SVG map (one side drawn, mirrored) ---------- */
+  var svg = document.getElementById('mapsvg'), NS = 'http://www.w3.org/2000/svg';
+  var P = {
+    pelvis:'M330 98 C380 62 450 56 498 92 C530 118 528 170 508 206 L496 240 C488 262 478 280 460 290 L432 318 C420 332 408 346 396 350 C380 352 372 340 376 326 L352 270 C346 240 338 200 322 160 Z',
+    femur:'M470 298 C478 340 474 430 460 524 L424 524 C434 440 442 372 448 316 Z',
+    troch:'M486 292 m-22 0 a22 22 0 1 0 44 0 a22 22 0 1 0 -44 0',
+    min:'M392 158 C430 128 482 140 502 176 L490 270 C450 242 412 204 392 158 Z',
+    med:'M345 118 C400 80 468 82 505 125 C514 160 502 205 494 264 L484 278 C430 248 372 192 345 118 Z',
+    maxU:'M303 186 L336 132 C392 142 440 190 474 256 L488 294 L306 252 Z',
+    maxL:'M306 252 L488 294 L478 332 L470 410 C430 430 372 420 336 394 C306 374 298 332 304 300 Z'
+  };
+  function el(n, a, p){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); (p||svg).appendChild(e); return e; }
+  // spine + sacrum (central)
+  [12,34,56,78].forEach(function(y){ el('rect',{x:284,y:y,width:32,height:18,rx:5,class:'bone'}); });
+  el('path',{d:'M266 100 L334 100 L322 160 L308 216 L300 226 L292 216 L278 160 Z',class:'bone'});
+  [0,1].forEach(function(s){
+    var g = el('g', s ? {transform:'translate(600,0) scale(-1,1)'} : {});
+    el('path',{d:P.pelvis,class:'bone'},g);
+    el('path',{d:P.femur,class:'bone'},g);
+    el('path',{d:P.troch,class:'bone'},g);
+    // IT band hint
+    el('path',{d:'M492 300 L470 520',class:'ghost'},g);
+    // muscle layers
+    var mk = function(key, cls){ var p = el('path',{d:P[key],fill:COL[key],class:'m '+cls,'data-m':key,tabindex:s?-1:0,role:'button','aria-label':M[key].name},g); if(s) p.removeAttribute('tabindex'); return p; };
+    mk('min','L-deep'); mk('med','L-surf L-mid'); mk('maxU','L-surf'); mk('maxL','L-surf');
+  });
+  // landmarks (left half, un-mirrored)
+  function lbl(y,t,x2,y2){ el('line',{x1:-4,y1:y-4,x2:x2,y2:y2,class:'lm-line'}); var tx=el('text',{x:-10,y:y,class:'lm','text-anchor':'end'}); tx.textContent=t; }
+  lbl(100,'Iliac crest',130,104);
+  lbl(296,'Greater trochanter',112,292);
+  lbl(424,'IT band',120,424);
+  var sx = el('text',{x:300,y:134,class:'lm','text-anchor':'middle'}); sx.textContent='Sacrum';
+
+  var state = { layer:'surface', focus:'all', sel:'med' };
+  var paths = Array.prototype.slice.call(svg.querySelectorAll('.m'));
+  function layerVisible(p){
+    var c = p.getAttribute('class');
+    if(state.layer==='surface') return /L-surf/.test(c);
+    if(state.layer==='mid') return /L-mid|L-deep/.test(c);
+    return /L-deep/.test(c);
+  }
+  function focusOK(k){ return state.focus==='all' || (state.focus==='upper' && k!=='maxL') || (state.focus==='lower' && k==='maxL'); }
+  function paint(){
+    paths.forEach(function(p){
+      var k = p.getAttribute('data-m'), vis = layerVisible(p);
+      p.classList.toggle('hidden', !vis);
+      p.classList.toggle('dim', !focusOK(k) || (state.sel && state.sel!==k && false));
+      p.classList.toggle('sel', state.sel===k);
+      p.style.fillOpacity = (state.layer==='mid' && k==='med') ? '.5' : '';
+    });
+    detail();
+  }
+  function detail(){
+    var k = state.sel, d = M[k]; if(!d) return;
+    // if the selected region is hidden in this layer, say so
+    var hid = !paths.some(function(p){ return p.getAttribute('data-m')===k && layerVisible(p); });
+    var tabs = Object.keys(M).map(function(key){
+      return '<button class="chip" data-pick="'+key+'" aria-pressed="'+(key===k)+'"><span class="swatch" style="background:'+COL[key]+'"></span>'+esc(M[key].name.replace('Gluteus ','').replace('maximus, ','max ')).replace(/^./,function(c){return c.toUpperCase()})+'</button>';
+    }).join('');
+    document.getElementById('detail').innerHTML =
+      '<div class="sel-tabs">'+tabs+'</div>'+
+      '<p class="eyebrow">'+esc(d.region)+'</p><h3 style="margin:4px 0 10px">'+esc(d.name)+'</h3>'+
+      (hid?'<p class="small" style="color:#7a6417"><b>Hidden in this layer.</b> Switch the layer to see it on the map.</p>':'')+
+      '<dl><div><dt>Where it sits</dt><dd>'+esc(d.where)+'</dd></div>'+
+      '<div><dt>What it does</dt><dd>'+esc(d.does)+'</dd></div>'+
+      '<div><dt>Everyday role</dt><dd>'+esc(d.daily)+'</dd></div>'+
+      '<div><dt>How to train it</dt><dd>'+esc(d.train)+'</dd></div>'+
+      '<div><dt>Nerve supply</dt><dd>'+esc(d.nerve)+'</dd></div></dl>'+
+      '<div class="callout note mt-5" style="padding:var(--s-4)"><div><p class="small">'+esc(d.note)+'</p></div></div>'+
+      '<div class="row mt-5" style="justify-content:space-between">'+S.evBadge(d.ev)+'<a class="mmm-btn mmm-btn-primary mmm-btn-sm" href="exercises.html?emph='+d.emph+'">See matching exercises</a></div>';
+  }
+  function select(k){ state.sel = k; paint(); }
+  svg.addEventListener('click', function(e){ var p = e.target.closest('.m'); if(p) select(p.getAttribute('data-m')); });
+  svg.addEventListener('keydown', function(e){ if((e.key==='Enter'||e.key===' ') && e.target.classList.contains('m')){ e.preventDefault(); select(e.target.getAttribute('data-m')); } });
+  document.getElementById('detail').addEventListener('click', function(e){ var b = e.target.closest('[data-pick]'); if(b){ var k=b.getAttribute('data-pick'); state.sel=k;
+      // auto-switch layer so the chosen muscle is visible
+      var c = (k==='min') ? 'deep' : (k==='med' ? 'surface' : 'surface'); if(k==='min' && state.layer!=='deep' && state.layer!=='mid') state.layer='mid'; setLayerButtons(); paint(); } });
+  function setLayerButtons(){ document.querySelectorAll('[data-layer]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-layer')===state.layer); }); }
+  document.querySelectorAll('[data-layer]').forEach(function(b){ b.addEventListener('click', function(){ state.layer=b.getAttribute('data-layer');
+      // keep a visible selection
+      if(state.layer==='deep') state.sel='min'; else if(state.layer==='mid' && (state.sel==='maxU'||state.sel==='maxL')) state.sel='med';
+      setLayerButtons(); paint(); }); });
+  document.querySelectorAll('[data-focus]').forEach(function(b){ b.addEventListener('click', function(){
+      state.focus=b.getAttribute('data-focus');
+      document.querySelectorAll('[data-focus]').forEach(function(x){ x.setAttribute('aria-pressed', x===b); });
+      if(state.focus==='lower'){ state.sel='maxL'; state.layer='surface'; setLayerButtons(); }
+      if(state.focus==='upper' && state.sel==='maxL'){ state.sel='maxU'; }
+      paint(); }); });
+  paint();
+
+  /* ---------- activity explorer ---------- */
+  var ACT = [
+    { id:'chair', name:'Standing from a chair', v:{maxU:2,maxL:3,med:1,min:1}, why:'The gluteus maximus extends the hip to bring your trunk upright. The medius keeps the knees from drifting inward.' },
+    { id:'stairs', name:'Climbing stairs', v:{maxU:2,maxL:3,med:2,min:1}, why:'Each step is a brief single-leg stand: the maximus lifts you, the medius stops the pelvis dropping.' },
+    { id:'walk', name:'Walking', v:{maxU:2,maxL:1,med:3,min:2}, why:'Walking is mostly a medius and minimus job. They level the pelvis on each stance leg, thousands of times a day.' },
+    { id:'floor', name:'Getting up from the floor', v:{maxU:3,maxL:3,med:2,min:1}, why:'A long, low rise asks for the biggest hip extension effort of the day.' },
+    { id:'oneleg', name:'Standing on one leg', v:{maxU:2,maxL:1,med:3,min:3}, why:'Balance on one leg is a frontal-plane stability task. The medius and minimus steady the hip and pelvis.' },
+    { id:'hill', name:'Brisk or uphill walking', v:{maxU:3,maxL:3,med:3,min:2}, why:'Higher demands recruit the whole region: maximus for drive, medius and minimus for control.' }
+  ];
+  var LV = ['Minimal','Stabilising','Supporting','Primary'];
+  var ac = document.getElementById('actChips'), ap = document.getElementById('actPanel'), cur = 'chair';
+  function actRender(){
+    ac.innerHTML = ACT.map(function(a){ return '<button class="chip" data-act="'+a.id+'" aria-pressed="'+(a.id===cur)+'">'+esc(a.name)+'</button>'; }).join('');
+    var a = ACT.filter(function(x){return x.id===cur;})[0];
+    ap.innerHTML = '<p class="eyebrow">'+esc(a.name)+'</p><p class="mt-3">'+esc(a.why)+'</p><div class="mt-4">'+
+      ['maxU','maxL','med','min'].map(function(k){ var n=a.v[k];
+        return '<div class="act-row"><div><span class="swatch" style="background:'+COL[k]+'"></span><b style="color:var(--ink)">'+esc(M[k].name.replace('Gluteus ','').replace(/^./,function(c){return c.toUpperCase()}))+'</b></div>'+
+        '<div style="display:flex;align-items:center"><span class="dots" aria-hidden="true">'+[1,2,3].map(function(i){return '<i class="'+(i<=n?'on':'')+'"></i>';}).join('')+'</span><span class="lvl">'+LV[n]+'</span></div></div>'; }).join('')+'</div>';
+  }
+  ac.addEventListener('click', function(e){ var b=e.target.closest('[data-act]'); if(b){ cur=b.getAttribute('data-act'); actRender(); } });
+  actRender();
+
+  /* ---------- pelvic level ---------- */
+  var PEL = {
+    strong:{ pelvis:'rotate(0deg)', trunk:'rotate(0deg) translate(0,0)', fan:1, t:'A strong gluteus medius keeps the pelvis level.', x:'When you stand on one leg, the medius on the standing side works to stop the other side of the pelvis dropping. Your shoulders stay level and your gait looks smooth.' },
+    weak:{ pelvis:'rotate(-12deg)', trunk:'rotate(0deg) translate(0,8px)', fan:.4, t:'As the medius tires, the pelvis drops on the lifted side.', x:'This is the pattern clinicians call a Trendelenburg sign when it is pronounced. Even a mild version can make stairs and uneven ground feel less secure.' },
+    lean:{ pelvis:'rotate(-5deg)', trunk:'rotate(11deg) translate(0,3px)', fan:.7, t:'Leaning over the standing hip is a common workaround.', x:'The trunk shifts toward the standing leg to reduce the demand on the medius. It works in the short term, but it hands the load to the low back and the hip joint, which is why we train the muscle instead.' }
+  };
+  function pel(k){
+    var d = PEL[k];
+    document.getElementById('pelvisG').style.transform = d.pelvis;
+    document.getElementById('trunkG').style.transform = d.trunk;
+    document.getElementById('medFan').style.opacity = d.fan;
+    document.getElementById('pelTitle').textContent = d.t; document.getElementById('pelText').textContent = d.x;
+    document.querySelectorAll('[data-state]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-state')===k); });
+  }
+  document.querySelectorAll('[data-state]').forEach(function(b){ b.addEventListener('click', function(){ pel(b.getAttribute('data-state')); }); });
+  pel('strong');
+})();
+</script>
+</body>
+</html>

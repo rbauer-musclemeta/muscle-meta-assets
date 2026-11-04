@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glute exercise library · Muscle-Meta Matrix™</title>
+<meta name="description" content="Browse glute exercises by movement category, level, joint comfort and balance demand. Step-by-step cues, easier and harder options, and joint notes for every exercise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/glute.css">
+<style>
+  .filters { position:sticky; top:70px; z-index:20; background:rgba(247,246,243,.94); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:var(--s-4) 0; }
+  @media (max-width:860px){ .filters { position:static; } }
+  .f-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .f-label { font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:var(--fw-semi); color:var(--ink-muted); min-width:92px; }
+  .f-stack { display:grid; gap:10px; }
+  .ex-card { display:flex; flex-direction:column; gap:var(--s-3); padding:var(--s-5); height:100%; }
+  .ex-card h4 { margin:0; font-size:21px; }
+  .ex-top { display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+  .ex-card .btnrow { margin-top:auto; display:flex; gap:8px; padding-top:var(--s-2); }
+  .ex-card .btnrow .mmm-btn { flex:1; }
+  .icon-btn { min-width:44px; min-height:44px; border-radius:50%; border:1.5px solid var(--border); background:var(--white); cursor:pointer; display:grid; place-items:center; color:var(--ink-muted); flex:0 0 44px; }
+  .icon-btn:hover { border-color:var(--teal); color:var(--teal-dark); }
+  .icon-btn[aria-pressed="true"] { background:var(--gold-muted); border-color:var(--gold); color:#7a6417; }
+  .icon-btn[aria-pressed="true"] svg { fill:var(--gold); }
+  .plane { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-muted); }
+  .empty { text-align:center; padding:var(--s-8) var(--s-5); }
+  .legend-dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:6px; }
+</style>
+</head>
+<body class="mmm-grain">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-nav">
+  <div class="mmm-container nav-in">
+    <a class="brand" href="index.html"><b>Muscle-Meta Matrix<sup class="tm">™</sup></b><small>Pillar 1 · Glute training</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="anatomy.html">Anatomy</a></li>
+      <li><a href="exercises.html" aria-current="page">Exercises</a></li>
+      <li><a href="program.html">Your program</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" style="padding:var(--s-7) 0 var(--s-6)">
+    <div class="mmm-container">
+      <p class="crumbs"><a href="index.html">Glute training</a> / Exercises</p>
+      <p class="eyebrow">Step 2 · Choose</p>
+      <h1 style="font-size:clamp(40px,5vw,56px)">Find the exercises <em class="serif-italic">that suit your body.</em></h1>
+      <p class="lede mt-4">Every exercise below belongs to one of four movement categories. Filter by your level and by what your joints prefer today, then save the ones you want.</p>
+    </div>
+  </section>
+
+  <div class="filters" id="filters">
+    <div class="mmm-container f-stack">
+      <div class="f-row">
+        <label class="sr-only" for="q">Search exercises</label>
+        <input type="search" id="q" placeholder="Search by name or equipment" style="max-width:340px">
+        <span class="small muted" id="count" role="status" aria-live="polite" style="margin-left:auto"></span>
+      </div>
+      <div class="f-row"><span class="f-label">Category</span><span id="fCat" class="f-row" role="group" aria-label="Category"></span></div>
+      <div class="f-row"><span class="f-label">Level</span><span id="fLvl" class="f-row" role="group" aria-label="Level"></span></div>
+      <div class="f-row"><span class="f-label">Focus</span><span id="fEmph" class="f-row" role="group" aria-label="Focus region"></span></div>
+      <div class="f-row"><span class="f-label">Comfort</span><span id="fComfort" class="f-row" role="group" aria-label="Comfort"></span>
+        <button class="chip" id="fSaved" aria-pressed="false" style="margin-left:auto">Saved list <span class="chip-count" id="savedN">0</span></button>
+        <button class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="clear">Clear filters</button></div>
+    </div>
+  </div>
+
+  <section class="mmm-section-sm" style="padding-top:var(--s-6)">
+    <div class="mmm-container">
+      <div class="callout note" style="margin-bottom:var(--s-6)">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 15v7M16 10.5v.5"/></svg>
+        <div><p><b>How to read the comfort filters.</b> They narrow the list to exercises that are typically easier on a given area: <i>kind to knees</i> limits deep knee bend, <i>spine-conscious</i> avoids loading a bent spine, <i>low balance demand</i> needs no single-leg stability, and <i>hip-comfort</i> avoids deep hip bend and side-lying on the hip. They are a guide, not a prescription. Pain is your signal to change the exercise.</p></div>
+      </div>
+      <div class="grid g3" id="grid"></div>
+      <div class="empty" id="empty" hidden><h3>Nothing matches those filters</h3><p class="mt-3">Try removing one, or <button class="txt-link" id="clear2" style="background:none;border:0;cursor:pointer;font:inherit;color:var(--teal-dark);text-decoration:underline">clear all filters</button>.</p></div>
+      <div class="row mt-7" style="justify-content:space-between;gap:var(--s-5)">
+        <p class="small muted" style="max-width:640px">Exercises marked &ldquo;Named in the source notes&rdquo; come from the NotebookLM notes behind this guide. The others are clinical additions to support beginners and older adults.</p>
+        <a class="mmm-btn mmm-btn-primary" href="program.html#plan">Use them in your program</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="mmm-container">
+    <div class="foot-grid">
+      <div><div class="brand"><b>Muscle-Meta Matrix<sup class="tm">™</sup></b></div><p class="mt-3">Clinical intelligence for active aging.<br><em>Small Steps. Exponential Gains.™</em></p></div>
+      <div><h4 style="font-size:18px">Glute training</h4><ul><li><a href="index.html">Overview</a></li><li><a href="anatomy.html">Anatomy</a></li><li><a href="exercises.html">Exercises</a></li><li><a href="program.html">Your program</a></li></ul></div>
+      <div><h4 style="font-size:18px">Pillar 1 categories</h4><ul class="small"><li>P1-C1 Joint health</li><li>P1-C2 Functional independence</li><li>P1-C3 Mobility</li><li>P1-C4 Strength</li><li>P1-C5 Endurance</li></ul></div>
+    </div>
+    <div class="foot-legal"><p>This guide is for education and does not replace advice from your clinician. Stop and seek advice for chest pain, dizziness, new numbness, or sharp pain that does not settle.</p></div>
+  </div>
+</footer>
+
+<script src="assets/glute-data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  var S = window.MMSite, G = window.MMGlute, esc = S.esc, EX = G.EXERCISES;
+  var F = { q:'', cat:'all', lvl:'all', emph:'all', comfort:{}, saved:false };
+
+  /* read ?emph= / ?cat= from links on other pages */
+  try { var u = new URLSearchParams(location.search);
+    if(u.get('emph') && ['um','lm','mm'].indexOf(u.get('emph'))>-1) F.emph = u.get('emph');
+    if(u.get('cat') && G.CATS[u.get('cat')]) F.cat = u.get('cat'); } catch(e){}
+
+  var COMFORT = [['knee','Kind to knees'],['spine','Spine-conscious'],['balance','Low balance demand'],['hip','Hip-comfort']];
+  var EMPH = [['all','All regions'],['um','Upper glute max'],['lm','Lower glute max'],['mm','Glute med and min']];
+
+  function chip(group, val, label, pressed, extra){ return '<button class="chip" data-g="'+group+'" data-v="'+val+'" aria-pressed="'+pressed+'">'+esc(label)+(extra||'')+'</button>'; }
+  function counts(fn){ return EX.filter(fn).length; }
+  function buildFilters(){
+    var cats = [['all','All ('+EX.length+')']].concat(Object.keys(G.CATS).map(function(k){ return [k, G.CATS[k].label+' ('+counts(function(e){return e.cat===k;})+')']; }));
+    document.getElementById('fCat').innerHTML = cats.map(function(c){ return chip('cat',c[0],c[1],F.cat===c[0]); }).join('');
+    document.getElementById('fLvl').innerHTML = [['all','All levels'],['1','Foundation'],['2','Build'],['3','Advance']].map(function(c){ return chip('lvl',c[0],c[1],F.lvl===c[0]); }).join('');
+    document.getElementById('fEmph').innerHTML = EMPH.map(function(c){ return chip('emph',c[0],c[1],F.emph===c[0]); }).join('');
+    document.getElementById('fComfort').innerHTML = COMFORT.map(function(c){ return chip('comfort',c[0],c[1],!!F.comfort[c[0]]); }).join('');
+  }
+  function match(e){
+    if(F.cat!=='all' && e.cat!==F.cat) return false;
+    if(F.lvl!=='all' && e.lvl>+F.lvl) return false;      // "Build" shows everything you can already do at Build or below
+    if(F.emph!=='all' && e.emph.indexOf(F.emph)<0) return false;
+    for(var k in F.comfort) if(F.comfort[k] && !e.flags[k]) return false;
+    if(F.saved && (S.store.get('saved',[])||[]).indexOf(e.id)<0) return false;
+    if(F.q){ var hay=(e.name+' '+e.equip+' '+G.CATS[e.cat].label+' '+e.blurb).toLowerCase(); if(hay.indexOf(F.q)<0) return false; }
+    return true;
+  }
+  var STAR = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>';
+  var PL = { 'Horizontal':'M4 12h16M16 8l4 4-4 4', 'Vertical':'M12 4v16M8 16l4 4 4-4', 'Lateral / rotary':'M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4' };
+  function render(){
+    var saved = S.store.get('saved',[])||[];
+    var list = EX.filter(match);
+    document.getElementById('grid').innerHTML = list.map(function(e){
+      var isS = saved.indexOf(e.id)>-1, pl = G.CATS[e.cat].plane;
+      return '<article class="mmm-card mmm-card-hover ex-card"><div class="ex-top"><div class="row" style="gap:6px"><span class="plane"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#006b6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+PL[pl]+'"/></svg>'+esc(G.CATS[e.cat].label)+'</span></div>'+
+        '<button class="icon-btn" data-save="'+e.id+'" aria-pressed="'+isS+'" aria-label="'+(isS?'Remove ':'Save ')+esc(e.name)+(isS?' from':' to')+' your list">'+STAR+'</button></div>'+
+        '<h4>'+esc(e.name)+'</h4><div class="row" style="gap:6px">'+S.levelBadge(e.lvl)+'<span class="tag">'+esc(e.side)+'</span></div>'+
+        '<p class="small">'+esc(e.blurb)+'</p>'+
+        '<div class="tagline">'+e.emph.map(function(k){return '<span class="tag">'+esc(S.EMPH[k])+'</span>';}).join('')+'</div>'+
+        '<div class="btnrow"><button class="mmm-btn mmm-btn-ghost mmm-btn-sm" data-open="'+e.id+'">How to do it</button></div></article>';
+    }).join('');
+    document.getElementById('empty').hidden = list.length>0;
+    document.getElementById('count').textContent = list.length+' of '+EX.length+' exercises';
+    document.getElementById('savedN').textContent = saved.length;
+  }
+  function refresh(){ buildFilters(); render(); }
+
+  document.getElementById('filters').addEventListener('click', function(e){
+    var b = e.target.closest('[data-g]'); if(!b) return;
+    var g=b.getAttribute('data-g'), v=b.getAttribute('data-v');
+    if(g==='comfort') F.comfort[v] = !F.comfort[v]; else F[g]=v;
+    refresh();
+  });
+  document.getElementById('q').addEventListener('input', function(e){ F.q = e.target.value.trim().toLowerCase(); render(); });
+  document.getElementById('fSaved').addEventListener('click', function(e){ F.saved=!F.saved; e.currentTarget.setAttribute('aria-pressed',F.saved); render(); });
+  function clear(){ F={q:'',cat:'all',lvl:'all',emph:'all',comfort:{},saved:false}; document.getElementById('q').value=''; document.getElementById('fSaved').setAttribute('aria-pressed','false'); refresh(); }
+  document.getElementById('clear').addEventListener('click', clear);
+  document.getElementById('clear2').addEventListener('click', clear);
+  document.getElementById('grid').addEventListener('click', function(e){
+    var o = e.target.closest('[data-open]'); if(o){ S.openExercise(o.getAttribute('data-open'), {onSave:render}); return; }
+    var s = e.target.closest('[data-save]'); if(s){ S.toggleSaved(s.getAttribute('data-save')); render(); var again = document.querySelector('[data-save="'+s.getAttribute('data-save')+'"]'); if(again) again.focus(); }
+  });
+  document.getElementById('grid').addEventListener('keydown', function(){});
+  /* refresh the saved count when the dialog closes */
+  document.addEventListener('close', function(){ render(); }, true);
+  refresh();
+})();
+</script>
+</body>
+</html>

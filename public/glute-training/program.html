@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your glute program · Muscle-Meta Matrix™</title>
+<meta name="description" content="Find your level, build a three-day glute program with the rule of thirds, track sets and progress, and adjust on tired days with a simple readiness check.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/glute.css">
+<style>
+  .q { border:0; padding:0; margin:0 0 var(--s-5); }
+  .q legend { font-weight:var(--fw-semi); color:var(--ink); margin-bottom:var(--s-3); padding:0; font-size:17px; }
+  .q .opts { display:grid; gap:10px; }
+  .vec { text-align:left; display:block; width:100%; }
+  .meter { display:inline-flex; gap:5px; vertical-align:middle; }
+  .meter i { width:22px; height:8px; border-radius:4px; background:var(--border); display:block; }
+  .meter i.on { background:var(--teal); }
+  .slot { display:grid; grid-template-columns:44px 1fr; gap:var(--s-4); padding:var(--s-5); }
+  .slot + .slot { margin-top:var(--s-4); }
+  .slot-n { width:44px; height:44px; border-radius:50%; background:var(--teal-muted); color:var(--teal-dark); display:grid; place-items:center; font-family:var(--font-display); font-weight:700; font-size:22px; }
+  .slot h4 { margin:2px 0 6px; font-size:22px; }
+  .slot h4 button { background:none; border:0; padding:0; font:inherit; color:var(--ink); cursor:pointer; text-align:left; text-decoration:underline; text-decoration-color:var(--teal-muted); text-underline-offset:4px; }
+  .slot h4 button:hover { color:var(--teal-dark); text-decoration-color:var(--gold); }
+  .sets { display:flex; flex-wrap:wrap; gap:8px; margin:var(--s-3) 0; }
+  .sets label { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 14px 0 10px; border:1.5px solid var(--border); border-radius:var(--r-pill); font-size:14px; cursor:pointer; background:var(--white); }
+  .sets label:has(input:checked) { background:var(--teal-muted); border-color:var(--teal); color:var(--teal-dark); font-weight:var(--fw-semi); }
+  .logrow { display:flex; flex-wrap:wrap; gap:10px; align-items:end; margin-top:var(--s-3); }
+  .logrow label { display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--ink-muted); width:104px; }
+  .logrow input { min-height:44px; }
+  .bar { height:10px; background:var(--border-soft); border-radius:var(--r-pill); overflow:hidden; }
+  .bar > span { display:block; height:100%; background:var(--teal); border-radius:var(--r-pill); transition:width var(--dur-slow) var(--ease-out); }
+  .rg { display:grid; grid-template-columns:150px 1fr 36px; gap:12px; align-items:center; }
+  @media (max-width:560px){ .rg { grid-template-columns:1fr 36px; } .rg label { grid-column:1/-1; } .slot { grid-template-columns:1fr; } }
+  .lights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s-4); }
+  @media (max-width:860px){ .lights { grid-template-columns:1fr; } }
+  .light { border-radius:var(--r-3); padding:var(--s-5); border:1.5px solid var(--border); background:var(--white); }
+  .light.go { background:var(--teal-muted); border-color:var(--teal); }
+  .light.adj { background:var(--gold-muted); border-color:var(--gold); }
+  .light.stop { background:var(--white); border:2px solid var(--ink); }
+  .light h4 { display:flex; align-items:center; gap:10px; margin-bottom:var(--s-3); }
+  .light ul { margin:0; padding-left:20px; }
+  .light li + li { margin-top:6px; }
+  .shuffle-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--s-4); }
+  @media (max-width:1020px){ .shuffle-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:560px){ .shuffle-grid { grid-template-columns:1fr; } }
+  .flash { animation:flash 500ms var(--ease-out); }
+  @keyframes flash { from { opacity:.2; transform:translateY(8px); } to { opacity:1; transform:none; } }
+</style>
+</head>
+<body class="mmm-grain">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-nav">
+  <div class="mmm-container nav-in">
+    <a class="brand" href="index.html"><b>Muscle-Meta Matrix<sup class="tm">™</sup></b><small>Pillar 1 · Glute training</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="anatomy.html">Anatomy</a></li>
+      <li><a href="exercises.html">Exercises</a></li>
+      <li><a href="program.html" aria-current="page">Your program</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" style="padding:var(--s-7) 0 var(--s-6)">
+    <div class="mmm-container">
+      <p class="crumbs"><a href="index.html">Glute training</a> / Your program</p>
+      <p class="eyebrow">Step 3 · Practise</p>
+      <h1 style="font-size:clamp(40px,5vw,56px)">A three-day plan <em class="serif-italic">built around you.</em></h1>
+      <p class="lede mt-4">Start by finding your level. Then follow a plan that gives you one exercise from each movement category every session, track your sets, and scale up or down depending on how you feel.</p>
+      <nav class="row mt-5" aria-label="On this page"><a class="chip" href="#finder">1 · Find your level</a><a class="chip" href="#thirds">2 · Rule of thirds</a><a class="chip" href="#plan">3 · Your plan</a><a class="chip" href="#ready">4 · Readiness</a><a class="chip" href="#safety">5 · Safety</a></nav>
+    </div>
+  </section>
+
+  <!-- FINDER -->
+  <section class="mmm-section" id="finder" style="padding-top:var(--s-7)">
+    <div class="mmm-container">
+      <div class="grid g2" style="gap:var(--s-7);align-items:start">
+        <div>
+          <p class="eyebrow">Question by question</p>
+          <h2 style="margin:var(--s-2) 0 var(--s-4)">Find your starting point</h2>
+          <p class="lede">Five quick questions. There are no wrong answers: this just picks a level that will feel challenging but safe.</p>
+          <div class="callout care mt-5"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#7a6417" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 9v8M16 21.5v.5"/></svg><div><p>If you answer that pain limits your daily activities, we will start you at Foundation and suggest you check in with a clinician.</p></div></div>
+        </div>
+        <form id="finderForm" class="card-flat" style="padding:var(--s-6)"></form>
+      </div>
+      <div id="finderOut" class="mt-6" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- RULE OF THIRDS -->
+  <section class="mmm-section section-alt" id="thirds">
+    <div class="mmm-container">
+      <div class="section-head">
+        <p class="eyebrow">The core idea</p>
+        <h2>The rule of thirds</h2>
+        <p class="lede">The hip works in three directions. Each session you choose one exercise from four categories to cover them all, and you change your picks from session to session.</p>
+      </div>
+      <div class="grid g3" id="vectors"></div>
+
+      <div class="mt-7">
+        <div class="row" style="justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)">
+          <div><h3>Try a session</h3><p class="small muted mt-3">Shuffle to see a different combination for your level and comfort settings.</p></div>
+          <div class="row"><button class="mmm-btn mmm-btn-primary" id="shuffle">Shuffle a session</button></div>
+        </div>
+        <div class="shuffle-grid" id="shuffleOut"></div>
+        <p class="small muted mt-4">Abduction goes first here because the source prioritises the upper glutes. The plan below lets you flip that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section class="mmm-section" id="plan">
+    <div class="mmm-container">
+      <div class="section-head">
+        <p class="eyebrow">Your plan</p>
+        <h2>Three sessions a week</h2>
+        <p class="lede" id="levelBlurb"></p>
+      </div>
+
+      <div class="grid g2" style="gap:var(--s-6);margin-bottom:var(--s-6);align-items:start">
+        <div class="stack">
+          <div><p class="f-label small muted" style="margin-bottom:8px">Level</p><div class="seg" id="segLevel" role="group" aria-label="Level"></div></div>
+          <div><p class="f-label small muted" style="margin-bottom:8px">Training week</p><div class="seg" id="segWeek" role="group" aria-label="Training week"></div></div>
+        </div>
+        <div class="card-flat">
+          <p class="eyebrow">Adjust to your body</p>
+          <div class="mt-3">
+            <label class="check"><input type="checkbox" id="tUpper"> <span>Start with abduction (upper-glute priority)</span></label>
+            <div id="tUpperEv" style="margin:0 0 8px 34px"></div>
+            <div id="comfortToggles"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:space-between;margin-bottom:var(--s-4)">
+        <div class="seg" id="segDay" role="tablist" aria-label="Session"></div>
+        <div class="row no-print"><button class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="printBtn">Print this week</button><button class="mmm-btn mmm-btn-ghost mmm-btn-sm" id="resetWeek">Reset this week&rsquo;s sets</button></div>
+      </div>
+      <p class="lede" id="dayTheme" style="font-size:18px;margin-bottom:var(--s-3)"></p>
+      <p class="small muted" id="effort" style="margin-bottom:var(--s-5)"></p>
+
+      <div id="slots"></div>
+
+      <div class="card-teal mt-6">
+        <div class="row" style="justify-content:space-between;gap:var(--s-4)">
+          <div><p class="eyebrow">This week</p><h4 id="weekText" style="margin-top:4px"></h4></div>
+          <div style="flex:1;min-width:220px"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="weekBar" aria-label="Sets completed this week"><span id="weekFill" style="width:0"></span></div><p class="small mt-3" id="weekNote"></p></div>
+        </div>
+      </div>
+
+      <div class="grid g2 mt-7" style="gap:var(--s-6)">
+        <div class="mmm-card">
+          <h3>How to progress</h3>
+          <p class="mt-3">Change one lever at a time, and only when the current session feels comfortable.</p>
+          <ol class="mt-4" style="padding-left:20px;display:grid;gap:10px">
+            <li><b style="color:var(--ink)">Reps.</b> Work toward the top of the rep range with good form.</li>
+            <li><b style="color:var(--ink)">Load.</b> When you reach the top of the range on every set, add the smallest load increase.</li>
+            <li><b style="color:var(--ink)">Control.</b> Add a pause at the top (the source suggests it for hip thrusts) or slow the lowering.</li>
+            <li><b style="color:var(--ink)">Complexity.</b> Move from two-leg to one-leg, or from supported to unsupported.</li>
+          </ol>
+          <p class="small muted mt-4">The tracker above tells you when you have hit the top of a range.</p>
+        </div>
+        <div class="mmm-card">
+          <h3>Sets and recovery</h3>
+          <p class="mt-3">More is not always better. The source notes that one or two sets per exercise can be enough, and that a plan should be built so drastic deloads are rarely needed. Use the readiness check below to dial a session down instead of skipping it.</p>
+          <p class="mt-4" id="setTotals"></p>
+          <p class="small muted mt-3">Note: the source notes cite about 32 sets a week for the Advance sample; the sets actually listed add up to 35, which is what this tracker counts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- READINESS -->
+  <section class="mmm-section section-alt" id="ready">
+    <div class="mmm-container">
+      <div class="grid g2" style="gap:var(--s-8);align-items:start">
+        <div>
+          <p class="eyebrow">Pillar 3 · Recovery (P3-C8)</p>
+          <h2 style="margin:var(--s-2) 0 var(--s-4)">How ready are you today?</h2>
+          <p class="lede">Excessive soreness and a dip in performance are signs you may be doing too much. Rate how you feel and we will suggest how to shape today&rsquo;s session.</p>
+          <p class="mt-4">This is called auto-regulation: adjusting the day rather than following the plan blindly. It tends to protect consistency, which matters more than any single session.</p>
+          <p class="mt-4"><span id="readyEv"></span></p>
+        </div>
+        <div class="card-flat" style="padding:var(--s-6)">
+          <div class="stack" id="sliders"></div>
+          <label class="check mt-4"><input type="checkbox" id="rPain"> I have sharp, new or swelling pain, or I had a fall or injury</label>
+          <div id="readyOut" class="mt-5" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="mmm-section" id="safety">
+    <div class="mmm-container">
+      <div class="section-head">
+        <p class="eyebrow">Train with confidence</p>
+        <h2>A simple guide to discomfort</h2>
+        <p class="lede">Muscle effort and mild soreness are normal. Joint pain and symptoms that worry you are not. Use this as a quick check during and after each session.</p>
+      </div>
+      <div class="lights">
+        <div class="light go"><h4><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#006b6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>Carry on</h4><ul class="small"><li>Muscle burn or fatigue in the glutes and thighs</li><li>Mild stiffness or soreness up to about 3 or 4 out of 10 that settles within a day</li></ul></div>
+        <div class="light adj"><h4><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7a6417" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 12h10"/></svg>Adjust</h4><ul class="small"><li>Joint discomfort of about 5 or 6 out of 10, or soreness that lingers beyond a day or two</li><li>Reduce the load or range, use support, or swap the exercise</li></ul></div>
+        <div class="light stop"><h4><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a2332" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 8l8 8M16 8l-8 8"/></svg>Stop and seek advice</h4><ul class="small"><li>Chest pain, dizziness or unusual breathlessness</li><li>Sharp or catching joint pain, numbness or tingling</li><li>Pain after a fall or sudden injury</li></ul></div>
+      </div>
+      <div class="grid g2 mt-6" style="gap:var(--s-5)">
+        <div class="callout note"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 15v7M16 10.5v.5"/></svg><div><p><b>Breathe through effort.</b> Exhale as you lift or stand. Holding your breath on heavy sets can raise blood pressure, which matters if you have a heart or blood-pressure condition.</p></div></div>
+        <div class="callout note"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#006b6b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 15v7M16 10.5v.5"/></svg><div><p><b>Start light.</b> The source advises starting light and progressing gradually, especially with riskier exercises such as heavy hinges. This matters even more as we age.</p></div></div>
+      </div>
+      <div class="row mt-7" style="gap:var(--s-4)"><a class="mmm-btn mmm-btn-primary mmm-btn-lg" href="exercises.html">Browse the exercise library</a><a class="mmm-btn mmm-btn-ghost mmm-btn-lg" href="anatomy.html">Review the anatomy</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="mmm-container">
+    <div class="foot-grid">
+      <div><div class="brand"><b>Muscle-Meta Matrix<sup class="tm">™</sup></b></div><p class="mt-3">Clinical intelligence for active aging.<br><em>Small Steps. Exponential Gains.™</em></p></div>
+      <div><h4 style="font-size:18px">Glute training</h4><ul><li><a href="index.html">Overview</a></li><li><a href="anatomy.html">Anatomy</a></li><li><a href="exercises.html">Exercises</a></li><li><a href="program.html">Your program</a></li></ul></div>
+      <div><h4 style="font-size:18px">Pillar 1 categories</h4><ul class="small"><li>P1-C1 Joint health</li><li>P1-C2 Functional independence</li><li>P1-C3 Mobility</li><li>P1-C4 Strength</li><li>P1-C5 Endurance</li></ul></div>
+    </div>
+    <div class="foot-legal"><p>This program is for education and does not replace advice from your clinician. The Foundation and Build templates are clinical applications of the source principles; the source notes do not define level-specific prescriptions or guidance for people over 45. Your progress is saved only in this browser.</p></div>
+  </div>
+</footer>
+
+<script src="assets/glute-data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  var S = window.MMSite, G = window.MMGlute, esc = S.esc, EX = G.EXERCISES;
+  var st = S.store.get('prog', null) || {};
+  st.level = st.level || 1; st.day = st.day || 0; st.week = st.week || 1; if(st.upper===undefined) st.upper = true;
+  st.tog = st.tog || {}; st.swaps = st.swaps || {}; st.checks = st.checks || {}; st.log = st.log || {};
+  function save(){ S.store.set('prog', st); }
+  var COMFORT = [['knee','Kind to knees'],['spine','Spine-conscious swaps'],['balance','Low balance demand'],['hip','Hip-comfort']];
+
+  /* ---------- helpers ---------- */
+  function passes(e){ for(var k in st.tog) if(st.tog[k] && !e.flags[k]) return false; return true; }
+  function cands(cat){ return EX.filter(function(e){ return e.cat===cat && e.lvl<=st.level && passes(e); }).sort(function(a,b){ return a.name<b.name?-1:1; }); }
+  function overlap(a,b){ return a.emph.filter(function(k){ return b.emph.indexOf(k)>-1; }).length; }
+  function resolve(slot, di, si){
+    var base = G.byId(slot[1]), note = '';
+    if(!passes(base)){
+      var c = cands(slot[0]).sort(function(a,b){ return score(b,base)-score(a,base); });
+      if(c.length){ base = c[0]; note = 'Swapped to match your comfort settings.'; } else note = 'No friendlier option at this level. Use support and keep the load light.';
+    }
+    var n = st.swaps[st.level+'|'+di+'|'+si] || 0;
+    if(n){ var alts = cands(slot[0]); if(alts.length){ var i = alts.indexOf(base); if(i<0) i=0; base = alts[(i+n)%alts.length]; note = 'Your swap.'; } }
+    return { ex:base, note:note };
+  }
+  function score(c,o){ return (c.dom===o.dom?2:0)+(c.side===o.side?1:0)+overlap(c,o)-Math.abs(c.lvl-o.lvl)*.5; }
+  function ordered(day){
+    var s = day.slots.map(function(x,i){ return {s:x,i:i}; });
+    if(st.upper) return s;
+    var first = s.filter(function(x){ return x.s[0]!=='abd'; }), abd = s.filter(function(x){ return x.s[0]==='abd'; });
+    return first.concat(abd);
+  }
+
+  /* ---------- level finder ---------- */
+  var Q = [
+    ['Standing up from a chair', [['I need to push with my hands',0],['I can stand up 5 times without hands, slowly',1],['I can do 10 or more smoothly',2]]],
+    ['Standing on one leg (without holding on)', [['Fewer than 5 seconds',0],['5 to 15 seconds',1],['More than 15 seconds on each leg',2]]],
+    ['Strength training experience', [['None, or under 3 months',0],['3 to 12 months',1],['A year or more, fairly regularly',2]]],
+    ['Your hips, knees and back in daily life', [['Pain often limits what I do',0],['Occasional aches that settle within a day',1],['Rarely bother me',2]]],
+    ['Using gym equipment (barbell, cables, machines)', [['I would need guidance',0],['I am comfortable with some',1],['I am confident with most',2]]]
+  ];
+  var fForm = document.getElementById('finderForm');
+  fForm.innerHTML = Q.map(function(q,i){
+    return '<fieldset class="q"><legend>'+(i+1)+'. '+esc(q[0])+'</legend><div class="opts">'+q[1].map(function(o,j){
+      return '<label class="opt"><input type="radio" name="q'+i+'" value="'+o[1]+'" required><span>'+esc(o[0])+'</span></label>';
+    }).join('')+'</div></fieldset>';
+  }).join('') + '<button class="mmm-btn mmm-btn-primary mmm-btn-lg" type="submit">Show my starting point</button>';
+  fForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = Q.map(function(_,i){ return +fForm.elements['q'+i].value; });
+    var sum = v.reduce(function(a,b){return a+b;},0);
+    var lvl = sum<=3 ? 1 : (sum<=7 ? 2 : 3), why = '';
+    if(v[3]===0){ lvl = 1; why = 'Because pain often limits your daily activity, we suggest starting at Foundation and checking in with a clinician. '; }
+    else if(v[0]===0){ lvl = 1; why = 'Because standing from a chair is still a challenge, Foundation lets you build that first. '; }
+    else if(v[1]===0 && lvl>2){ lvl = 2; why = 'Balance on one leg is your next growth area, so we capped you at Build and use support for single-leg work. '; }
+    st.level = lvl; save();
+    var L = G.LEVELS[lvl];
+    document.getElementById('finderOut').innerHTML =
+      '<div class="card-teal mmm-reveal is-visible"><p class="eyebrow">Here&rsquo;s where you stand</p><h3 style="margin:4px 0 8px">Start at '+esc(L.name)+'</h3><p>'+esc(why)+esc(L.blurb)+'</p><div class="row mt-4"><a class="mmm-btn mmm-btn-primary" href="#plan">See your plan</a><span class="small muted">You can change level at any time.</span></div></div>';
+    renderPlan(); renderShuffle(); document.getElementById('finderOut').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+
+  /* ---------- rule of thirds ---------- */
+  var VEC = [
+    { n:'Vertical', cats:['squat','hinge'], cost:3, path:'M12 4v16M7 15l5 5 5-5', say:'Squats, lunges, step-ups and hinges. They load the hip and the thigh together and are the most demanding on the body.' },
+    { n:'Horizontal', cats:['bridge'], cost:2, path:'M4 12h16M15 7l5 5-5 5', say:'Hip thrusts and bridges. They load the glutes heavily with far less muscle damage than vertical lifts, so they recover quickly.' },
+    { n:'Lateral and rotary', cats:['abd'], cost:1, path:'M4 12h16M8 7l-4 5 4 5M16 7l4 5-4 5', say:'Sideways and rotary hip work for the medius and minimus. The source calls it penalty-free volume: low fatigue, little joint wear.' }
+  ];
+  document.getElementById('vectors').innerHTML = VEC.map(function(v,i){
+    var eg = []; v.cats.forEach(function(c){ EX.filter(function(e){return e.cat===c && e.lvl===1;}).slice(0,2).forEach(function(e){ eg.push(e.name); }); });
+    return '<div class="mmm-card mmm-reveal'+(i?' mmm-reveal-delay-'+i:'')+'"><div class="icon-bubble"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#006b6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+v.path+'"/></svg></div>'+
+      '<h3 class="mt-3">'+esc(v.n)+'</h3><p class="small mt-3">'+esc(v.say)+'</p>'+
+      '<p class="small mt-3"><b style="color:var(--ink)">Categories:</b> '+v.cats.map(function(c){return esc(G.CATS[c].label);}).join(' and ')+'</p>'+
+      '<p class="small mt-3"><b style="color:var(--ink)">Recovery cost:</b> <span class="meter" aria-label="'+v.cost+' of 3">'+[1,2,3].map(function(x){return '<i class="'+(x<=v.cost?'on':'')+'"></i>';}).join('')+'</span></p>'+
+      '<p class="small muted mt-3">e.g. '+eg.map(esc).join(', ')+'</p></div>';
+  }).join('');
+
+  function pick(cat){ var c = cands(cat); return c.length ? c[Math.floor(Math.random()*c.length)] : null; }
+  function renderShuffle(){
+    var order = st.upper ? ['abd','bridge','squat','hinge'] : ['bridge','squat','hinge','abd'];
+    document.getElementById('shuffleOut').innerHTML = order.map(function(cat,i){
+      var e = pick(cat);
+      if(!e) return '<div class="card-flat"><p class="eyebrow">'+esc(G.CATS[cat].label)+'</p><p class="small mt-3">No exercise matches your comfort settings at this level.</p></div>';
+      return '<div class="mmm-card flash" style="padding:var(--s-5)"><p class="eyebrow">'+(i+1)+' · '+esc(G.CATS[cat].label)+'</p><h4 class="mt-3" style="font-size:20px">'+esc(e.name)+'</h4><p class="small mt-3">'+esc(e.blurb)+'</p><button class="mmm-btn mmm-btn-ghost mmm-btn-sm mt-4" data-open="'+e.id+'">How to do it</button></div>';
+    }).join('');
+  }
+  document.getElementById('shuffle').addEventListener('click', renderShuffle);
+  document.getElementById('shuffleOut').addEventListener('click', function(e){ var b=e.target.closest('[data-open]'); if(b) S.openExercise(b.getAttribute('data-open')); });
+
+  /* ---------- plan ---------- */
+  var EFFORT = { 1:'Effort: stop each set with 3 to 4 reps left in the tank. Rest 60 to 90 seconds between compound sets.', 2:'Effort: stop each set with 2 to 3 reps left in the tank. Rest 90 to 120 seconds between compound sets.', 3:'Effort: 1 to 3 reps left in the tank on most sets. Stay well short of failure on hinges and heavy squats. Rest 90 to 120 seconds between compound sets.' };
+  function key(day,si,set){ return [st.week,st.level,day,si,set].join('|'); }
+  function weekDone(){ var n=0; for(var k in st.checks){ var p=k.split('|'); if(+p[0]===st.week && +p[1]===st.level && st.checks[k]) n++; } return n; }
+  function totalSets(){ var t=0; G.PLANS[st.level].days.forEach(function(d){ d.slots.forEach(function(s){ t+=s[2]; }); }); return t; }
+  function daySets(i){ return G.PLANS[st.level].days[i].slots.reduce(function(a,s){return a+s[2];},0); }
+
+  function topReps(txt){ var m = String(txt).match(/(\d+)(?:[–-](\d+))?/); return m ? +(m[2]||m[1]) : null; }
+  function lastLog(id){ var l = st.log[id]; return l && l.length ? l[l.length-1] : null; }
+
+  function renderPlan(){
+    var plan = G.PLANS[st.level], day = plan.days[st.day];
+    document.getElementById('levelBlurb').textContent = G.LEVELS[st.level].name+': '+G.LEVELS[st.level].blurb;
+    document.getElementById('segLevel').innerHTML = [1,2,3].map(function(l){ return '<button data-level="'+l+'" aria-pressed="'+(st.level===l)+'">'+esc(G.LEVELS[l].name)+'</button>'; }).join('');
+    document.getElementById('segWeek').innerHTML = [1,2,3,4].map(function(w){ return '<button data-week="'+w+'" aria-pressed="'+(st.week===w)+'">Week '+w+'</button>'; }).join('');
+    document.getElementById('segDay').innerHTML = plan.days.map(function(d,i){ return '<button role="tab" data-day="'+i+'" aria-selected="'+(st.day===i)+'" aria-pressed="'+(st.day===i)+'">'+esc(d.name)+'</button>'; }).join('');
+    document.getElementById('tUpper').checked = st.upper;
+    document.getElementById('tUpperEv').innerHTML = S.evBadge('unp');
+    document.getElementById('comfortToggles').innerHTML = COMFORT.map(function(c){ return '<label class="check"><input type="checkbox" data-tog="'+c[0]+'"'+(st.tog[c[0]]?' checked':'')+'> '+esc(c[1])+'</label>'; }).join('');
+    document.getElementById('dayTheme').innerHTML = '<b style="color:var(--ink)">'+esc(day.name)+':</b> '+esc(day.theme)+' <span class="small muted">· '+daySets(st.day)+' working sets</span>';
+    document.getElementById('effort').textContent = EFFORT[st.level];
+
+    document.getElementById('slots').innerHTML = ordered(day).map(function(o,pos){
+      var slot=o.s, si=o.i, r = resolve(slot, st.day, si), e = r.ex, last = lastLog(e.id);
+      var rest = slot[0]==='abd' ? '45 to 60 s' : (st.level===1 ? '60 to 90 s' : '90 to 120 s');
+      var sets = ''; for(var k=0;k<slot[2];k++){ var id=key(st.day,si,k); sets += '<label><input type="checkbox" data-set="'+id+'"'+(st.checks[id]?' checked':'')+'> Set '+(k+1)+'</label>'; }
+      var lastTxt = last ? 'Last logged: '+esc(last.load||'bodyweight')+' × '+last.reps+' on '+esc(last.date)+'.' : 'Nothing logged yet.';
+      return '<article class="mmm-card slot" data-si="'+si+'"><div class="slot-n" aria-hidden="true">'+(pos+1)+'</div><div>'+
+        '<p class="eyebrow">'+esc(G.CATS[slot[0]].label)+(pos===day.slots.length-1 && slot[0]==='abd' && day.slots.length>4 ? ' · finisher':'')+'</p>'+
+        '<h4><button data-open="'+e.id+'">'+esc(e.name)+'</button></h4>'+
+        '<div class="row" style="gap:8px">'+S.levelBadge(e.lvl)+'<span class="tag">'+slot[2]+' sets × '+esc(slot[3])+'</span><span class="tag">Rest '+rest+'</span></div>'+
+        '<p class="small mt-3">'+esc(slot[4])+(r.note?' <b style="color:#7a6417">'+esc(r.note)+'</b>':'')+'</p>'+
+        '<div class="sets" role="group" aria-label="Sets completed">'+sets+'</div>'+
+        '<div class="logrow no-print"><label>Load<input type="text" data-load placeholder="e.g. 20 lb"></label><label>Reps<input type="number" data-reps min="0" max="100" inputmode="numeric"></label>'+
+        '<button class="mmm-btn mmm-btn-ghost mmm-btn-sm" data-log="'+e.id+'" data-range="'+esc(slot[3])+'">Log it</button>'+
+        '<button class="mmm-btn mmm-btn-ghost mmm-btn-sm" data-swap="'+si+'">Swap exercise</button></div>'+
+        '<p class="small muted mt-3" data-hint>'+lastTxt+'</p></div></article>';
+    }).join('');
+    updateWeek();
+    document.getElementById('setTotals').innerHTML = '<b style="color:var(--ink)">'+totalSets()+' working sets</b> a week at '+esc(G.LEVELS[st.level].name)+', across three sessions ('+G.PLANS[st.level].days.map(function(_,i){return daySets(i);}).join(' + ')+').';
+  }
+  function updateWeek(){
+    var t = totalSets(), d = weekDone(), pct = t ? Math.min(100, Math.round(d/t*100)) : 0;
+    document.getElementById('weekText').textContent = d+' of '+t+' sets complete (Week '+st.week+')';
+    document.getElementById('weekFill').style.width = pct+'%';
+    document.getElementById('weekBar').setAttribute('aria-valuenow', pct);
+    document.getElementById('weekNote').textContent = d===0 ? 'Small steps count. Start with Day 1 when you are ready.' : (pct>=100 ? 'Week complete. Nice work. That is consistency building strength.' : 'Nice work. Keep going at your own pace.');
+  }
+
+  document.getElementById('plan').addEventListener('click', function(e){
+    var t;
+    if(t = e.target.closest('[data-level]')){ st.level = +t.getAttribute('data-level'); st.day = 0; save(); renderPlan(); renderShuffle(); return; }
+    if(t = e.target.closest('[data-week]')){ st.week = +t.getAttribute('data-week'); save(); renderPlan(); return; }
+    if(t = e.target.closest('[data-day]')){ st.day = +t.getAttribute('data-day'); save(); renderPlan(); return; }
+    if(t = e.target.closest('[data-open]')){ S.openExercise(t.getAttribute('data-open')); return; }
+    if(t = e.target.closest('[data-swap]')){ var k = st.level+'|'+st.day+'|'+t.getAttribute('data-swap'); st.swaps[k] = (st.swaps[k]||0)+1; save(); var y = window.scrollY; renderPlan(); window.scrollTo(0,y); return; }
+    if(t = e.target.closest('[data-log]')){
+      var card = t.closest('.slot'), load = card.querySelector('[data-load]').value.trim(), reps = card.querySelector('[data-reps]').value, hint = card.querySelector('[data-hint]');
+      if(reps===''){ hint.textContent = 'Enter the reps you completed to log this exercise.'; return; }
+      var id = t.getAttribute('data-log'); (st.log[id] = st.log[id] || []).push({date:new Date().toLocaleDateString(), load:load, reps:+reps}); st.log[id] = st.log[id].slice(-20); save();
+      var top = topReps(t.getAttribute('data-range'));
+      hint.innerHTML = '<b style="color:var(--teal-dark)">Logged.</b> ' + (top && +reps>=top ? 'You reached the top of the range ('+top+'). Next time, add the smallest load increase and aim for the bottom of the range.' : 'Stay at this load until you reach '+(top||'the top of the range')+' reps with good form.');
+      return;
+    }
+    if(t = e.target.closest('#resetWeek')){ Object.keys(st.checks).forEach(function(k){ var p=k.split('|'); if(+p[0]===st.week && +p[1]===st.level) delete st.checks[k]; }); save(); renderPlan(); return; }
+    if(e.target.closest('#printBtn')){ window.print(); }
+  });
+  document.getElementById('plan').addEventListener('change', function(e){
+    var t = e.target;
+    if(t.id==='tUpper'){ st.upper = t.checked; save(); renderPlan(); renderShuffle(); }
+    else if(t.hasAttribute('data-tog')){ st.tog[t.getAttribute('data-tog')] = t.checked; save(); renderPlan(); renderShuffle(); }
+    else if(t.hasAttribute('data-set')){ st.checks[t.getAttribute('data-set')] = t.checked; save(); updateWeek(); }
+  });
+
+  /* ---------- readiness ---------- */
+  var SL = [['soreness','Muscle soreness','None','Very sore',3],['sleep','Sleep last night','Poor','Great',7],['joints','Joint comfort','Sore','Comfortable',8],['power','Strength in your warm-up','Weak','Strong',7]];
+  var sl = document.getElementById('sliders');
+  sl.innerHTML = SL.map(function(s){
+    return '<div class="rg"><label for="r-'+s[0]+'" style="font-weight:500;color:var(--ink)">'+s[1]+'</label><div><input type="range" id="r-'+s[0]+'" min="0" max="10" value="'+s[4]+'" aria-describedby="r-'+s[0]+'-d"><div class="small muted" id="r-'+s[0]+'-d" style="display:flex;justify-content:space-between"><span>'+s[2]+'</span><span>'+s[3]+'</span></div></div><b id="o-'+s[0]+'" style="color:var(--teal-dark)">'+s[4]+'</b></div>';
+  }).join('');
+  document.getElementById('readyEv').innerHTML = S.evBadge('unp')+' <span class="small muted">A practical coaching method, not a validated test.</span>';
+  function ready(){
+    var v = {}; SL.forEach(function(s){ v[s[0]] = +document.getElementById('r-'+s[0]).value; document.getElementById('o-'+s[0]).textContent = v[s[0]]; });
+    var pain = document.getElementById('rPain').checked, sc = (10-v.soreness)+v.sleep+v.joints+v.power, out;
+    var light = EX.filter(function(e){return e.light;}).slice(0,5);
+    if(pain){
+      out = '<div class="callout stop"><div><p><b>Pause loaded work today.</b></p><p class="small">Sharp, new or swelling pain, or pain after a fall, is a reason to rest the area and get it looked at, especially if it has not settled in a couple of days.</p></div></div>';
+    } else if(v.joints<=3){
+      out = '<div class="callout care"><div><p><b>Make it a light day.</b></p><p class="small">Your joints are telling you something. Choose gentle, supported work and keep the range comfortable.</p></div></div>';
+    } else if(sc>=28){
+      out = '<div class="card-teal" style="padding:var(--s-5)"><p class="eyebrow">Here&rsquo;s where you stand</p><h4>Full session as planned</h4><p class="small mt-3">You look well recovered. Follow today&rsquo;s plan and stop each set with a few reps in reserve.</p></div>';
+    } else if(sc>=20){
+      out = '<div class="card-gold"><p class="eyebrow">Here&rsquo;s where you stand</p><h4>Reduced session</h4><p class="small mt-3">Do one or two sets of each exercise and keep a little more in reserve than usual. You will still get the benefit.</p></div>';
+    } else {
+      out = '<div class="callout care"><div><p><b>Make it a light day.</b></p><p class="small">You are carrying a lot of fatigue. The source suggests lighter band work and kickbacks, or a gentle walk, rather than pushing a full session.</p></div></div>';
+    }
+    if(pain===false && (v.joints<=3 || sc<20)){
+      out += '<p class="small muted mt-4" style="margin-bottom:8px">Good light-day options:</p><div class="row" style="gap:8px">'+light.map(function(e){ return '<button class="chip" data-open="'+e.id+'">'+esc(e.name)+'</button>'; }).join('')+'</div>';
+    }
+    document.getElementById('readyOut').innerHTML = out;
+  }
+  document.getElementById('ready').addEventListener('input', ready);
+  document.getElementById('ready').addEventListener('change', ready);
+  document.getElementById('ready').addEventListener('click', function(e){ var b=e.target.closest('[data-open]'); if(b) S.openExercise(b.getAttribute('data-open')); });
+
+  renderPlan(); renderShuffle(); ready();
+})();
+</script>
+</body>
+</html>
