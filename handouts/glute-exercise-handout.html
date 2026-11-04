@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glute training handout · Muscle-Meta Matrix™</title>
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:600;font-display:block;src:url(fonts/cormorant-garamond-600-italic.woff2) format('woff2');}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:block;src:url(fonts/cormorant-garamond-600-normal.woff2) format('woff2');}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:700;font-display:block;src:url(fonts/cormorant-garamond-700-normal.woff2) format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:400;font-display:block;src:url(fonts/outfit-400-normal.woff2) format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:500;font-display:block;src:url(fonts/outfit-500-normal.woff2) format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:600;font-display:block;src:url(fonts/outfit-600-normal.woff2) format('woff2');}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:700;font-display:block;src:url(fonts/outfit-700-normal.woff2) format('woff2');}
+
+/* Muscle-Meta Matrix™ Pillar 1 glute handout · print stylesheet
+   Tokens mirror public/glute-training/assets/tokens.css (build-handout.js checks the values match).
+   Only brand colours are used. Risk-tier colours are deliberately absent. */
+:root {
+  --teal: #009090; --teal-dark: #006b6b; --teal-muted: #e6f5f5;
+  --gold: #D4AF37; --gold-muted: #faf6e8;
+  --ink: #1a2332; --ink-soft: #344256;
+  --surface: #f7f6f3; --border: #e8e6e1; --white: #ffffff;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', 'Helvetica Neue', Arial, sans-serif;
+  --box: 44px;
+}
+@page {
+  size: Letter;
+  background: #f7f6f3;
+  margin: 0.4in 0.45in 0.72in;
+  @bottom-left  { content: "Muscle-Meta Matrix™ · Pillar 1 glute training · for education only"; font: 500 12pt 'Outfit', Arial, sans-serif; color: #344256; vertical-align: top; padding-top: 0.15in; line-height: 1.2; }
+  @bottom-right { content: "Page " counter(page); font: 500 12pt 'Outfit', Arial, sans-serif; color: #344256; vertical-align: top; padding-top: 0.15in; line-height: 1.2; }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--surface); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { background: var(--surface); font-family: var(--font-body); font-size: 12pt; line-height: 1.4; color: var(--ink-soft); }
+svg { display: inline-block; vertical-align: middle; flex: none; }
+h1, h2, h3, table.trk caption, .wk .r b, .glance b { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+h1, h2, h3 { font-family: var(--font-display); color: var(--ink); line-height: 1.1; font-weight: 700; }
+h4 { font-family: var(--font-body); font-size: 12pt; font-weight: 600; color: var(--teal-dark); letter-spacing: 0.01em; margin-bottom: 3px; }
+strong, b { color: var(--ink); font-weight: 600; }
+.eyebrow { font-weight: 600; font-size: 12pt; color: var(--teal-dark); letter-spacing: 0.04em; }
+.pb { break-before: page; }
+.avoid { break-inside: avoid; }
+
+/* ---------- boxes ---------- */
+.box  { display: inline-block; width: var(--box); height: var(--box); border: 2.5px solid var(--ink); border-radius: 7px; background: var(--white); flex: none; }
+.circ { display: inline-block; width: var(--box); height: var(--box); border: 2.5px solid var(--ink); border-radius: 50%; background: var(--white); flex: none; }
+.cb { display: flex; align-items: center; gap: 9px; line-height: 1.2; }
+
+/* ---------- cover ---------- */
+.cover { height: 9.65in; display: flex; flex-direction: column; }
+.brandrow { display: flex; align-items: center; gap: 12px; margin-bottom: 0.55in; }
+.brandrow .wm { font-family: var(--font-display); font-weight: 700; font-size: 20pt; color: var(--ink); }
+.cover h1 { font-size: 58pt; margin: 8px 0 10px; letter-spacing: -0.01em; }
+.cover .tag { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 22pt; color: var(--teal-dark); padding-bottom: 12px; border-bottom: 3px solid var(--gold); display: inline-block; }
+.cover .intro { font-size: 13pt; line-height: 1.5; margin: 0.28in 0 0.22in; max-width: 6.9in; }
+.cmap { display: flex; flex-direction: column; gap: 8px; }
+.cmap .row { display: flex; gap: 14px; align-items: flex-start; background: var(--white); border: 1px solid var(--border); border-left: 5px solid var(--teal); border-radius: 12px; padding: 9px 14px; break-inside: avoid; }
+.cmap .key { font-weight: 600; color: var(--teal-dark); min-width: 0.62in; padding-top: 1px; }
+.cmap .row strong { display: block; font-family: var(--font-display); font-size: 16pt; line-height: 1.1; }
+.cover .note { margin-top: auto; padding-top: 12px; }
+
+/* ---------- section / cards ---------- */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 11px 18px; margin-bottom: 11px; }
+.sec-head { display: flex; gap: 16px; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 3px solid var(--gold); }
+.sec-head .ico { width: 62px; height: 62px; border-radius: 14px; background: var(--teal-muted); border: 1.5px solid var(--teal); color: var(--teal-dark); display: flex; align-items: center; justify-content: center; flex: none; }
+.sec-head h2 { font-size: 30pt; margin: 2px 0 3px; }
+.sec-head p.d { max-width: 5.6in; }
+h2.pg { font-size: 28pt; margin: 2px 0 10px; padding-bottom: 8px; border-bottom: 3px solid var(--gold); }
+.lede { margin-bottom: 12px; }
+
+.thirds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin: 8px 0 2px; }
+.thirds .t { background: var(--teal-muted); border: 1.5px solid var(--teal); border-radius: 12px; padding: 9px 8px; text-align: center; line-height: 1.2; }
+.thirds .t svg { color: var(--teal-dark); margin-bottom: 3px; }
+.thirds .t b { display: block; font-family: var(--font-display); font-size: 15pt; line-height: 1.05; }
+.days { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.chip { display: inline-block; border: 1.5px solid var(--ink); border-radius: 999px; padding: 2px 12px; font-weight: 600; color: var(--ink); background: var(--white); }
+.chip.g { background: var(--gold-muted); border-color: var(--gold); }
+
+.meter { display: flex; align-items: center; gap: 6px; margin: 8px 0 4px; flex-wrap: wrap; }
+.meter .rep { width: 26px; height: 26px; border-radius: 50%; background: var(--teal); }
+.meter .rep.r { background: var(--white); border: 2.5px dashed var(--ink); }
+.meter .lbl { margin-left: 6px; font-weight: 500; }
+
+.tri { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 11px; }
+.tri .c { border-radius: 12px; padding: 9px 11px; background: var(--white); border: 1px solid var(--border); border-top: 6px solid var(--teal); break-inside: avoid; }
+.tri .c.adj { border-top-color: var(--gold); background: var(--gold-muted); }
+.tri .c.stop { border: 3px solid var(--ink); border-top-width: 3px; background: var(--white); }
+.tri h3 { font-size: 15pt; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; white-space: nowrap; }
+.tri ul { padding-left: 17px; } .tri li { margin-bottom: 3px; }
+
+.pre2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+.pre2 .feel { flex-wrap: wrap; gap: 8px 14px; }
+.pre2 .feel strong { width: 100%; }
+.glance { padding: 8px 16px 10px; margin-bottom: 9px; }
+.glance .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.glance b { font-family: var(--font-display); font-size: 15pt; color: var(--ink); }
+.glance ul { padding-left: 17px; } .glance li { line-height: 1.25; margin-bottom: 1px; }
+
+/* ---------- exercise block ---------- */
+.ex { background: var(--white); border: 1px solid var(--border); border-left: 6px solid var(--teal); border-radius: 14px; padding: 8px 16px 9px; margin-bottom: 9px; break-inside: avoid; }
+.ex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ex-h h3 { font-size: 20pt; }
+.meta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 2px; line-height: 1.2; }
+.meta span { display: inline-flex; align-items: center; gap: 5px; }
+.meta svg { color: var(--teal-dark); }
+.lvl { display: inline-flex; align-items: center; gap: 7px; border: 2px solid var(--teal); border-radius: 999px; padding: 2px 12px 2px 10px; font-weight: 600; color: var(--ink); background: var(--teal-muted); white-space: nowrap; margin-top: 3px; }
+.lvl.l2 { background: var(--white); }
+.lvl.l3 { background: var(--gold-muted); border-color: var(--gold); }
+.lvl svg { color: var(--teal-dark); }
+.core { margin: 3px 0 4px; line-height: 1.3; }
+.cols { display: grid; grid-template-columns: 1.08fr 1fr; gap: 6px 20px; }
+.cols ol { list-style: none; counter-reset: s; } 
+.cols ol li { counter-increment: s; display: flex; gap: 8px; margin-bottom: 2px; line-height: 1.3; }
+.cols ol li::before { content: counter(s); flex: none; width: 21px; height: 21px; margin-top: 2px; border-radius: 50%; background: var(--teal); color: var(--white); font-weight: 600; font-size: 12pt; line-height: 21px; text-align: center; }
+.cols ul { padding-left: 18px; } .cols ul li { margin-bottom: 1px; line-height: 1.3; }
+.cols p { line-height: 1.3; margin-top: 3px; }
+.joint { display: flex; gap: 8px; align-items: flex-start; background: var(--gold-muted); border-left: 4px solid var(--gold); border-radius: 8px; padding: 4px 10px; margin: 5px 0 6px; line-height: 1.28; }
+.joint svg { color: var(--ink); margin-top: 2px; }
+.check { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px 10px; }
+.check .cb span { font-size: 12pt; line-height: 1.15; }
+.sets { display: flex; align-items: center; gap: 20px; margin-top: 4px; padding-top: 4px; border-top: 1px dashed var(--ink-soft); }
+.sets .cb { gap: 7px; font-weight: 500; }
+
+/* ---------- tracker ---------- */
+.lvlhead { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 8px; }
+.lvlhead h2 { font-size: 28pt; }
+table.trk { width: 100%; border-collapse: collapse; background: var(--white); table-layout: fixed; margin-bottom: 14px; break-inside: avoid; border: 2px solid var(--ink); }
+table.trk caption { text-align: left; caption-side: top; padding: 0 0 5px; font-family: var(--font-display); font-weight: 700; font-size: 17pt; color: var(--ink); }
+table.trk caption span { font-family: var(--font-body); font-weight: 400; font-size: 12pt; color: var(--ink-soft); margin-left: 8px; }
+table.trk th { background: var(--teal-muted); color: var(--ink); font-weight: 600; text-align: center; padding: 4px 2px; border: 1px solid var(--ink-soft); }
+table.trk th:first-child { text-align: left; padding-left: 8px; width: 1.4in; }
+table.trk td { border: 1px solid var(--ink-soft); padding: 4px 2px; vertical-align: middle; }
+table.trk td.nm { padding: 4px 8px; line-height: 1.2; }
+table.trk td.nm small { display: block; font-size: 12pt; font-weight: 500; color: var(--ink-soft); }
+table.trk td.s { text-align: center; white-space: nowrap; font-size: 0; padding: 4px 0; }
+table.trk td.s .box { margin: 0 1px; }
+.wk { display: grid; grid-template-columns: 1fr; gap: 7px; }
+.wk .r { background: var(--white); border: 1.5px solid var(--ink-soft); border-radius: 10px; padding: 5px 12px 7px; break-inside: avoid; }
+.wk .r b { font-family: var(--font-display); font-size: 16pt; }
+.wk .ln { display: flex; gap: 10px; align-items: flex-end; margin-top: 4px; }
+.wk .ln i { flex: 1; height: 24px; border-bottom: 1.5px solid var(--ink); }
+.wk .ln em { font-style: normal; }
+.wk .ln i.short { flex: 0 0 1.4in; }
+
+/* ---------- last page ---------- */
+.stops { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin: 8px 0 12px; }
+.stops .s { display: flex; gap: 10px; align-items: center; border: 2.5px solid var(--ink); border-radius: 12px; padding: 9px 12px; background: var(--white); font-weight: 500; color: var(--ink); line-height: 1.2; }
+.disc { background: var(--gold-muted); border: 1.5px solid var(--gold); border-radius: 12px; padding: 12px 16px; }
+.disc li { margin: 0 0 5px 18px; }
+.carefull { columns: 2; column-gap: 24px; padding-left: 18px; margin-top: 4px; }
+.carefull li { break-inside: avoid; margin-bottom: 1px; line-height: 1.25; }
+
+.tri3 { display: grid; gap: 10px; }
+.tri3 .c { display: grid; grid-template-columns: 2.1in 1fr; gap: 6px 18px; align-items: start; border-radius: 14px; padding: 12px 16px; background: var(--white); border: 1px solid var(--border); border-left: 8px solid var(--teal); break-inside: avoid; }
+.tri3 .c.adj { background: var(--gold-muted); border-left-color: var(--gold); }
+.tri3 .c.stop { border: 3px solid var(--ink); }
+.tri3 h3 { font-size: 20pt; display: flex; align-items: center; gap: 8px; line-height: 1.1; }
+.tri3 ul { padding-left: 18px; columns: 2; column-gap: 24px; } .tri3 li { break-inside: avoid; margin-bottom: 3px; }
+.tri3 p { grid-column: 2; }
+.read { list-style: none; } .read li { margin: 4px 0; }
+
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="brandrow"><svg width="46" height="46" viewBox="0 0 40 40" aria-hidden="true"><rect x="0" y="2" width="38" height="38" rx="9" fill="#009090"/><path d="M22 8L12 23h7l-2 11 11-16h-7z" fill="#ffffff"/><rect x="29" y="0" width="10" height="10" rx="3" fill="#D4AF37"/></svg><span class="wm">Muscle-Meta Matrix™</span></div>
+  <p class="eyebrow">Pillar 1 · Exercise &amp; Mobility</p>
+  <h1>Glute training handout</h1>
+  <p class="tag">Small Steps. Exponential Gains.™</p>
+  <p class="intro">Your glutes are the large muscles around your hips. They help you stand up from a chair, climb stairs, walk steadily and keep your hips and knees comfortable. This handout gives you 40 exercises to choose from, a simple way to plan each week, and a tracker to tick off your sets, all at your pace and on your terms.</p>
+  <p class="eyebrow" style="margin-bottom:6px">How glute training supports Pillar 1</p>
+  <div class="cmap"><div class="row"><span class="key">P1-C1</span><div><strong>Joint health</strong>Strong glutes share the work that would otherwise fall on your hips, knees and lower back.</div></div><div class="row"><span class="key">P1-C2</span><div><strong>Functional independence</strong>Standing up from a chair, climbing stairs and getting up from the floor all lean on your glutes.</div></div><div class="row"><span class="key">P1-C3</span><div><strong>Mobility</strong>Moving your hips through a comfortable range helps you walk, turn and reach with ease.</div></div><div class="row"><span class="key">P1-C4</span><div><strong>Strength</strong>Your glutes are among the largest muscles in your body, and they respond well to steady, gradual loading.</div></div><div class="row"><span class="key">P1-C5</span><div><strong>Endurance</strong>Glute stamina helps you keep walking and standing without tiring early.</div></div></div>
+  <p class="note">Take your time with each page. If anything feels unclear, ask your clinician before you start.</p>
+</section>
+
+<section class="pb">
+  <p class="eyebrow">Before you begin</p>
+  <h2 class="pg">How to use this handout</h2>
+
+  <div class="card avoid">
+    <h4>The rule of thirds: 3 days a week, 4 movement families</h4>
+    <p>Train on 3 days a week, for example Monday, Wednesday and Friday. In each session, pick <strong>one exercise from each of the four families</strong> below. Change your picks from session to session so your hips are challenged in different ways.</p>
+    <div class="thirds"><div class="t"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg><b>Thrust or bridge</b>pick one</div><div class="t"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg><b>Squat or lunge</b>pick one</div><div class="t"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg><b>Hinge</b>pick one</div><div class="t"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg><b>Abduction</b>pick one</div></div>
+  </div>
+
+  <div class="card avoid">
+    <h4>Effort guide: leave a few reps in the tank</h4>
+    <p>At <strong>Foundation</strong>, stop each set with <strong>3 to 4 reps still in reserve</strong>. That means you could have done 3 or 4 more with good form.</p>
+    <div class="meter"><span class="rep "></span><span class="rep "></span><span class="rep "></span><span class="rep "></span><span class="rep "></span><span class="rep "></span><span class="rep r"></span><span class="rep r"></span><span class="rep r"></span><span class="rep r"></span><span class="lbl">Example: 10 reps done well, 3 or 4 more possible</span></div>
+    <p>At Build and Advance you may work closer to hard, but keep a clear margin and never train to the point of failure on hinge exercises.</p>
+  </div>
+
+  <div class="card pre avoid">
+    <h4>Pre-session checklist</h4>
+    <div class="pre2">
+      <label class="cb"><i class="box"></i><span>I have warmed up with a few minutes of easy walking or marching on the spot</span></label>
+      <label class="cb"><i class="box"></i><span>I have water nearby</span></label>
+      <label class="cb"><i class="box"></i><span>I have clear space and a non-slip floor</span></label>
+      <div class="cb feel"><strong>How do I feel today?</strong><label class="cb"><i class="box"></i>Good</label><label class="cb"><i class="box"></i>Okay</label><label class="cb"><i class="box"></i>Tired</label></div>
+      <label class="cb"><i class="box"></i><span>A sturdy chair, counter or wall is within reach for support</span></label>
+    </div>
+  </div>
+</section>
+<section class="pb">
+  <p class="eyebrow">While you train</p>
+  <h2 class="pg">Listen to your body</h2>
+  <p class="lede">Some effort is expected. Use this guide during every session to decide whether to carry on, adjust or stop.</p>
+  <div class="tri3">
+    <div class="c ok"><h3><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Carry on</h3><ul>
+      <li>Warm, tired glutes and thighs</li><li>A mild stretch behind your thighs</li><li>Gentle muscle soreness that eases in a day or two</li><li>Working hard but still in control</li></ul></div>
+    <div class="c adj"><h3><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Adjust</h3><ul>
+      <li>A pinch at the front of your hip</li><li>A mild joint ache</li><li>Form slipping as you tire</li><li>Feeling wobbly</li></ul>
+      <p><strong>Try:</strong> an easier version, a smaller range, more support, a lighter load or a longer rest. If it keeps happening, mention it to your clinician.</p></div>
+    <div class="c stop"><h3><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Stop and seek advice</h3><ul>
+      <li>Sharp or catching joint pain</li><li>Chest pain</li><li>Dizziness</li><li>Unusual breathlessness</li><li>Numbness or tingling</li><li>Pain after a fall</li></ul></div>
+  </div>
+  <div class="card avoid" style="margin-top:12px">
+    <h4>How to read each exercise page</h4>
+    <ul class="read">
+      <li><strong>Core idea.</strong> One sentence on what the exercise is for.</li>
+      <li><strong>Easy instructions.</strong> Up to 3 short steps.</li>
+      <li><strong>Key cues.</strong> Two reminders to keep in mind while you move.</li>
+      <li><strong>Make it easier or harder.</strong> Move up or down to suit your day.</li>
+      <li><strong>Joint note.</strong> Anything to watch for with your knees, hips or back.</li>
+      <li><strong>Checklist and sets.</strong> Tick the boxes before you start, and tick a circle after each set.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="pb">
+  <div class="sec-head"><div class="ico"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg></div>
+    <div><p class="eyebrow">Movement family · 8 exercises</p><h2>Thrust / bridge</h2><p class="d">Lying on your back and pressing your hips up. The floor or bench supports you, so balance and joints are barely challenged, and you recover quickly.</p></div></div>
+  <div class="card glance avoid"><h4>At a glance, by level</h4><div class="g3"><div><b>Foundation</b><ul><li>Glute bridge</li><li>Banded glute bridge</li><li>Bench hip thrust (bodyweight)</li></ul></div><div><b>Build</b><ul><li>Barbell hip thrust with pause</li><li>Single-leg glute bridge</li><li>Barbell glute bridge (floor)</li></ul></div><div><b>Advance</b><ul><li>B-stance hip thrust</li><li>Single-leg hip thrust</li></ul></div></div></div>
+  
+<article class="ex" id="bridge-floor">
+  <div class="ex-h">
+    <div>
+      <h3>Glute bridge</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>No equipment</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Lie on your back and lift your hips, so your glutes do the work while the floor supports you.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Lie on your back, knees bent, feet flat and hip-width apart, heels under your knees.</span></li><li><span>Press through your whole foot and lift your hips until shoulders, hips and knees make one line.</span></li><li><span>Pause for a second at the top, then lower over three seconds.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Ribs down, tailbone tucked slightly</li><li>Push the floor away through your heels</li></ul>
+      <p><strong>Make it easier:</strong> Shorten the range and use a pillow under your hips for a gentler start.</p>
+      <p><strong>Make it harder:</strong> Hold a dumbbell on your hips, add a band above the knees, or move to the single-leg bridge.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Usually well tolerated by knees and hips. After a hip or knee replacement, follow your surgeon's precautions.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-banded">
+  <div class="ex-h">
+    <div>
+      <h3>Banded glute bridge</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Mini band</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> The same bridge with a small band above your knees, which also wakes up the muscles at the side of your hips.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Place a mini band just above your knees and set up as for the glute bridge.</span></li><li><span>Keep gentle outward pressure into the band throughout.</span></li><li><span>Lift, pause one second, lower slowly.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Knees track over the second toe</li><li>Spread the floor apart with your feet</li></ul>
+      <p><strong>Make it easier:</strong> Use a lighter band, or no band.</p>
+      <p><strong>Make it harder:</strong> Add load across the hips, or pause for three seconds at the top.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Same joint profile as the floor bridge. Stop if the outer hip becomes tender.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-bench">
+  <div class="ex-h">
+    <div>
+      <h3>Bench hip thrust (bodyweight)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Sturdy bench or sofa</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A bridge with your shoulders resting on a bench, so your hips travel through a longer range.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit on the floor with your upper back against the edge of a stable bench.</span></li><li><span>Feet flat, knees bent. Drive your hips up until your torso is level.</span></li><li><span>Pause, then lower until your hips nearly touch the floor.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Chin tucked, eyes forward</li><li>Shins close to vertical at the top</li></ul>
+      <p><strong>Make it easier:</strong> Use a lower surface or return to the floor bridge.</p>
+      <p><strong>Make it harder:</strong> Hold a dumbbell across the hips and add a two-second pause.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Gentle on knees. Getting down to and up from the floor may be the real challenge; use a higher surface if needed.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-hipthrust">
+  <div class="ex-h">
+    <div>
+      <h3>Barbell hip thrust with pause</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Barbell, Smith machine or plate-loaded machine</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A loaded version of the bench thrust, where you pause at the top to feel your glutes working.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit with your upper back on a bench and the bar padded across your hips.</span></li><li><span>Drive up through your feet until your torso is level. Hold two seconds.</span></li><li><span>Lower under control and keep tension on the glutes.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Ribs over hips at the top</li><li>Squeeze, then count "one-Mississippi, two-Mississippi"</li></ul>
+      <p><strong>Make it easier:</strong> Drop to the dumbbell version.</p>
+      <p><strong>Make it harder:</strong> Add pause time, add load slowly, or move to the B-stance or single-leg version.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Puts the work through your hips with little load on your spine. Breathe out as you lift, and avoid holding your breath on heavy sets.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-single">
+  <div class="ex-h">
+    <div>
+      <h3>Single-leg glute bridge</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>No equipment</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A bridge on one leg, which trains your glutes to keep your hips level.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set up for a glute bridge, then extend one leg so the thigh lines up with the other thigh.</span></li><li><span>Lift through the planted heel, keeping hips level.</span></li><li><span>Lower under control. Complete all reps, then switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Level hips, as if balancing a tray</li><li>Push through the planted heel</li></ul>
+      <p><strong>Make it easier:</strong> Rest the toes of your free foot lightly on the floor.</p>
+      <p><strong>Make it harder:</strong> Add a weight on the hips or elevate the shoulders.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Gentle on the joints. A good check on side-to-side strength differences.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-barbell">
+  <div class="ex-h">
+    <div>
+      <h3>Barbell glute bridge (floor)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Barbell or heavy dumbbell</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A short, heavier bridge from the floor, with a squeeze at the top.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Lie on the floor with the load padded across your hips.</span></li><li><span>Drive up to full hip extension. Squeeze at the top.</span></li><li><span>Lower until the weight lightly touches the floor.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Finish tall, not arched</li><li>Keep tension between reps</li></ul>
+      <p><strong>Make it easier:</strong> Use a lighter dumbbell.</p>
+      <p><strong>Make it harder:</strong> Pause at the top or shift to the bench hip thrust for more range.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Floor start and short range keep knees and spine calm.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-bstance">
+  <div class="ex-h">
+    <div>
+      <h3>B-stance hip thrust</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Bench, barbell or dumbbell</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A hip thrust that works mostly one leg, with the other foot resting lightly for balance.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set up for a hip thrust. Place the second foot a half-step back with only the toes touching down.</span></li><li><span>Drive mostly through the front foot.</span></li><li><span>Lower slowly. Complete reps on one side, then switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Most of the push comes from the front foot</li><li>Keep your hips level throughout</li></ul>
+      <p><strong>Make it easier:</strong> Use the two-leg version.</p>
+      <p><strong>Make it harder:</strong> Progress to the single-leg thrust.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Similar to the standard hip thrust, with more balance demand.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bridge-single-thrust">
+  <div class="ex-h">
+    <div>
+      <h3>Single-leg hip thrust</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.5" cy="16.5" r="1.5"/><path d="M7 18l4-7h5l4 7M3 20.5h18"/></svg>Thrust / bridge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Bench</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> The most demanding thrust, where one leg does all the lifting.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set up with your upper back on a bench and one foot planted.</span></li><li><span>Extend the free leg and drive the hips up.</span></li><li><span>Pause, lower, complete reps and switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Pelvis level</li><li>Press through the whole foot</li></ul>
+      <p><strong>Make it easier:</strong> B-stance version.</p>
+      <p><strong>Make it harder:</strong> Hold a dumbbell on the working hip.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Balance and control demand are higher. Use a wall behind the bench.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+</section>
+
+<section class="pb">
+  <div class="sec-head"><div class="ico"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg></div>
+    <div><p class="eyebrow">Movement family · 11 exercises</p><h2>Squat / lunge</h2><p class="d">Bending your knees and hips to sit down and stand up, or stepping up and back. This is the closest match to getting out of a chair and using stairs.</p></div></div>
+  <div class="card glance avoid"><h4>At a glance, by level</h4><div class="g3"><div><b>Foundation</b><ul><li>Chair sit-to-stand</li><li>Step-up with handrail</li><li>Supported split squat</li></ul></div><div><b>Build</b><ul><li>Goblet box squat</li><li>Goblet squat</li><li>Leg press, feet high and wide</li><li>Single-leg leg press</li><li>Reverse lunge (Smith machine or rail)</li><li>Walking lunge</li></ul></div><div><b>Advance</b><ul><li>High-bar squat to parallel</li><li>Bulgarian split squat (hand support)</li></ul></div></div></div>
+  
+<article class="ex" id="sit-stand">
+  <div class="ex-h">
+    <div>
+      <h3>Chair sit-to-stand</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Sturdy chair</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Standing up from and sitting down on a chair, the movement you use many times a day, trained on purpose.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit near the front edge of a sturdy chair, feet slightly behind your knees.</span></li><li><span>Lean forward from the hips until your nose is over your toes, then stand up.</span></li><li><span>Sit back slowly over three seconds. Lightly touch the seat and go again.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Nose over toes</li><li>Drive the floor away, then stand tall</li></ul>
+      <p><strong>Make it easier:</strong> Use a higher seat or a cushion, or keep your hands on your thighs.</p>
+      <p><strong>Make it harder:</strong> Use a lower seat, hold a weight at your chest, or pause halfway down.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> If knees or hips complain, raise the seat. Rising and lowering slowly beats adding depth.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="stepup">
+  <div class="ex-h">
+    <div>
+      <h3>Step-up with handrail</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Low step, handrail</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Step up onto a low step with a rail beside you, direct practice for stairs.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Stand facing a low step (4 to 6 inches to start) with a hand lightly on a rail.</span></li><li><span>Place your whole foot on the step and stand up through that leg.</span></li><li><span>Lower slowly with control. Do all reps, then switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Whole foot on the step</li><li>Lower for three seconds</li></ul>
+      <p><strong>Make it easier:</strong> Lower step, use two hands.</p>
+      <p><strong>Make it harder:</strong> Higher step, then dumbbells.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Pick a step height that gives no knee pain. Leaning your body forward a little moves the work to your hip.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="split-static">
+  <div class="ex-h">
+    <div>
+      <h3>Supported split squat</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Counter or rail for support</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Stand with one foot forward and one back, holding a counter, and bend both knees.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Hold a counter or rail. Step one foot back into a staggered stance.</span></li><li><span>Lower the back knee straight down toward the floor.</span></li><li><span>Press through the front foot to stand. Do all reps, then switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Stand tall, or lean slightly forward to feel your hip more</li><li>Front heel stays down</li></ul>
+      <p><strong>Make it easier:</strong> Reduce the depth.</p>
+      <p><strong>Make it harder:</strong> Hold dumbbells or move to the Bulgarian split squat.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> A longer step and a slight lean forward move the work toward your hip and away from your knee.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="squat-box-goblet">
+  <div class="ex-h">
+    <div>
+      <h3>Goblet box squat</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Dumbbell or kettlebell, box or bench</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Hold a weight at your chest and sit back onto a box, which gives you the same depth every time.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Hold a weight at your chest and stand in front of a box set at about knee height or slightly lower.</span></li><li><span>Sit your hips back and down until you lightly touch the box.</span></li><li><span>Stand by driving your feet into the floor.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Elbows pointing down</li><li>Sit between your hips, not behind them</li></ul>
+      <p><strong>Make it easier:</strong> Raise the box or return to the chair sit-to-stand.</p>
+      <p><strong>Make it harder:</strong> Lower the box toward parallel or progress to the goblet squat.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> The box limits depth so you can stay in a comfortable hip and knee range.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="squat-goblet">
+  <div class="ex-h">
+    <div>
+      <h3>Goblet squat</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Dumbbell or kettlebell</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A squat holding a weight at your chest, going down only as far as feels comfortable.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Hold a weight at your chest, feet shoulder-width, toes slightly out.</span></li><li><span>Lower until your thighs are about parallel or as deep as is comfortable.</span></li><li><span>Stand up through your whole foot.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Chest tall, knees track over toes</li><li>Take your time at the bottom</li></ul>
+      <p><strong>Make it easier:</strong> Use a box to set depth.</p>
+      <p><strong>Make it harder:</strong> Pause at the bottom or progress to the barbell squat.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Depth is yours to choose. Stay in a range that is pain-free.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="legpress-hip">
+  <div class="ex-h">
+    <div>
+      <h3>Leg press, feet high and wide</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Leg press machine</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Press a platform away from you on a machine that supports your back, with your feet placed high and wide.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit with your back flat on the pad and your feet high and slightly wide on the platform.</span></li><li><span>Lower until your knees are bent about 90 degrees, stopping before your hips lift off the seat.</span></li><li><span>Press back without locking your knees.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Keep your hips glued to the seat</li><li>Press through the heels and mid-foot</li></ul>
+      <p><strong>Make it easier:</strong> Lighter load, shorter range.</p>
+      <p><strong>Make it harder:</strong> Single-leg leg press or a slow three-second lowering phase.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Supported and predictable. Usually friendlier than free squats for knees and balance.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="legpress-single">
+  <div class="ex-h">
+    <div>
+      <h3>Single-leg leg press</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Leg press machine</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Press with one leg at a time on the machine, with no balance needed.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set up as for the leg press with one foot high on the platform.</span></li><li><span>Lower to about 90 degrees at the knee, press back.</span></li><li><span>Complete reps on one side, then switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Keep the knee in line with the second toe</li><li>Both hips stay on the seat</li></ul>
+      <p><strong>Make it easier:</strong> Use both legs.</p>
+      <p><strong>Make it harder:</strong> Pause at the bottom.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Same profile as the two-leg press with a lighter weight.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="reverse-lunge">
+  <div class="ex-h">
+    <div>
+      <h3>Reverse lunge (Smith machine or rail)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Smith machine or support</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Step backward into a lunge with a rail or machine for steadiness. Stepping back is kinder to the knee than stepping forward.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Stand holding a rail, or with the bar of a Smith machine on your upper back.</span></li><li><span>Step one foot back and lower until the front thigh is near parallel.</span></li><li><span>Press through the front foot to return. Switch sides.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Sit back into the front hip</li><li>Land softly on the ball of the back foot</li></ul>
+      <p><strong>Make it easier:</strong> Shorter step and depth.</p>
+      <p><strong>Make it harder:</strong> Add dumbbells or slow the lowering.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Machine stability reduces balance demand. Check the depth against your knee comfort.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="walking-lunge">
+  <div class="ex-h">
+    <div>
+      <h3>Walking lunge</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Open space</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A series of lunging steps along a clear path, like walking with extra effort.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Step forward into a lunge, lower under control.</span></li><li><span>Push through the front foot to bring the back leg through into the next step.</span></li><li><span>Walk along a clear path of 6 to 8 steps each leg.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Short steady steps</li><li>Stand tall between steps</li></ul>
+      <p><strong>Make it easier:</strong> Do stationary or supported split squats.</p>
+      <p><strong>Make it harder:</strong> Hold dumbbells at your sides.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> High balance and knee demand. Not the first choice for knee pain or fall risk.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="squat-highbar">
+  <div class="ex-h">
+    <div>
+      <h3>High-bar squat to parallel</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Barbell, rack</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A classic squat with a bar on your upper back, going down until your thighs are level and no further.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Rest the bar on your upper back, feet shoulder-width apart.</span></li><li><span>Tighten your tummy, sit down until your thighs are level with the floor, then drive up.</span></li><li><span>Use a rack with safety bars set just below your lowest rep.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Tighten your tummy before you go down</li><li>Knees follow the toes</li></ul>
+      <p><strong>Make it easier:</strong> Goblet squat or leg press.</p>
+      <p><strong>Make it harder:</strong> Pause at the bottom for one second.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> The bar puts load through your spine, so it is not the first choice if you have low bone density. A leg press is a good swap.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="bulgarian">
+  <div class="ex-h">
+    <div>
+      <h3>Bulgarian split squat (hand support)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v7h9M8 11v9M17 11v9M5 4h3"/></svg>Squat / lunge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Bench, rail for hand support</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A deep one-leg squat with your back foot resting on a bench and a hand on a support.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Rest the top of one foot on a bench behind you. Hold a support.</span></li><li><span>Lower straight down, torso leaning slightly forward.</span></li><li><span>Drive through the front heel to stand.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Front foot far enough forward that your shin stays almost upright</li><li>Control the bottom</li></ul>
+      <p><strong>Make it easier:</strong> Supported split squat with the back foot on the floor.</p>
+      <p><strong>Make it harder:</strong> Add a dumbbell in the opposite hand.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Deep knee and hip bending under load. Skip it if deep bending causes knee or hip pain.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+</section>
+
+<section class="pb">
+  <div class="sec-head"><div class="ico"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg></div>
+    <div><p class="eyebrow">Movement family · 10 exercises</p><h2>Hinge</h2><p class="d">Folding forward at your hips with a long back, then standing tall. It is powerful for the glutes, and the most demanding on your lower back, so build up slowly.</p></div></div>
+  <div class="card glance avoid"><h4>At a glance, by level</h4><div class="g3"><div><b>Foundation</b><ul><li>Wall-tap hip hinge</li><li>Bodyweight good morning</li><li>Dumbbell Romanian deadlift (RDL)</li></ul></div><div><b>Build</b><ul><li>Barbell RDL</li><li>Cable pull-through</li><li>45-degree hyper</li><li>Single-leg RDL (hand support)</li></ul></div><div><b>Advance</b><ul><li>Reverse hyper</li><li>Good morning (light, controlled)</li><li>Conventional deadlift (not to failure)</li></ul></div></div></div>
+  
+<article class="ex" id="hinge-wall">
+  <div class="ex-h">
+    <div>
+      <h3>Wall-tap hip hinge</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Wall</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Learn to fold forward at your hips with a long back by tapping your bottom to a wall.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Stand one foot-length in front of a wall, soft knees.</span></li><li><span>Push your hips back to tap the wall, keeping your spine long.</span></li><li><span>Squeeze your glutes to stand tall.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Hips back, not down</li><li>Back long, like a table top</li></ul>
+      <p><strong>Make it easier:</strong> Move closer to the wall.</p>
+      <p><strong>Make it harder:</strong> Hold a light weight against your chest or move to the bodyweight good morning.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Good first lesson for the hips and spine.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="hinge-bw">
+  <div class="ex-h">
+    <div>
+      <h3>Bodyweight good morning</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>No equipment</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Fold forward at your hips with your hands behind your head, practising the movement before adding weight.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Place your hands behind your head or across your chest.</span></li><li><span>Push your hips back and tip your torso forward with a flat back.</span></li><li><span>Stand tall by squeezing your glutes.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Soft knees</li><li>Move at the hip only</li></ul>
+      <p><strong>Make it easier:</strong> Wall-tap hinge.</p>
+      <p><strong>Make it harder:</strong> Light dumbbell RDL.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Keep the range pain-free. A little hamstring stretch is normal.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="rdl-db">
+  <div class="ex-h">
+    <div>
+      <h3>Dumbbell Romanian deadlift (RDL)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Dumbbells</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Slide light dumbbells down your thighs by pushing your hips back, then stand tall.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Hold dumbbells in front of your thighs.</span></li><li><span>Push your hips back, sliding the weights down your legs, back straight.</span></li><li><span>When you feel a stretch behind your thighs, squeeze your glutes to stand.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Dumbbells stay close to your legs</li><li>Long back, soft knees</li></ul>
+      <p><strong>Make it easier:</strong> Bodyweight good morning.</p>
+      <p><strong>Make it harder:</strong> Barbell RDL or single-leg RDL.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Keep to a depth where your back stays flat. Do not chase range.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="rdl-bb">
+  <div class="ex-h">
+    <div>
+      <h3>Barbell RDL</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Barbell</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> The same hip-folding movement as the dumbbell version, using a barbell for more load.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Hold the bar at hip height, shoulder-width grip.</span></li><li><span>Hinge back and slide the bar down your thighs to below the knee.</span></li><li><span>Drive your hips forward to stand.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Bar stays close to your legs</li><li>Keep your back straight throughout</li></ul>
+      <p><strong>Make it easier:</strong> Dumbbell RDL.</p>
+      <p><strong>Make it harder:</strong> Slow three-second lowering.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Some load goes through your spine. Always stop well before the set feels too hard.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="pullthrough">
+  <div class="ex-h">
+    <div>
+      <h3>Cable pull-through</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Cable machine, rope</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Pull a cable rope through your legs by pushing your hips forward, which keeps your glutes busy and your back calm.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Face away from a low cable, rope between your legs.</span></li><li><span>Hinge back, letting the rope travel behind you.</span></li><li><span>Drive your hips forward to stand tall.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Arms like ropes: let the hips do the work</li><li>Finish tall, not leaning back</li></ul>
+      <p><strong>Make it easier:</strong> Lighter stack, shorter range.</p>
+      <p><strong>Make it harder:</strong> Slow lowering and a pause at the top.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> A kind choice when barbell hinges bother your back.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="hyper45">
+  <div class="ex-h">
+    <div>
+      <h3>45-degree hyper</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>45-degree hyper bench</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Fold forward over a padded bench and lift your body back up to a straight line.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set the pad just below your hips, feet secured.</span></li><li><span>Hinge forward from the hips with a long spine.</span></li><li><span>Raise to a straight line, not beyond.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Stop when your body is in one line</li><li>Squeeze the glutes, not the low back</li></ul>
+      <p><strong>Make it easier:</strong> Cable pull-through.</p>
+      <p><strong>Make it harder:</strong> Hold a plate at your chest.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> If you have osteoporosis or have had a spinal fracture, choose the cable pull-through instead and keep your back straight.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="sl-rdl">
+  <div class="ex-h">
+    <div>
+      <h3>Single-leg RDL (hand support)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Support, dumbbell optional</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Fold forward on one leg with a hand on a support, while the other leg reaches behind you.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Hold a support with one hand. Shift weight to one leg.</span></li><li><span>Hinge forward while the free leg extends behind you.</span></li><li><span>Return to standing by squeezing the glute of the standing leg.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Hips stay square to the floor</li><li>Free leg in line with the torso</li></ul>
+      <p><strong>Make it easier:</strong> Rest the toes of your back foot lightly on the floor.</p>
+      <p><strong>Make it harder:</strong> Hold a dumbbell in the opposite hand.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Balance is the hard part, so use your support freely.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="reverse-hyper">
+  <div class="ex-h">
+    <div>
+      <h3>Reverse hyper</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Reverse hyper machine</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Lie face down on a pad and swing your legs up behind you to a straight line.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Lie face-down on the pad with hips at the edge.</span></li><li><span>Lift your legs to a straight line with the torso.</span></li><li><span>Lower slowly and keep the movement controlled.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Lift to level, no higher</li><li>Slow descent</li></ul>
+      <p><strong>Make it easier:</strong> Cable pull-through.</p>
+      <p><strong>Make it harder:</strong> Pause at the top.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Skip this one if you have low bone density or an acute back problem.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="good-morning">
+  <div class="ex-h">
+    <div>
+      <h3>Good morning (light, controlled)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Barbell or band</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Fold forward at your hips with a light bar on your upper back, then stand tall.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Place a light bar on your upper back.</span></li><li><span>Fold forward at the hips with a flat back until your body is nearly level with the floor.</span></li><li><span>Squeeze your glutes to stand.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Light loads only</li><li>Slow, deliberate reps</li></ul>
+      <p><strong>Make it easier:</strong> Dumbbell RDL.</p>
+      <p><strong>Make it harder:</strong> Pause at the bottom.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> The bar sits far from your hips, which puts extra load on your spine. Not for people with osteoporosis.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="deadlift-conv">
+  <div class="ex-h">
+    <div>
+      <h3>Conventional deadlift (not to failure)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="5.5" r="1.6"/><path d="M15.5 7.5L8 11l1 9M8 11l-4-1"/></svg>Hinge</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Barbell</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Lift a bar from the floor by pushing the floor away and standing tall, always stopping well before it gets too hard.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set the bar over the middle of your feet. Fold forward at the hips, grip the bar and tighten your tummy.</span></li><li><span>Push the floor away and stand tall.</span></li><li><span>Lower along the same path and reset between reps.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Stop with 2 to 3 reps still left in you</li><li>Reset between every rep</li></ul>
+      <p><strong>Make it easier:</strong> Barbell RDL.</p>
+      <p><strong>Make it harder:</strong> Pause below the knee.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> This puts high demand on your spine. Always stop well before it feels too hard.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+</section>
+
+<section class="pb">
+  <div class="sec-head"><div class="ico"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg></div>
+    <div><p class="eyebrow">Movement family · 11 exercises</p><h2>Abduction</h2><p class="d">Moving your leg out to the side, or turning it outward. It trains the glutes at the side of your hip that keep you steady when you walk or stand on one leg, and it is gentle on recovery.</p></div></div>
+  <div class="card glance avoid"><h4>At a glance, by level</h4><div class="g3"><div><b>Foundation</b><ul><li>Side-lying hip raise</li><li>Clamshell (hip rotation)</li><li>Banded standing hip abduction</li><li>Banded seated hip abduction</li><li>Banded side-stepping</li><li>Banded or cable kickback</li></ul></div><div><b>Build</b><ul><li>Seated hip abduction machine</li><li>Bridged seated hip abduction</li><li>Cable hip abduction at a 30-degree diagonal</li><li>Cable hip external rotation</li></ul></div><div><b>Advance</b><ul><li>Glute medius hip thrust (banded)</li></ul></div></div></div>
+  
+<article class="ex" id="abd-sidelying">
+  <div class="ex-h">
+    <div>
+      <h3>Side-lying hip raise</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Mat</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Lie on your side and lift the top leg out to the side, which trains the glutes at the side of your hip.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Lie on your side, bottom knee bent for stability, top leg straight and slightly behind your body.</span></li><li><span>Raise the top leg about 30 to 45 degrees, toes forward.</span></li><li><span>Lower slowly. Do all reps, then roll over.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Keep one hip directly above the other</li><li>Lead with the heel</li></ul>
+      <p><strong>Make it easier:</strong> Use a smaller range or a standing version.</p>
+      <p><strong>Make it harder:</strong> Add an ankle weight or a band above the knees.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> If the outside of your hip is tender, skip lying on that side. Keep the lifting leg from drifting across your body.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-clamshell">
+  <div class="ex-h">
+    <div>
+      <h3>Clamshell (hip rotation)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Mat, mini band optional</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Lie on your side with your knees bent and open the top knee like a clamshell.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Lie on your side with knees bent about 45 degrees and heels together.</span></li><li><span>Rotate the top knee up without rolling your pelvis back.</span></li><li><span>Lower slowly and repeat.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Small, controlled motion</li><li>Pelvis stays still</li></ul>
+      <p><strong>Make it easier:</strong> Without a band.</p>
+      <p><strong>Make it harder:</strong> Band above the knees, slower tempo.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> A gentle starter for hip and knee. Avoid it if side-lying on that hip is painful.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-band-standing">
+  <div class="ex-h">
+    <div>
+      <h3>Banded standing hip abduction</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Mini band, support</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Stand holding a support and move one leg out to the side against a band.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Loop a band around both ankles or just above the knees; hold a support.</span></li><li><span>Move one leg out to the side at a slight diagonal.</span></li><li><span>Return slowly. Keep the trunk upright.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Stand tall, do not lean</li><li>Slight diagonal, as if toward 2 o'clock</li></ul>
+      <p><strong>Make it easier:</strong> Lighter band, smaller range.</p>
+      <p><strong>Make it harder:</strong> Stronger band or hold at the end for two seconds.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Your standing leg works to keep you steady, so this doubles as balance practice.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-seated-band">
+  <div class="ex-h">
+    <div>
+      <h3>Banded seated hip abduction</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Mini band, chair</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Sit tall and press your knees apart against a band, with no balance needed.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit tall on a chair with a band just above the knees.</span></li><li><span>Press your knees apart as far as is comfortable.</span></li><li><span>Return slowly and keep the pressure on.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Tall spine</li><li>Slow return</li></ul>
+      <p><strong>Make it easier:</strong> Lighter band.</p>
+      <p><strong>Make it harder:</strong> Lean slightly forward from the hips to bias the upper glutes.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Sitting bends your hips only a little, so this suits most hips.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-side-step">
+  <div class="ex-h">
+    <div>
+      <h3>Banded side-stepping</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Mini band</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Step sideways with your knees slightly bent and a band above your knees, keeping the band tight.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Place a band just above your knees and bend your knees a little.</span></li><li><span>Step sideways, keeping tension on the band throughout.</span></li><li><span>Take 10 to 20 steps each direction.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Feet hip-width apart</li><li>Do not let the band snap back</li></ul>
+      <p><strong>Make it easier:</strong> Do it holding a counter.</p>
+      <p><strong>Make it harder:</strong> Stronger band.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Do it next to a counter if balance is uncertain.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-kickback">
+  <div class="ex-h">
+    <div>
+      <h3>Banded or cable kickback</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Cable or band, support</span></div>
+    </div>
+    <span class="lvl l1" title="Level 1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Foundation</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Move one leg straight behind you against a light band or cable, holding a support.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Attach the strap to your ankle; hold a support.</span></li><li><span>Move the leg straight behind you without arching your back.</span></li><li><span>Return slowly.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Ribs down</li><li>Small range</li></ul>
+      <p><strong>Make it easier:</strong> Without resistance.</p>
+      <p><strong>Make it harder:</strong> Pause for two seconds.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Keep the range small so your lower back stays quiet.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-machine">
+  <div class="ex-h">
+    <div>
+      <h3>Seated hip abduction machine</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Abduction machine</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Sit on the machine and press the pads apart with your knees, an easy movement to repeat.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit with the pads on the outside of your knees.</span></li><li><span>Lean slightly forward from the hips and press the pads apart.</span></li><li><span>Return slowly without letting the weights rest between reps.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Lean forward from the hips</li><li>Smooth tempo</li></ul>
+      <p><strong>Make it easier:</strong> Banded seated hip abduction.</p>
+      <p><strong>Make it harder:</strong> Pause for one second at the widest point.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Sitting bends your hips a fair amount. Make the movement smaller if you feel a pinch at the front of your hip.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-bridged">
+  <div class="ex-h">
+    <div>
+      <h3>Bridged seated hip abduction</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Abduction machine</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A variation of the machine press where you lift your hips slightly off the seat while pressing apart.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set up on the abduction machine as usual.</span></li><li><span>Lift your hips slightly off the seat while pressing apart.</span></li><li><span>Lower and repeat.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Hips lightly off the seat</li><li>Control throughout</li></ul>
+      <p><strong>Make it easier:</strong> Standard seated abduction.</p>
+      <p><strong>Make it harder:</strong> Extend the pause.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Notice the front of your hip, and make the movement smaller if it pinches.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-cable-30">
+  <div class="ex-h">
+    <div>
+      <h3>Cable hip abduction at a 30-degree diagonal</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Cable, ankle strap, support</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Move your leg out and slightly back against a cable while holding a support.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Attach an ankle strap to a low cable and hold a support.</span></li><li><span>Move the working leg out and slightly behind you, on a gentle diagonal.</span></li><li><span>Lower under control. Do all reps, then switch.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Lead with the heel</li><li>Hips square</li></ul>
+      <p><strong>Make it easier:</strong> Banded standing abduction.</p>
+      <p><strong>Make it harder:</strong> Pause for two seconds at the top.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Use a support. A stable stance matters more than an exact angle.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-cable-er">
+  <div class="ex-h">
+    <div>
+      <h3>Cable hip external rotation</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Cable or band, bench</span></div>
+    </div>
+    <span class="lvl l2" title="Level 2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Build</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> Sit and turn your thigh outward against a cable or band, keeping your thigh still.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Sit tall with a cable or band attached at your ankle.</span></li><li><span>Keep your thigh still and swing your foot inward, which turns your hip outward.</span></li><li><span>Return slowly.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Thigh stays still</li><li>Small, controlled arc</li></ul>
+      <p><strong>Make it easier:</strong> Clamshell.</p>
+      <p><strong>Make it harder:</strong> Slower tempo.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Gentle for the knee if the thigh stays still. Stay in a pain-free arc.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+
+<article class="ex" id="abd-med-thrust">
+  <div class="ex-h">
+    <div>
+      <h3>Glute medius hip thrust (banded)</h3>
+      <div class="meta"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 7v6M12 13l-5 7M12 13l5 7"/></svg>Abduction</span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>Bench, mini band</span></div>
+    </div>
+    <span class="lvl l3" title="Level 3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Advance</span>
+  </div>
+  <p class="core"><strong>Core idea:</strong> A hip thrust with a band above your knees, pressing your knees gently outward as you lift.</p>
+  <div class="cols">
+    <section><h4>Easy instructions</h4><ol><li><span>Set up a hip thrust with a mini band above the knees.</span></li><li><span>Press the knees gently outward and drive up.</span></li><li><span>Hold, then lower slowly.</span></li></ol></section>
+    <section><h4>Key cues</h4><ul><li>Knees out</li><li>Level hips</li></ul>
+      <p><strong>Make it easier:</strong> Banded glute bridge.</p>
+      <p><strong>Make it harder:</strong> Single-leg version.</p></section>
+  </div>
+  <div class="joint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><div><strong>Joint note:</strong> Same joint profile as the standard hip thrust.</div></div>
+  <div class="check"><label class="cb"><i class="box"></i><span>Setup is stable and supported</span></label><label class="cb"><i class="box"></i><span>I know my starting position</span></label><label class="cb"><i class="box"></i><span>Movement is slow and controlled</span></label><label class="cb"><i class="box"></i><span>I am breathing out on effort</span></label><label class="cb"><i class="box"></i><span>I stayed within a comfortable range</span></label><label class="cb"><i class="box"></i><span>No sharp pain</span></label></div>
+  <div class="sets"><strong>Sets</strong><span class="cb"><i class="circ"></i>Set 1</span><span class="cb"><i class="circ"></i>Set 2</span><span class="cb"><i class="circ"></i>Set 3</span></div>
+</article>
+</section>
+
+<section class="pb"><div class="lvlhead"><div><p class="eyebrow">Weekly tracker · 4 weeks</p><h2>Foundation</h2></div><span class="lvl l1"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Level 1</span></div>
+    <p class="lede">Learn the patterns, build consistency, stay well short of failure. Tick one box for each set you finish. That is 24 sets in a week across 3 sessions.</p>
+<table class="trk">
+  <caption>Day 1<span>Learn the patterns</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Side-lying hip raise<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Glute bridge<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Chair sit-to-stand<small>2 sets · 8–10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Wall-tap hip hinge<small>2 sets · 10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table>
+<table class="trk">
+  <caption>Day 2<span>Add the band</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Banded standing hip abduction<small>2 sets · 10–12 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Banded glute bridge<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Step-up with handrail<small>2 sets · 8 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Dumbbell Romanian deadlift (RDL)<small>2 sets · 10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table></section>
+<section class="pb"><p class="eyebrow">Foundation tracker, continued</p>
+<table class="trk">
+  <caption>Day 3<span>Longer range</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Banded seated hip abduction<small>2 sets · 12–15 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Bench hip thrust (bodyweight)<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Supported split squat<small>2 sets · 8 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Bodyweight good morning<small>2 sets · 10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table><h4 style="margin:4px 0 6px">Date and notes for each week</h4><div class="wk"><div class="r"><b>Week 1</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 2</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 3</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 4</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div></div></section>
+
+<section class="pb"><div class="lvlhead"><div><p class="eyebrow">Weekly tracker · 4 weeks</p><h2>Build</h2></div><span class="lvl l2"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Level 2</span></div>
+    <p class="lede">Add external load and single-leg control while keeping good form. Tick one box for each set you finish. That is 32 sets in a week across 3 sessions.</p>
+<table class="trk">
+  <caption>Day 1<span>Heavy bridge and single-leg lunge</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Seated hip abduction machine<small>2 sets · 12–15 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Barbell hip thrust with pause<small>3 sets · 8–10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Reverse lunge (Smith machine or rail)<small>2 sets · 10 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Dumbbell Romanian deadlift (RDL)<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Banded standing hip abduction<small>2 sets · 15 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table>
+<table class="trk">
+  <caption>Day 2<span>30-degree path and leg press</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Cable hip abduction at a 30-degree diagonal<small>2 sets · 12–15 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Single-leg glute bridge<small>2 sets · 10 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Leg press, feet high and wide<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Cable pull-through<small>2 sets · 12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Bridged seated hip abduction<small>2 sets · 15 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table></section>
+<section class="pb"><p class="eyebrow">Build tracker, continued</p>
+<table class="trk">
+  <caption>Day 3<span>Hip turning control and safe hinge</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Cable hip external rotation<small>2 sets · 12 each side</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Barbell glute bridge (floor)<small>3 sets · 10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Goblet squat<small>2 sets · 8–10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">45-degree hyper<small>2 sets · 12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Banded side-stepping<small>2 sets · 15 steps each way</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table><h4 style="margin:4px 0 6px">Date and notes for each week</h4><div class="wk"><div class="r"><b>Week 1</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 2</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 3</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 4</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div></div></section>
+
+<section class="pb"><div class="lvlhead"><div><p class="eyebrow">Weekly tracker · 4 weeks</p><h2>Advance</h2></div><span class="lvl l3"><svg width="46" height="14" viewBox="0 0 46 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="currentColor"/><circle cx="23" cy="7" r="5" fill="currentColor"/><circle cx="39" cy="7" r="5" fill="currentColor"/></svg>Level 3</span></div>
+    <p class="lede">Heavier, more complex work with deliberate fatigue management. Tick one box for each set you finish. That is 35 sets in a week across 3 sessions.</p>
+<table class="trk">
+  <caption>Day 1<span>Heavy bridge and one-leg lunge</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Side-lying hip raise<small>3 sets · 12–15 reps</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Barbell hip thrust with pause<small>3 sets · 8–10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Reverse lunge (Smith machine or rail)<small>2 sets · 10–12 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">45-degree hyper<small>2 sets · 12–15 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Seated hip abduction machine<small>2 sets · 15–20 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table>
+<table class="trk">
+  <caption>Day 2<span>30-degree cable path and deep squat stretch</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Cable hip abduction at a 30-degree diagonal<small>3 sets · 12–15 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">B-stance hip thrust<small>2 sets · 10–12 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">High-bar squat to parallel<small>2 sets · 8–10 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Single-leg RDL (hand support)<small>2 sets · 10–12 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Bridged seated hip abduction<small>2 sets · 15–20 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table></section>
+<section class="pb"><p class="eyebrow">Advance tracker, continued</p>
+<table class="trk">
+  <caption>Day 3<span>Hip turning control and two-leg hinge</span></caption>
+  <thead><tr><th>Exercise</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th></tr></thead>
+  <tbody><tr><td class="nm">Glute medius hip thrust (banded)<small>3 sets · 10–12 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Barbell glute bridge (floor)<small>3 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Bulgarian split squat (hand support)<small>2 sets · 8–10 each leg</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Good morning (light, controlled)<small>2 sets · 10–12 reps</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr><tr><td class="nm">Banded side-stepping<small>2 sets · 20 steps each way</small></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td><td class="s"><i class="box"></i><i class="box"></i></td></tr></tbody>
+</table><h4 style="margin:4px 0 6px">Date and notes for each week</h4><div class="wk"><div class="r"><b>Week 1</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 2</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 3</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div><div class="r"><b>Week 4</b><div class="ln"><em>Date</em><i class="short"></i><em>Notes</em><i></i></div><div class="ln"><i></i></div></div></div></section>
+
+<section class="pb">
+  <p class="eyebrow">Keep it safe</p>
+  <h2 class="pg">Safety summary</h2>
+  <ul style="padding-left:20px;margin-bottom:8px">
+    <li>Warm up first, and keep a stable support within reach.</li>
+    <li>Move slowly, breathe out as you push or lift, and stay within a comfortable range.</li>
+    <li>Choose the easier version on a tired day. A lighter session still counts.</li>
+    <li>Discomfort that is mild and settles is fine. Sharp pain is a signal to stop.</li>
+  </ul>
+  <h3 style="font-size:22pt;margin-top:12px">Stop signs</h3>
+  <p>Stop the exercise, sit or lie down safely, and contact your clinician if you notice any of these. For chest pain or pressure that does not settle quickly, get emergency medical help.</p>
+  <div class="stops">
+    <div class="s"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Chest pain</div><div class="s"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Dizziness</div><div class="s"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Unusual breathlessness</div><div class="s"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Sharp or catching joint pain</div><div class="s"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Numbness</div><div class="s"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 3h7L21 8.5v7L15.5 21h-7L3 15.5v-7z"/><path d="M8 12h8"/></svg>Pain after a fall</div>
+  </div>
+  <div class="disc avoid">
+    <h4>Please read</h4>
+    <ul>
+      <li>This handout is for education only. It does not replace advice from your clinician.</li>
+      <li>If you have had a hip or knee replacement, follow your surgeon's precautions.</li>
+      <li>If you have low bone density, make spine-conscious choices. The exercises below put more load through your spine, so ask your clinician before you try them.</li>
+    </ul>
+    <ul class="carefull"><li>High-bar squat to parallel</li><li>Dumbbell Romanian deadlift (RDL)</li><li>Barbell RDL</li><li>45-degree hyper</li><li>Single-leg RDL (hand support)</li><li>Reverse hyper</li><li>Good morning (light, controlled)</li><li>Conventional deadlift (not to failure)</li></ul>
+  </div>
+  <p style="margin-top:14px;font-family:var(--font-display);font-style:italic;font-weight:600;font-size:17pt;color:var(--teal-dark)">Small Steps. Exponential Gains.™</p>
+</section>
+</body>
+</html>
