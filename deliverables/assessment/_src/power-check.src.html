@@ -32,7 +32,7 @@ label.f{display:block;font-weight:600;color:var(--ink);font-size:15px;margin-bot
 input[type=number],select{width:100%;min-height:48px;border:1.5px solid var(--border);border-radius:var(--r-2);padding:10px 14px;font:inherit;font-size:16px;background:var(--white);color:var(--ink)}
 input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--teal-light);outline-offset:2px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
-.err{color:#9a3412;font-size:14px;min-height:1.4em;margin-top:var(--s-3)}
+.err{color:#7c2d12;font-size:15px;font-weight:600;min-height:1.4em;margin-top:var(--s-3)}.err:not(:empty){background:var(--gold-muted);border-left:4px solid var(--gold);border-radius:0 var(--r-2) var(--r-2) 0;padding:12px 16px}
 ol.proto{padding-left:1.3em}ol.proto li{margin:10px 0;color:var(--ink)}
 .big{font-family:var(--font-display);font-weight:700;color:var(--teal);font-size:clamp(64px,13vw,112px);line-height:1;letter-spacing:-.03em}
 .big small{font-size:.3em;color:var(--ink-soft);font-weight:600;letter-spacing:0}
@@ -97,7 +97,7 @@ details{margin:var(--s-4) 0}summary{cursor:pointer;font-weight:600;color:var(--i
    <div><label class="f" for="prev">Earlier result, if any <span class="f-hint">Relative power in W/kg</span></label><input id="prev" type="number" inputmode="decimal" step="0.01"></div>
   </div>
   <div class="err" id="err" role="alert"></div>
-  <div class="row"><button type="button" class="mmm-btn mmm-btn-ghost" data-go="2">Back</button><button type="submit" class="mmm-btn mmm-btn-primary">See my result</button></div>
+  <div class="row"><button type="button" class="mmm-btn mmm-btn-ghost" data-go="2">Back</button><button type="button" id="goBtn" class="mmm-btn mmm-btn-primary">See my result</button></div>
  </form>
 </section>
 
@@ -160,14 +160,14 @@ function gauge(rel,sex){var W=600,H=90,max=5,x=function(v){return 20+Math.min(Ma
  var marks=refs.map(function(r,k){return '<line x1="'+x(r[0])+'" x2="'+x(r[0])+'" y1="14" y2="52" stroke="var(--gold-dark)" stroke-width="3"/><text x="'+x(r[0])+'" y="'+(k?10:10)+'" text-anchor="'+(k?'start':'end')+'" font-size="13" font-weight="600" fill="var(--gold-dark)">'+r[1]+'</text>'}).join('');
  return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Your relative power of '+rel.toFixed(2)+' watts per kilogram on a scale from 0 to 5, with the research reference point marked"><rect x="20" y="26" width="'+(W-40)+'" height="14" rx="7" fill="var(--border-soft)"/><rect x="20" y="26" width="'+(x(rel)-20)+'" height="14" rx="7" fill="var(--teal)"/>'+marks+'<circle cx="'+x(rel)+'" cy="33" r="10" fill="var(--teal-dark)" stroke="#fff" stroke-width="3"/>'+ticks+'<text x="'+(W-20)+'" y="66" text-anchor="end" font-size="12" fill="var(--ink-soft)">W/kg</text></svg>'}
 var last='';
-$('#calc').addEventListener('submit',function(e){e.preventDefault();var err=$('#err');err.textContent='';
+function compute(){var err=$('#err');err.textContent='';
  var us=$('#units').value==='us',m=num('mass'),h=num('height'),c=num('chair'),r=num('reps'),age=num('age'),sex=$('#sex').value;
- if([m,h,c,r].some(function(v){return v===null})){err.textContent='Please fill in body mass, height, chair height and the number of stands.';return}
+ if([m,h,c,r].some(function(v){return v===null})){err.textContent='Please fill in body mass, height, chair height and the number of stands.';err.scrollIntoView({block:'center'});return}
  if(us){m*=0.45359237;h*=0.0254;c*=0.0254}else{h/=100;c/=100}
- if(m<30||m>250||h<1.2||h>2.2){err.textContent='Please check body mass and height. They look outside the usual range.';return}
- if(c<0.3||c>0.6){err.textContent='Please check the chair height. Seat heights are usually 38 to 50 cm (15 to 20 in).';return}
- if(r<0||r>40||r%1!==0){err.textContent='Please enter a whole number of stands from 0 to 40.';return}
- var o=calc(m,h,c,r);if(o.disp<=0){err.textContent='With these numbers the chair seat is higher than half your height, so the estimate cannot be calculated. Please re-check the measurements.';return}
+ if(m<30||m>250||h<1.2||h>2.2){err.textContent='Please check body mass and height. They look outside the usual range.';err.scrollIntoView({block:'center'});return}
+ if(c<0.3||c>0.6){err.textContent='Please check the chair height. Seat heights are usually 38 to 50 cm (15 to 20 in).';err.scrollIntoView({block:'center'});return}
+ if(r<0||r>40||r%1!==0){err.textContent='Please enter a whole number of stands from 0 to 40.';err.scrollIntoView({block:'center'});return}
+ var o=calc(m,h,c,r);if(o.disp<=0){err.textContent='With these numbers the chair seat is higher than half your height, so the estimate cannot be calculated. Please re-check the measurements.';err.scrollIntoView({block:'center'});return}
  var rel=o.rel,rf=ref(sex);
  $('#rel').innerHTML=rel.toFixed(2)+' <small>W/kg</small>';
  $('#abs').textContent='Absolute power about '+Math.round(o.P)+' W from '+r+' stands in 30 seconds.';
@@ -185,7 +185,9 @@ $('#calc').addEventListener('submit',function(e){e.preventDefault();var err=$('#
  var ans=[];QS.forEach(function(q,i){var s=$('input[name=q'+i+']:checked');if(s&&+s.value>=2)ans.push(q[2])});
  $('#notes').innerHTML=(ans.length?ans:['Nothing in your answers stood out. If anything changes, or you have questions about your result, a physical therapist or clinician can help.']).map(function(t){return '<li>'+t+'</li>'}).join('');
  last='Power check (Muscle-Meta Matrix): relative sit-to-stand power '+rel.toFixed(2)+' W/kg, absolute about '+Math.round(o.P)+' W, '+r+' stands in 30 s; chair height '+(c*100).toFixed(0)+' cm. '+V+'. Screening estimate, not a diagnosis.';
- $('#copied').textContent='';show(4)});
+ $('#copied').textContent='';show(4)}
+$('#goBtn').addEventListener('click',compute);
+$$('#calc input').forEach(function(i){i.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();compute()}})});
 $('#copy').addEventListener('click',function(){var ok=function(){$('#copied').textContent='Summary copied.'},bad=function(){$('#copied').textContent=last};try{navigator.clipboard.writeText(last).then(ok,bad)}catch(e){bad()}});
 })();
 </script></body></html>
