@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Power check — embed example</title>
+<style>
+  body{margin:0;font-family:Outfit,Helvetica,Arial,sans-serif;background:#f7f6f3;color:#344256}
+  .page{max-width:900px;margin:0 auto;padding:32px 20px}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;color:#1a2332}
+  /* the iframe: full width, no border, height is set by the script below */
+  #mm-power-check{width:100%;border:0;min-height:520px;display:block;background:transparent}
+</style></head>
+<body><div class="page">
+  <h1>Lesson: check your leg power</h1>
+  <p>Your course or blog text goes here. The Power Check appears below and resizes itself as the person moves through the steps.</p>
+
+  <!-- ===== COPY FROM HERE ===== -->
+  <iframe id="mm-power-check"
+          src="power-check.html?embed=1"
+          title="Power check: a 30-second chair-stand test"
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"></iframe>
+  <script>
+    (function () {
+      var frame = document.getElementById('mm-power-check');
+      window.addEventListener('message', function (e) {
+        var d = e.data;
+        if (!d || typeof d.type !== 'string' || d.type.indexOf('mm-power-check:') !== 0) return;
+        if (e.source !== frame.contentWindow) return;           // only listen to our frame
+        if (typeof d.height === 'number') frame.style.height = d.height + 'px';
+        if (d.type === 'mm-power-check:step') frame.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      });
+    })();
+  </script>
+  <!-- ===== COPY TO HERE ===== -->
+
+  <p>More lesson text continues here.</p>
+</div></body></html>

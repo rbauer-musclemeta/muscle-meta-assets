@@ -384,6 +384,20 @@ details{margin:var(--s-4) 0}summary{cursor:pointer;font-weight:600;color:var(--i
 .foot{border-top:1px solid var(--border);padding:var(--s-5) 0 var(--s-6);background:var(--surface-tint)}
 @media(max-width:768px){.grid{grid-template-columns:1fr}.card{padding:var(--s-5)}}
 @media(prefers-reduced-motion:reduce){.step.on{animation:none}}
+
+/* embed mode: inside a course lesson or blog post */
+body.embed{min-height:0}
+body.embed .bar{display:none}
+body.embed main{padding:var(--s-5) 0 var(--s-6)}
+body.embed .wrap{max-width:none;padding:0 var(--s-4)}
+body.embed .foot{padding:var(--s-4) 0}
+body.embed .mmm-grain::before{display:none}
+@media print{
+ body{background:#fff}.bar,.row,.mmm-btn,.foot .small:first-child,summary{display:none!important}
+ .step{display:none!important}.step.on{display:block!important;animation:none}
+ details>*:not(summary){display:block!important}
+ .card{box-shadow:none;break-inside:avoid}main{padding:0}
+}
 </style></head>
 <body class="mmm-grain">
 <header class="bar"><div class="in"><span class="mark">Muscle-Meta Matrix<sup>™</sup></span><span class="prog" id="prog" aria-live="polite"></span></div></header>
@@ -467,6 +481,13 @@ details{margin:var(--s-4) 0}summary{cursor:pointer;font-weight:600;color:var(--i
 
 <script>
 (function(){
+var EMBED=/[?&]embed=1\b/.test(location.search)||(function(){try{return window.self!==window.top}catch(e){return true}})();
+if(EMBED)document.body.classList.add('embed');
+function tell(type,extra){if(!EMBED)return;try{var m={type:'mm-power-check:'+type,height:Math.ceil(document.body.getBoundingClientRect().height)};for(var k in extra)m[k]=extra[k];window.parent.postMessage(m,'*')}catch(e){}}
+window.addEventListener('load',function(){tell('height')});
+window.addEventListener('resize',function(){tell('height')});
+if(window.ResizeObserver)new ResizeObserver(function(){tell('height')}).observe(document.body);
+window.addEventListener('beforeprint',function(){[].slice.call(document.querySelectorAll('details')).forEach(function(d){d.open=true})});
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
 var SAFETY=["Chest pain, dizziness or fainting during activity, or severe shortness of breath at rest","A fall with injury, or new or worsening pain, in the past few weeks","Sudden joint swelling with warmth or redness","A joint that locks, buckles or gives way unpredictably","Surgery within the past 6 weeks, or a clinician has told me to limit activity","I cannot stand up safely from a chair without help"];
 var QS=[
@@ -482,7 +503,7 @@ var QS=[
  ["Does fear of falling limit where you go, or do you rely on a cane, walker or furniture?",["No fear, no aids","Mild fear on uneven ground","Moderate fear; sometimes a cane or furniture","Strong fear; I always need a device or a person"],"Fear of falling is common and can be worked with. A physical therapist can help you build confidence alongside strength."]
 ];
 var cur=0,notes=[];
-function show(i){cur=i;$$('.step').forEach(function(s,k){s.classList.toggle('on',k===i)});$('#prog').textContent=i>0?(i<4?'Step '+i+' of 4':'Result'):'';window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});var h=$('#s'+i+' h1, #s'+i+' h2');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}}
+function show(i){cur=i;$$('.step').forEach(function(s,k){s.classList.toggle('on',k===i)});$('#prog').textContent=i>0?(i<4?'Step '+i+' of 4':'Result'):'';if(EMBED){tell('step',{step:i})}else{window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}var h=$('#s'+i+' h1, #s'+i+' h2');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}}
 $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.go)})});
 $('#safety').innerHTML=SAFETY.map(function(t,i){return '<label class="opt"><input type="checkbox" value="'+i+'"><span>'+t+'</span></label>'}).join('');
 $('#safeNext').addEventListener('click',function(){var any=$$('#safety input:checked').length>0;$('#stopbox').hidden=!any;if(any){$('#stopbox').scrollIntoView({block:'center'})}else show(2)});
