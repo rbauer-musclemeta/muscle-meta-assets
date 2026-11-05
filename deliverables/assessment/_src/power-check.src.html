@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Power check — Muscle-Meta Matrix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/*TOKENS*/
+body{min-height:100vh;display:flex;flex-direction:column}
+.bar{position:sticky;top:0;z-index:var(--z-nav);background:rgba(247,246,243,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,144,144,.15)}
+.bar .in,.wrap{max-width:860px;margin:0 auto;padding:0 var(--gutter)}
+.bar .in{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px}
+.mark{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink)}.mark sup{font-size:10px;color:var(--teal)}
+.prog{font-size:13px;color:var(--ink-soft);font-weight:500}
+main{flex:1;padding:var(--s-7) 0 var(--s-8)}
+.step{display:none}.step.on{display:block;animation:rise .6s var(--ease-out)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(40px,7vw,64px)}h2{font-size:clamp(30px,4.5vw,40px);margin:var(--s-2) 0 var(--s-4)}
+.lede{max-width:60ch;margin-bottom:var(--s-5)}
+.tick{display:grid;gap:12px;margin:var(--s-5) 0}
+.opt{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1px solid var(--border);border-radius:var(--r-3);padding:14px 16px;min-height:44px;cursor:pointer;transition:all var(--dur-base) var(--ease-out)}
+.opt:hover{border-color:var(--teal);background:var(--teal-tint)}
+.opt input{width:22px;height:22px;margin-top:2px;accent-color:var(--teal);flex:none}
+.opt:has(input:checked){border-color:var(--teal);background:var(--teal-muted)}
+fieldset{border:0;margin:0 0 var(--s-6);padding:0}
+legend{font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--ink);padding:0;margin-bottom:var(--s-3);line-height:1.25}
+.q-n{color:var(--teal);margin-right:8px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:var(--s-6);align-items:center}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-4);padding:var(--s-6);box-shadow:var(--shadow-sm);margin:var(--s-5) 0}
+.stop{border-left:4px solid var(--gold);background:var(--gold-muted)}
+label.f{display:block;font-weight:600;color:var(--ink);font-size:15px;margin-bottom:6px}
+.f-hint{font-weight:400;color:var(--ink-soft);font-size:13px;display:block}
+input[type=number],select{width:100%;min-height:48px;border:1.5px solid var(--border);border-radius:var(--r-2);padding:10px 14px;font:inherit;font-size:16px;background:var(--white);color:var(--ink)}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--teal-light);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
+.err{color:#9a3412;font-size:14px;min-height:1.4em;margin-top:var(--s-3)}
+ol.proto{padding-left:1.3em}ol.proto li{margin:10px 0;color:var(--ink)}
+.big{font-family:var(--font-display);font-weight:700;color:var(--teal);font-size:clamp(64px,13vw,112px);line-height:1;letter-spacing:-.03em}
+.big small{font-size:.3em;color:var(--ink-soft);font-weight:600;letter-spacing:0}
+.gauge{margin:var(--s-5) 0 var(--s-2)}.gauge svg{width:100%;height:auto;display:block}
+.badge{display:inline-flex;gap:6px;align-items:center;padding:5px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--gold-muted);color:#7a6420;border:1px solid var(--gold)}
+.badge i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.notes li{margin:10px 0;color:var(--ink-soft)}
+details{margin:var(--s-4) 0}summary{cursor:pointer;font-weight:600;color:var(--ink);min-height:44px;display:flex;align-items:center}
+.small{font-size:13px;color:var(--ink-soft)}
+.mmm-btn[disabled]{opacity:.45;pointer-events:none}
+.foot{border-top:1px solid var(--border);padding:var(--s-5) 0 var(--s-6);background:var(--surface-tint)}
+@media(max-width:768px){.grid{grid-template-columns:1fr}.card{padding:var(--s-5)}}
+@media(prefers-reduced-motion:reduce){.step.on{animation:none}}
+</style></head>
+<body class="mmm-grain">
+<header class="bar"><div class="in"><span class="mark">Muscle-Meta Matrix<sup>™</sup></span><span class="prog" id="prog" aria-live="polite"></span></div></header>
+<main><div class="wrap">
+
+<section class="step on" id="s0" aria-labelledby="h0">
+ <span class="eyebrow">P1 Exercise &amp; Mobility · P1-C4 Strength</span>
+ <h1 id="h0" style="margin:var(--s-3) 0 var(--s-4)">Power check</h1>
+ <p class="lede">Power is how quickly your legs can produce force, the quick push behind standing from a chair. This ten-minute check estimates it from a 30-second chair-stand test, so you can see where you are and track change over time.</p>
+ <div class="card"><h4 style="margin-bottom:8px">What you need</h4>
+  <ul style="margin:0;padding-left:1.2em"><li>A sturdy armless chair placed against a wall (and a tape measure for its seat height)</li><li>A timer, and someone nearby for safety</li><li>Your body mass and height</li></ul></div>
+ <p class="small">This is a screening estimate for education. It is not a diagnosis or medical advice. Your answers are processed in this page and are not stored or sent anywhere.</p>
+ <div class="row"><button class="mmm-btn mmm-btn-primary mmm-btn-lg" data-go="1">Start the safety check</button></div>
+</section>
+
+<section class="step" id="s1" aria-labelledby="h1">
+ <span class="eyebrow">Step 1 of 4 · Safety first</span><h2 id="h1">Before we begin</h2>
+ <p class="lede">Select anything that applies to you right now.</p>
+ <div class="tick" id="safety"></div>
+ <div id="stopbox" class="card stop" hidden role="alert"><h4 style="margin-bottom:8px">Please speak with a clinician before testing</h4>
+  <p>Based on what you selected, a chair-stand test is not the right next step today. Ask your clinician or physical therapist what is safe for you. If you have chest pain, fainting or severe shortness of breath, seek urgent medical care.</p></div>
+ <div class="row"><button class="mmm-btn mmm-btn-ghost" data-go="0">Back</button><button class="mmm-btn mmm-btn-primary" id="safeNext">Continue</button></div>
+</section>
+
+<section class="step" id="s2" aria-labelledby="h2">
+ <span class="eyebrow">Step 2 of 4 · Your context</span><h2 id="h2">A few questions about you</h2>
+ <p class="lede">These help put your result in context. They are not scored, and you can skip any question.</p>
+ <form id="survey"></form>
+ <div class="row"><button class="mmm-btn mmm-btn-ghost" data-go="1">Back</button><button class="mmm-btn mmm-btn-primary" data-go="3">Continue to the test</button></div>
+</section>
+
+<section class="step" id="s3" aria-labelledby="h3">
+ <span class="eyebrow">Step 3 of 4 · The 30-second test</span><h2 id="h3">Chair-stand test</h2>
+ <div class="card"><ol class="proto">
+  <li>Sit in the middle of the chair, back upright, feet flat, <b>arms crossed over your chest</b>.</li>
+  <li>Practice once or twice, resting 30 to 60 seconds in between.</li>
+  <li>On "go," stand fully upright and sit back down so you touch the seat, <b>as fast as you safely can</b>, for 30 seconds.</li>
+  <li>Count only complete stands. You may stop at any time if you feel unwell.</li></ol>
+  <p class="small">Use the same chair and the same way of testing each time you repeat this.</p></div>
+ <form id="calc" novalidate>
+  <div class="grid">
+   <div><label class="f" for="sex">Sex <span class="f-hint">Reference points differ for men and women</span></label><select id="sex"><option value="">Prefer not to say</option><option value="f">Female</option><option value="m">Male</option></select></div>
+   <div><label class="f" for="age">Age <span class="f-hint">In years</span></label><input id="age" type="number" inputmode="numeric" min="18" max="110"></div>
+   <div><label class="f" for="units">Units</label><select id="units"><option value="metric">Metric (kg, cm)</option><option value="us">US (lb, in)</option></select></div>
+   <div><label class="f" for="mass">Body mass <span class="f-hint" id="massU">kg</span></label><input id="mass" type="number" inputmode="decimal" step="0.1"></div>
+   <div><label class="f" for="height">Height <span class="f-hint" id="heightU">cm</span></label><input id="height" type="number" inputmode="decimal" step="0.1"></div>
+   <div><label class="f" for="chair">Chair seat height <span class="f-hint" id="chairU">cm. Measure it; chairs vary</span></label><input id="chair" type="number" inputmode="decimal" step="0.1" value="43"></div>
+   <div><label class="f" for="reps">Complete stands in 30 seconds</label><input id="reps" type="number" inputmode="numeric" min="0" max="40" step="1"></div>
+   <div><label class="f" for="prev">Earlier result, if any <span class="f-hint">Relative power in W/kg</span></label><input id="prev" type="number" inputmode="decimal" step="0.01"></div>
+  </div>
+  <div class="err" id="err" role="alert"></div>
+  <div class="row"><button type="button" class="mmm-btn mmm-btn-ghost" data-go="2">Back</button><button type="submit" class="mmm-btn mmm-btn-primary">See my result</button></div>
+ </form>
+</section>
+
+<section class="step" id="s4" aria-labelledby="h4">
+ <span class="eyebrow">Step 4 of 4 · Your result</span><h2 id="h4">Your estimated power</h2>
+ <div class="card" aria-live="polite">
+  <div class="big" id="rel">–</div>
+  <p id="abs" style="margin-top:8px;color:var(--ink)"></p>
+  <div class="gauge" id="gauge"></div>
+  <h3 id="verdict" style="font-size:26px;margin:var(--s-4) 0 var(--s-2)"></h3>
+  <p id="verdictText"></p>
+  <p style="margin-top:12px" id="retest"></p>
+  <p style="margin-top:14px"><span class="badge"><i></i>Promising</span> <span class="small">Cross-sectional studies in European cohorts. Power here is an equation-based estimate, not a direct force measurement.</span></p>
+ </div>
+ <h4>Things worth discussing with a clinician</h4>
+ <ul class="notes" id="notes"></ul>
+ <div class="card"><h4 style="margin-bottom:8px">Can power change?</h4>
+  <p>In a randomized trial of 112 healthy older adults (average age 69), 8 to 12 weeks of explosive-intent resistance training raised measured peak power by about 14 to 15%, compared with 3% in controls (de Vos 2005, PMID 15972618). That trial measured power only. It did not test falls or independence. Whether fast or heavy work suits you depends on your health, so ask a physical therapist or qualified exercise professional.</p></div>
+ <details><summary>How this was calculated</summary>
+  <p class="small">Power (W) = body mass × 0.9 × 9.81 × (0.5 × height − chair height) ÷ [(30 ÷ stands) × 0.5]. It treats the body as rising a distance equal to half your height minus the seat height, moving 90% of body mass, with half of each stand spent rising (Alcazar et al., Sci Rep 2020, PMID 33004970). Relative power is absolute power ÷ body mass.</p>
+  <p class="small">Reference points: below 2.6 W/kg (men) or 2.1 W/kg (women) was linked with mobility limitation in about 9,300 adults aged 60 and over (Alcazar et al., J Cachexia Sarcopenia Muscle 2021, PMID 34216098). A later Spanish cohort of 1,475 found 2.53 and 2.01 W/kg (PMID 39790033). Smallest meaningful change: 0.42 W/kg (men) and 0.33 W/kg (women). These come from European community-dwelling older adults. People with recent surgery, illness or immobilization were excluded from the validation study, so treat your result with extra care if that is you. Different sit-to-stand protocols are not interchangeable.</p></details>
+ <div class="row"><button class="mmm-btn mmm-btn-ghost" data-go="3">Change my answers</button><button class="mmm-btn mmm-btn-primary" id="copy">Copy my summary</button><a class="mmm-btn mmm-btn-ghost" href="#" onclick="location.reload();return false">Start over</a></div>
+ <p class="small" id="copied" aria-live="polite"></p>
+</section>
+
+</div></main>
+<footer class="foot"><div class="wrap"><p class="small" style="font-family:var(--font-display);font-style:italic;font-size:18px;color:var(--teal)">Small Steps. Exponential Gains.™</p>
+<p class="small">Educational information only; not individualized medical advice and not a diagnosis. Discuss new or modified exercise with an appropriate clinician when health or safety concerns apply, including after a recent fall, hospital stay, injury or surgery. Do not change or stop any medicine without your prescriber's advice.</p></div></footer>
+
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var SAFETY=["Chest pain, dizziness or fainting during activity, or severe shortness of breath at rest","A fall with injury, or new or worsening pain, in the past few weeks","Sudden joint swelling with warmth or redness","A joint that locks, buckles or gives way unpredictably","Surgery within the past 6 weeks, or a clinician has told me to limit activity","I cannot stand up safely from a chair without help"];
+var QS=[
+ ["Have you had a major surgery, such as a joint replacement, in the past 1 to 5 years?",["No surgery","Minor procedure, recovered within 2 weeks","One major surgery, with full rehabilitation","Several surgeries, or ongoing limits after surgery"],"Recovery after surgery can reduce muscle strength and power. A gradual, supervised return to movement is the usual path, and your surgeon or physical therapist can say what is right for you now."],
+ ["In the past 12 months, did a serious illness or time in bed (more than 3 days) leave you weaker or slower?",["No","A mild illness, under 3 days","One episode of 3 to 7 days with noticeable loss of strength","Several episodes, or more than 7 days, with lasting loss"],"Even short spells of bed rest can reduce leg strength and power, and regaining them takes time. Gradual, guided activity is the supported way back."],
+ ["How often do you feel unsteady or nearly fall during everyday movement, such as turning quickly?",["Never","Once or twice a year, recovering quickly","Once or twice a month, needing something to hold","Weekly, or at least one fall in the past year"],"Unsteadiness is worth raising with a clinician or physical therapist, who can check your balance and suggest safe next steps."],
+ ["How many prescription medicines do you take each day?",["None","One or two","Three or four","Five or more, or regular sedatives or anti-inflammatories"],"Bring your medication list to your clinician or pharmacist. Please do not change or stop any medicine on your own."],
+ ["How many hours a day do you spend sitting or reclining, not counting night sleep?",["Under 3","3 to 4.9","5 to 7.9","8 or more"],"Long unbroken sitting is common. Standing and moving for a minute or two through the day is a small first step."],
+ ["Which best describes your daily walking and effort?",["Over an hour of walking plus some faster or vigorous activity","Over an hour of easy, steady walking","Under an hour of easy walking","Mostly inactive"],"Walking is valuable. A physical therapist can show you how to add short, controlled bursts of faster movement if that suits you."],
+ ["What is your tobacco history?",["Never smoked","Quit more than 10 years ago","Quit within the last 10 years","Currently smoke"],"If you would like support with tobacco, your clinician can help. There is no judgment here."],
+ ["How does rising from a low armless chair feel, or crossing a street in the time allowed?",["Quick and easy","Moderate; takes some effort","Slow; I push off with my arms or cannot speed up","Very slow, or I need help or a device"],"Difficulty rising from a chair is worth sharing with your physical therapist. Your result above can add detail."],
+ ["How hard do everyday tasks feel for your legs, such as one flight of stairs or getting up from the floor?",["Light","Somewhat hard","Hard, close to my limit","Very hard; I often stop to rest"],"If everyday tasks feel close to your limit, tell your clinician. They can look at strength, power and endurance together."],
+ ["Does fear of falling limit where you go, or do you rely on a cane, walker or furniture?",["No fear, no aids","Mild fear on uneven ground","Moderate fear; sometimes a cane or furniture","Strong fear; I always need a device or a person"],"Fear of falling is common and can be worked with. A physical therapist can help you build confidence alongside strength."]
+];
+var cur=0,notes=[];
+function show(i){cur=i;$$('.step').forEach(function(s,k){s.classList.toggle('on',k===i)});$('#prog').textContent=i>0?(i<4?'Step '+i+' of 4':'Result'):'';window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});var h=$('#s'+i+' h1, #s'+i+' h2');if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}}
+$$('[data-go]').forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.go)})});
+$('#safety').innerHTML=SAFETY.map(function(t,i){return '<label class="opt"><input type="checkbox" value="'+i+'"><span>'+t+'</span></label>'}).join('');
+$('#safeNext').addEventListener('click',function(){var any=$$('#safety input:checked').length>0;$('#stopbox').hidden=!any;if(any){$('#stopbox').scrollIntoView({block:'center'})}else show(2)});
+$('#survey').innerHTML=QS.map(function(q,i){return '<fieldset><legend><span class="q-n">'+(i+1)+'.</span>'+q[0]+'</legend><div class="tick" style="margin:0">'+q[1].map(function(o,k){return '<label class="opt"><input type="radio" name="q'+i+'" value="'+k+'"><span>'+o+'</span></label>'}).join('')+'</div></fieldset>'}).join('');
+var U={metric:{m:'kg',h:'cm',c:'cm. Measure it; chairs vary',cv:43},us:{m:'lb',h:'in',c:'in. Measure it; chairs vary',cv:17}};
+$('#units').addEventListener('change',function(){var u=U[this.value];$('#massU').textContent=u.m;$('#heightU').textContent=u.h;$('#chairU').textContent=u.c;$('#chair').value=u.cv;$('#mass').value='';$('#height').value=''});
+function calc(m,h,c,r){var disp=0.5*h-c;if(r<=0)return {P:0,rel:0,disp:disp};var P=m*0.9*9.81*disp/((30/r)*0.5);return {P:P,rel:P/m,disp:disp}}
+window.__calc=calc;
+function num(id){var v=parseFloat($('#'+id).value);return isNaN(v)?null:v}
+function ref(sex){return sex==='m'?2.6:sex==='f'?2.1:null}
+function gauge(rel,sex){var W=600,H=90,max=5,x=function(v){return 20+Math.min(Math.max(v,0),max)/max*(W-40)},ticks='',refs=sex?[[ref(sex),sex==='m'?'2.6 men':'2.1 women']]:[[2.1,'2.1 women'],[2.6,'2.6 men']];
+ for(var i=0;i<=5;i++)ticks+='<text x="'+x(i)+'" y="80" text-anchor="middle" font-size="14" fill="var(--ink-soft)">'+i+'</text>';
+ var marks=refs.map(function(r,k){return '<line x1="'+x(r[0])+'" x2="'+x(r[0])+'" y1="14" y2="52" stroke="var(--gold-dark)" stroke-width="3"/><text x="'+x(r[0])+'" y="'+(k?10:10)+'" text-anchor="'+(k?'start':'end')+'" font-size="13" font-weight="600" fill="var(--gold-dark)">'+r[1]+'</text>'}).join('');
+ return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Your relative power of '+rel.toFixed(2)+' watts per kilogram on a scale from 0 to 5, with the research reference point marked"><rect x="20" y="26" width="'+(W-40)+'" height="14" rx="7" fill="var(--border-soft)"/><rect x="20" y="26" width="'+(x(rel)-20)+'" height="14" rx="7" fill="var(--teal)"/>'+marks+'<circle cx="'+x(rel)+'" cy="33" r="10" fill="var(--teal-dark)" stroke="#fff" stroke-width="3"/>'+ticks+'<text x="'+(W-20)+'" y="66" text-anchor="end" font-size="12" fill="var(--ink-soft)">W/kg</text></svg>'}
+var last='';
+$('#calc').addEventListener('submit',function(e){e.preventDefault();var err=$('#err');err.textContent='';
+ var us=$('#units').value==='us',m=num('mass'),h=num('height'),c=num('chair'),r=num('reps'),age=num('age'),sex=$('#sex').value;
+ if([m,h,c,r].some(function(v){return v===null})){err.textContent='Please fill in body mass, height, chair height and the number of stands.';return}
+ if(us){m*=0.45359237;h*=0.0254;c*=0.0254}else{h/=100;c/=100}
+ if(m<30||m>250||h<1.2||h>2.2){err.textContent='Please check body mass and height. They look outside the usual range.';return}
+ if(c<0.3||c>0.6){err.textContent='Please check the chair height. Seat heights are usually 38 to 50 cm (15 to 20 in).';return}
+ if(r<0||r>40||r%1!==0){err.textContent='Please enter a whole number of stands from 0 to 40.';return}
+ var o=calc(m,h,c,r);if(o.disp<=0){err.textContent='With these numbers the chair seat is higher than half your height, so the estimate cannot be calculated. Please re-check the measurements.';return}
+ var rel=o.rel,rf=ref(sex);
+ $('#rel').innerHTML=rel.toFixed(2)+' <small>W/kg</small>';
+ $('#abs').textContent='Absolute power about '+Math.round(o.P)+' W from '+r+' stands in 30 seconds.';
+ $('#gauge').innerHTML=gauge(rel,sex);
+ var V,T;
+ if(r===0){V='No complete stands recorded';T='If you could not complete a stand, that is useful information. Please share it with a physical therapist or clinician, who can look at your strength, balance and recent health and suggest a safe starting point.'}
+ else if(rf===null){var lo=rel<2.1?'below both':rel<2.6?'between':'at or above both';V='Compared with research reference points';T='Your estimate is '+lo+' of the reference points for low relative power ('+'2.1 W/kg for women and 2.6 W/kg for men). Choose your sex above to see the one that applies. This is a screening estimate, not a diagnosis.'}
+ else if(rel<rf){V='Below the research reference point';T='Your estimate is below '+rf+' W/kg, the point that, in large European studies, was linked with mobility limitation. This is a screening estimate from one test, not a diagnosis. Please share it with a physical therapist or clinician, who can look at the whole picture, including strength, balance and recent health.'}
+ else{V='At or above the research reference point';T='Your estimate is at or above '+rf+' W/kg. This does not rule out other concerns, and one test cannot show how your power is changing. Repeating the test under the same conditions lets you track change over time.'}
+ if(age!==null&&age<60&&r>0)T+=' Note: the reference points come from adults aged 60 and over, so for you this works best as a personal baseline.';
+ $('#verdict').textContent=V;$('#verdictText').textContent=T;
+ var p=num('prev'),mc=sex==='m'?0.42:sex==='f'?0.33:null,rt='';
+ if(p!==null){var d=rel-p;if(mc===null)rt='Your change since the earlier result is '+(d>=0?'+':'')+d.toFixed(2)+' W/kg. Choose your sex to compare it with the smallest meaningful change.';else rt='Change since your earlier result: '+(d>=0?'+':'')+d.toFixed(2)+' W/kg. '+(Math.abs(d)>=mc?'That is at least the smallest change considered meaningful ('+mc+' W/kg).':'That is smaller than the smallest change considered meaningful ('+mc+' W/kg), so it may be within ordinary test-to-test variation.')}
+ $('#retest').textContent=rt;
+ var ans=[];QS.forEach(function(q,i){var s=$('input[name=q'+i+']:checked');if(s&&+s.value>=2)ans.push(q[2])});
+ $('#notes').innerHTML=(ans.length?ans:['Nothing in your answers stood out. If anything changes, or you have questions about your result, a physical therapist or clinician can help.']).map(function(t){return '<li>'+t+'</li>'}).join('');
+ last='Power check (Muscle-Meta Matrix): relative sit-to-stand power '+rel.toFixed(2)+' W/kg, absolute about '+Math.round(o.P)+' W, '+r+' stands in 30 s; chair height '+(c*100).toFixed(0)+' cm. '+V+'. Screening estimate, not a diagnosis.';
+ $('#copied').textContent='';show(4)});
+$('#copy').addEventListener('click',function(){var ok=function(){$('#copied').textContent='Summary copied.'},bad=function(){$('#copied').textContent=last};try{navigator.clipboard.writeText(last).then(ok,bad)}catch(e){bad()}});
+})();
+</script></body></html>
