@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muscle-Meta Hero Image-Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Muscle-Meta hero image-motion =====
+   EDIT COPY: change the text inside the elements marked data-copy in the <section> below.
+   Brand tokens are the CSS variables in :root. */
+:root{
+  --teal-1:#077D85; --teal-2:#0E979B; --teal-3:#2FB0B0; --teal-4:#58C6C3;
+  --cream:#FBF5E6; --cream-soft:#E6F7F2; --coral:#F8938A; --ink-btn:#055E65;
+}
+*{box-sizing:border-box}
+body{margin:0}
+.mm-hero{position:relative;width:100%;min-height:520px;overflow:hidden;font-family:'Figtree',system-ui,sans-serif;
+  background:linear-gradient(100deg,var(--teal-1) 0%,var(--teal-2) 48%,var(--teal-3) 74%,var(--teal-4) 100%);
+  display:flex;align-items:center}
+.mm-grid{position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,transparent 1px 56px),repeating-linear-gradient(-45deg,rgba(255,255,255,.07) 0 1px,transparent 1px 56px);
+  animation:mmGrid 40s linear infinite}
+@keyframes mmGrid{from{background-position:0 0,0 0}to{background-position:56px 56px,-56px 56px}}
+.mm-radar{position:absolute;right:max(2vw,0px);top:50%;width:540px;height:460px;margin-top:-230px;pointer-events:none;
+  transform:translate3d(var(--nx,0px),var(--ny,0px),0);transition:transform .35s ease-out}
+.mm-glow{position:absolute;left:-30px;top:-70px;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(190,248,240,.55) 0%,rgba(190,248,240,0) 62%);animation:mmGlow 6s ease-in-out infinite}
+@keyframes mmGlow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+.mm-clip{position:absolute;left:50px;top:10px;width:440px;height:440px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.mm-sweep{position:absolute;inset:-80px;animation:mmSweep 8s linear infinite;
+  background:conic-gradient(from 0deg,rgba(251,245,230,0) 0deg,rgba(251,245,230,0) 250deg,rgba(251,245,230,.05) 300deg,rgba(251,245,230,.34) 360deg)}
+@keyframes mmSweep{to{transform:rotate(360deg)}}
+.mm-radar svg{position:absolute;inset:0}
+.mm-ring{transform-origin:center;transform-box:fill-box;animation:mmRing 4.8s cubic-bezier(.2,.6,.3,1) infinite;opacity:0}
+.mm-r2{animation-delay:1.6s}.mm-r3{animation-delay:3.2s}
+@keyframes mmRing{0%{transform:scale(.18);opacity:.75}100%{transform:scale(1.18);opacity:0}}
+.mm-heart{transform-origin:center;transform-box:fill-box;animation:mmHeart 2.4s ease-in-out infinite}
+@keyframes mmHeart{0%,40%,100%{transform:scale(1)}8%{transform:scale(1.55)}16%{transform:scale(1.05)}24%{transform:scale(1.4)}}
+.mm-halo{transform-origin:center;transform-box:fill-box;animation:mmHalo 2.4s ease-out infinite}
+@keyframes mmHalo{0%{transform:scale(1);opacity:.55}60%,100%{transform:scale(4.2);opacity:0}}
+
+/* dots */
+.mm-dots{position:absolute;inset:0;pointer-events:none}
+.mm-dotw{position:absolute;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.mm-dot{display:block;width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#FFD0C9,var(--coral) 62%);box-shadow:0 0 10px 2px rgba(248,147,138,.55);
+  animation:mmDrift 7s ease-in-out infinite,mmTwinkle 3.2s ease-in-out infinite}
+.mm-dot.ping{animation:mmDrift 7s ease-in-out infinite,mmPing 8s ease-out infinite}
+@keyframes mmDrift{0%,100%{translate:0 0}50%{translate:var(--dx) var(--dy)}}
+@keyframes mmTwinkle{0%,100%{opacity:1;scale:1.1}50%{opacity:.25;scale:.65}}
+@keyframes mmPing{0%{opacity:1;scale:1.7;box-shadow:0 0 0 0 rgba(248,147,138,.9)}15%{opacity:1;scale:1.3;box-shadow:0 0 0 24px rgba(248,147,138,0)}40%,100%{opacity:.65;scale:1;box-shadow:0 0 10px 2px rgba(248,147,138,.4)}}
+
+/* copy */
+.mm-copy{position:relative;z-index:2;padding:48px max(5vw,24px);max-width:820px;color:var(--cream)}
+.mm-title{margin:0;display:flex;flex-direction:column}
+.mm-title .l1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(56px,7.2vw,104px);line-height:1;letter-spacing:-1.5px}
+.mm-title .l1 sup{font-size:.35em;font-weight:500;vertical-align:top;position:relative;top:.2em;margin-left:4px;letter-spacing:0}
+.mm-title .l2{font-weight:600;font-size:clamp(40px,5.3vw,76px);line-height:1.1;letter-spacing:-1px}
+.mm-sub{margin:22px 0 0;max-width:460px;font-size:20px;line-height:1.5;color:var(--cream-soft)}
+.mm-cta{margin-top:30px;display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 28px;border-radius:999px;
+  background:var(--cream);color:var(--ink-btn);font-weight:700;font-size:17px;text-decoration:none;
+  transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+.mm-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(3,60,66,.35)}
+.mm-cta:hover .mm-arrow{transform:translateX(5px)}
+.mm-arrow{transition:transform .25s}
+.mm-cta:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
+.mm-rise{opacity:0;transform:translateY(18px);animation:mmRise .9s cubic-bezier(.2,.7,.2,1) forwards}
+.d1{animation-delay:.15s}.d2{animation-delay:.4s}.d3{animation-delay:.65s}.d4{animation-delay:.9s}
+@keyframes mmRise{to{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  .mm-radar{opacity:.5;right:-160px}
+  .mm-hero{min-height:560px}
+}
+@media (prefers-reduced-motion:reduce){
+  .mm-rise{opacity:1;transform:none;animation:none}
+  .mm-grid,.mm-glow,.mm-sweep,.mm-ring,.mm-heart,.mm-halo,.mm-dot,.mm-dot.ping{animation:none}
+}
+</style>
+</head>
+<body>
+
+<section class="mm-hero" id="mm-hero">
+  <div class="mm-grid" aria-hidden="true"></div>
+
+  <div class="mm-radar" id="mm-radar" aria-hidden="true">
+    <div class="mm-glow"></div>
+    <div class="mm-clip"><div class="mm-sweep"></div></div>
+    <svg width="540" height="460" viewBox="-270 -230 540 460" fill="none">
+      <g stroke="rgba(251,245,230,.5)" stroke-width="1.5">
+        <path d="M0 -220 L220 0 L0 220 L-220 0 Z"/>
+        <path d="M0 -158 L158 0 L0 158 L-158 0 Z" stroke-opacity=".8"/>
+        <path d="M0 -100 L100 0 L0 100 L-100 0 Z" stroke-opacity=".9"/>
+        <path d="M0 -56 L56 0 L0 56 L-56 0 Z"/>
+      </g>
+      <path d="M0 -220 V220 M-220 0 H220" stroke="rgba(251,245,230,.18)" stroke-width="1"/>
+      <g stroke="#FBF5E6" stroke-width="1.5">
+        <path class="mm-ring" d="M0 -220 L220 0 L0 220 L-220 0 Z"/>
+        <path class="mm-ring mm-r2" d="M0 -220 L220 0 L0 220 L-220 0 Z"/>
+        <path class="mm-ring mm-r3" d="M0 -220 L220 0 L0 220 L-220 0 Z"/>
+      </g>
+      <circle class="mm-halo" r="7" fill="#F8938A"/>
+      <circle class="mm-heart" r="7" fill="#F8938A"/>
+    </svg>
+  </div>
+
+  <div class="mm-dots" id="mm-dots" aria-hidden="true"></div>
+
+  <!-- ===== EDITABLE COPY ===== -->
+  <div class="mm-copy">
+    <h1 class="mm-title">
+      <span class="l1 mm-rise d1" data-copy="headline">Muscle-Meta<sup>™</sup></span>
+      <span class="l2 mm-rise d2" data-copy="subhead">Pulse Check</span>
+    </h1>
+    <p class="mm-sub mm-rise d3" data-copy="body">A quick read on where your muscle and metabolism stand today.</p>
+    <a class="mm-cta mm-rise d4" href="#start" data-copy="button">
+      <span>Start your Pulse Check</span>
+      <svg class="mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#055E65" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<script>
+(function () {
+  var hero = document.getElementById('mm-hero');
+  var radar = document.getElementById('mm-radar');
+  var layer = document.getElementById('mm-dots');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Dots are defined as fractions of the hero (0-1) so they scale with any width.
+  // [x, y, size px, ping delay in s (null = twinkle only)]
+  var BASE = [
+    [.078,.09,9,null],[.026,.18,7,null],[.396,.17,6,null],[.042,.78,8,null],[.306,.77,8,null],[.519,.84,8,null],
+    [.222,.90,5,null],[.486,.06,5,null],[.965,.90,6,null],[.701,.08,5,null],[.16,.25,5,null],[.424,.58,6,null],
+    [.57,.48,6,null],[.125,.92,5,null],[.625,.92,6,null],[.986,.08,6,null],
+    [.879,.16,10,.9],[.979,.41,8,1.8],[.92,.76,11,2.8],[.678,.93,8,4.7],[.712,.65,7,5.1],
+    [.588,.65,8,5.6],[.65,.28,8,6.6],[.82,.33,7,1.3],[.768,.10,6,.2],[.634,.51,6,5.9]
+  ];
+  var els = [];
+  BASE.forEach(function (b, i) {
+    var w = document.createElement('span'); w.className = 'mm-dotw';
+    w.style.width = w.style.height = b[2] + 'px';
+    var d = document.createElement('span');
+    var ping = b[3] !== null;
+    d.className = 'mm-dot' + (ping ? ' ping' : '');
+    d.style.setProperty('--dx', (((i % 3) - 1) * 9 + 6) + 'px');
+    d.style.setProperty('--dy', (-(10 + (i % 4) * 4)) + 'px');
+    d.style.animationDuration = (5 + (i % 5) * 1.3) + 's,' + (2.2 + (i % 4) * .9) + 's';
+    d.style.animationDelay = (-(i * .7)) + 's,' + (ping ? b[3] : -(i * .9)) + 's';
+    w.appendChild(d); layer.appendChild(w); els.push(w);
+  });
+
+  function place() {
+    var W = hero.clientWidth, H = hero.clientHeight;
+    els.forEach(function (w, i) {
+      w.style.left = (BASE[i][0] * W) + 'px';
+      w.style.top = (BASE[i][1] * H) + 'px';
+    });
+  }
+  place();
+  window.addEventListener('resize', place);
+
+  var raf = 0, mx = -9999, my = -9999, px = 0, py = 0;
+  function frame() {
+    raf = 0;
+    var RAD = 190;
+    els.forEach(function (w, i) {
+      var cx = parseFloat(w.style.left) + BASE[i][2] / 2;
+      var cy = parseFloat(w.style.top) + BASE[i][2] / 2;
+      var dx = cx - mx, dy = cy - my, dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      var tx = 0, ty = 0, k = 1;
+      if (dist < RAD) {
+        var f = Math.pow(1 - dist / RAD, 1.6);
+        tx = dx / dist * f * 70; ty = dy / dist * f * 70; k = 1 + f * 1.4;
+      }
+      w.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + k.toFixed(2) + ')';
+    });
+    radar.style.setProperty('--nx', (px * 18).toFixed(1) + 'px');
+    radar.style.setProperty('--ny', (py * 18).toFixed(1) + 'px');
+  }
+  function queue() { if (!raf) raf = requestAnimationFrame(frame); }
+
+  hero.addEventListener('pointermove', function (e) {
+    var r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+    px = mx / r.width - .5; py = my / r.height - .5;
+    queue();
+  });
+  hero.addEventListener('pointerleave', function () { mx = my = -9999; px = py = 0; queue(); });
+})();
+</script>
+</body>
+</html>
